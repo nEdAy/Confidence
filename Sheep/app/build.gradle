@@ -1,0 +1,115 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'bugly'
+
+bugly {
+    appId = '923c0825a2'
+    appKey = '0decf1a9-d0a5-4cd9-878f-b48bba4f270d'
+}
+
+Properties debugSigning = new Properties()
+debugSigning.load(new FileInputStream(file(project.property("debug-signing.properties"))))
+
+Properties releaseSigning = new Properties()
+releaseSigning.load(new FileInputStream(file(project.property("release-signing.properties"))))
+
+final VERSION_MAJOR = 3
+final VERSION_MINOR = 0
+final VERSION_PATCH = 0
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "cn.neday.sheep"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode Integer.parseInt(String.valueOf(VERSION_MAJOR) + String.valueOf(VERSION_MINOR).padLeft(2, "0") + String.valueOf(VERSION_PATCH).padLeft(3, "0"))
+        versionName "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "int", "VERSION_MAJOR", "${VERSION_MAJOR}"
+        buildConfigField "int", "VERSION_MINOR", "${VERSION_MINOR}"
+        buildConfigField "int", "VERSION_PATCH", "${VERSION_PATCH}"
+    }
+    signingConfigs {
+        debug {
+            storeFile file(debugSigning['storeFile'])
+            storePassword debugSigning['storePassword']
+            keyAlias debugSigning['keyAlias']
+            keyPassword debugSigning['keyPassword']
+        }
+        release {
+            storeFile file(releaseSigning['storeFile'])
+            storePassword releaseSigning['storePassword']
+            keyAlias releaseSigning['keyAlias']
+            keyPassword releaseSigning['keyPassword']
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    dexOptions {
+        // incremental true
+        jumboMode true
+        preDexLibraries true
+        maxProcessCount 8
+        // Instead of setting the heap size for the DEX process, increase Gradle's
+        // heap size to enable dex-in-process. To learn more, read the next section.
+        javaMaxHeapSize "4g"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
+
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    // Bugly CrashReport & Upgrade
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.4.0'
+    implementation 'com.tencent.bugly:nativecrashreport:3.7.1'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+
+    // OkHttp
+    implementation 'com.squareup.okhttp3:okhttp:3.14.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.0'
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    // RxJava & RxAndroid
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+
+    // Test
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
