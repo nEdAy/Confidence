@@ -2,12 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'bugly'
-
-bugly {
-    appId = '923c0825a2'
-    appKey = '0decf1a9-d0a5-4cd9-878f-b48bba4f270d'
-}
+apply plugin: "androidx.navigation.safeargs.kotlin"
+apply from: 'bugly.gradle'
+apply from: 'mob.gradle'
 
 Properties debugSigning = new Properties()
 debugSigning.load(new FileInputStream(file(project.property("debug-signing.properties"))))
@@ -27,10 +24,8 @@ android {
         targetSdkVersion 28
         versionCode Integer.parseInt(String.valueOf(VERSION_MAJOR) + String.valueOf(VERSION_MINOR).padLeft(2, "0") + String.valueOf(VERSION_PATCH).padLeft(3, "0"))
         versionName "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
+        resConfigs "zh"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "int", "VERSION_MAJOR", "${VERSION_MAJOR}"
-        buildConfigField "int", "VERSION_MINOR", "${VERSION_MINOR}"
-        buildConfigField "int", "VERSION_PATCH", "${VERSION_PATCH}"
     }
     signingConfigs {
         debug {
@@ -76,10 +71,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1"
+
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -89,9 +89,9 @@ dependencies {
     implementation 'com.tencent.bugly:nativecrashreport:3.7.1'
 
     // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
 
     // OkHttp
     implementation 'com.squareup.okhttp3:okhttp:3.14.0'
@@ -104,12 +104,53 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
+    // Hawk secure key-value storage
+    implementation "com.orhanobut:hawk:2.0.1"
+
+    // BRVAH
+    // implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
+
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
 
+    // FlycoUI
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    implementation 'com.flyco.banner:FlycoBanner_Lib:2.0.2@aar'
+    implementation 'com.flyco.labelview:FlycoLabelView_Lib:1.0.2@aar'
+    implementation 'com.flyco.dialog:FlycoDialog_Lib:1.3.2@aar'
+
+    // Utils
+    implementation 'com.blankj:utilcodex:1.24.2'
+
+    // Analytics
+    implementation 'com.umeng.umsdk:analytics:8.0.0'
+    implementation 'com.umeng.umsdk:common:2.0.0'
+
+    // Push
+    implementation 'com.umeng.umsdk:push:5.0.2'
+    implementation 'com.umeng.umsdk:utdid:1.1.5.3'
+
+    // Android Debug Database
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+
+    // Chuck - http log/debug
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+
+    // Doraemonkit
+    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:1.1.8'
+    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:1.1.8'
+
     // Test
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.23.0'
+    testImplementation 'androidx.arch.core:core-testing:2.0.1'
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
+    testImplementation 'org.powermock:powermock-module-junit4:2.0.0'
+    testImplementation 'org.powermock:powermock-module-junit4-rule:2.0.0'
+    testImplementation 'org.powermock:powermock-api-mockito2:2.0.0'
+
+    // Android Test
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

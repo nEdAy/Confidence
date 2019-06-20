@@ -3,4 +3,24 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!-- function_color -->
+    <color name="text_color">#5f606d</color>
+    <color name="line_color">#d7d7d7</color>
+    <color name="label_color">#999999</color>
+    <color name="background_color">#f2f2f2</color>
+
+    <!-- transparent_half_color -->
+    <color name="black_transparent_half">#af000000</color>
+    <color name="gray_transparent_half">#44d6d4d4</color>
+
+    <!-- base_color -->
+    <color name="red">#fd5353</color>
+    <color name="red_deep">#e41e1e</color>
+    <color name="green">#ff40dc91</color>
+    <color name="black">#333333</color>
+    <color name="blue">#037BFF</color>
+    <color name="orange">#fe9200</color>
+    <color name="pink">#F88283</color>
+    <color name="gray">#b6b6b6</color>
 </resources>
