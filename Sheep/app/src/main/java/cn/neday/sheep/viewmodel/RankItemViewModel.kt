@@ -24,7 +24,6 @@ class RankItemViewModel : BaseViewModel() {
 //            .build()
 //    ).build()
 
-
     fun getRankingList(rankType: Int, cid: String?) {
         launch {
             try {

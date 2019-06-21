@@ -3,10 +3,12 @@ package cn.neday.sheep
 import android.app.Application
 import cn.neday.sheep.config.BuglyConfig
 import cn.neday.sheep.config.UmengConfig
+import cn.neday.sheep.util.AliTradeHelper
 import com.blankj.utilcode.util.ProcessUtils
 import com.didichuxing.doraemonkit.DoraemonKit
 import com.mob.MobSDK
 import com.orhanobut.hawk.Hawk
+
 
 /**
  * 　　　　　　　　┏┓　　　┏┓+ +
@@ -39,14 +41,15 @@ class ThisApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-//        if (!ProcessUtils.isMainProcess()) {
-//            return
-//        }
-//        DoraemonKit.install(instance)
-//        BuglyConfig.init(instance)
+        if (!ProcessUtils.isMainProcess()) {
+            return
+        }
+        DoraemonKit.install(instance)
+        BuglyConfig.init(instance)
         UmengConfig.init(instance)
-//        MobSDK.init(instance)
+        MobSDK.init(instance)
         Hawk.init(instance).build()
+        AliTradeHelper.asyncInit(instance)
     }
 
     companion object {

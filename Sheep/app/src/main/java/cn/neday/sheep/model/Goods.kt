@@ -53,6 +53,6 @@ data class Goods(
     var guideName: String,
     // 店铺类型 Number 1
     var istmall: Int,
-    // 优惠券使用条件 Number 22
-    var quanUsageCondition: Int
+    // 优惠券使用条件 Number 22.01
+    var quanUsageCondition: Double
 )

@@ -22,6 +22,7 @@ allprojects {
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/" }
         google()
         jcenter()
     }

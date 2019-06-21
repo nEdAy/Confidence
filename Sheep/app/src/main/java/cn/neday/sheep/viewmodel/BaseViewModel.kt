@@ -74,7 +74,9 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         coroutineScope {
             if (response.code != 0) {
                 errorBlock()
-            } else successBlock()
+            } else {
+                successBlock()
+            }
         }
     }
 }

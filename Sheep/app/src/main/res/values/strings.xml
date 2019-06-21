@@ -79,9 +79,9 @@
     <string name="tx_province_flow">省流量模式</string>
     <string name="tx_nickname">昵称</string>
     <string-array name="item_mall_array">
-        <item>今日新品</item>
-        <item>超级人气榜</item>
-        <item>特卖精选</item>
+        <item>实时销量榜</item>
+        <item>全天销量榜</item>
+        <item>热推榜</item>
     </string-array>
     <!--<string-array name="library_array">-->
     <!--<item> 主题街区 </item>-->

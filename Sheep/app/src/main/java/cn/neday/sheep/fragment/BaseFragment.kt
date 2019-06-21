@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 
 /**
  * Fragment基类
@@ -17,8 +18,6 @@ abstract class BaseFragment : Fragment() {
 
     abstract val layoutId: Int
 
-    abstract fun setUpViews()
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mRootView = LayoutInflater.from(context).inflate(layoutId, container, false)
         return mRootView!!
@@ -29,8 +28,11 @@ abstract class BaseFragment : Fragment() {
         setUpViews()
     }
 
+    abstract fun setUpViews()
+
     override fun onDestroyView() {
         super.onDestroyView()
+        AlibcTradeSDK.destory()
         mRootView = null
     }
 }

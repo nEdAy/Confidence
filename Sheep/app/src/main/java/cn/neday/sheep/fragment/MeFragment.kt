@@ -3,17 +3,20 @@ package cn.neday.sheep.fragment
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.text.TextUtils
-import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import cn.neday.sheep.R
+import cn.neday.sheep.activity.AboutActivity
 import cn.neday.sheep.model.User
+import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils
 import cn.neday.sheep.view.DampView
 import cn.neday.sheep.view.RiseNumberTextView
+import com.ali.auth.third.ui.LoginActivity
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
@@ -21,68 +24,51 @@ import com.flyco.animation.BounceEnter.BounceTopEnter
 import com.flyco.animation.SlideExit.SlideBottomExit
 import com.flyco.dialog.listener.OnBtnClickL
 import com.flyco.dialog.widget.NormalDialog
+import kotlinx.android.synthetic.main.fragment_main_me.*
 
 /**
  * 我的
  */
 class MeFragment : BaseFragment(), DampView.IRefreshListener {
 
-    private lateinit var mParentView: View
-    private lateinit var mCreditsValue: RiseNumberTextView
-    private lateinit var mCurrentUser: User
-    private lateinit var mAvatar: ImageView
-    private lateinit var mNickname: TextView
-    private lateinit var iv_damp: ImageView
-    private lateinit var rl_top: RelativeLayout
-    private lateinit var rl_me: RelativeLayout
-    private lateinit var tv_l_and_r: TextView
-    private lateinit var rl_credits: RelativeLayout
-    private lateinit var iv_vip: ImageView
-
     override val layoutId: Int = R.layout.fragment_main_me
 
     override fun setUpViews() {
-//        iv_vip = mParentView.findViewById(R.id.iv_vip)
-//        rl_top = mParentView.findViewById(R.id.rl_top)
-//        rl_me = mParentView.findViewById(R.id.rl_me)
-//        rl_credits = mParentView.findViewById(R.id.rl_credits)
-//        tv_l_and_r = mParentView.findViewById(R.id.tv_l_and_r)
-//        iv_damp = mParentView.findViewById(R.id.iv_damp)
-//        mAvatar = mParentView.findViewById(R.id.iv_me_avatar)
-//        mNickname = mParentView.findViewById(R.id.tv_nickname)
-//        mCreditsValue = mParentView.findViewById(R.id.tv_credits_value)
-//        val dampView = mParentView.findViewById<DampView>(R.id.dampView)
-//        dampView.setImageView(iv_damp)
-//        dampView.setOnRefreshListener(this)
-////        mParentView.findViewById<View>(R.id.ll_option)
-////            .setOnClickListener { ActivityUtils.startActivity(AccountActivity::class.java) }
-////        mParentView.findViewById<View>(R.id.iv_level)
-////            .setOnClickListener { ActivityUtils.startActivity(VipActivity::class.java) }
-////        mParentView.findViewById<View>(R.id.rl_me)
-////            .setOnClickListener { ActivityUtils.startActivity(AccountActivity::class.java) }
-//        mParentView.findViewById<View>(R.id.ll_encourage).setOnClickListener { encourageWe() }
-//        mParentView.findViewById<View>(R.id.ll_about)
-//            .setOnClickListener { ActivityUtils.startActivity(AboutActivity::class.java) }
-//        mParentView.findViewById<View>(R.id.ll_feedback).setOnClickListener { CommonUtils.joinQQGroup(activity) }
-//        mParentView.findViewById<View>(R.id.ll_attention).setOnClickListener { attentionWe() }
-//        mParentView.findViewById<View>(R.id.ll_share).setOnClickListener {
-//            //            ShareDialog(activity).builder(
-////                getString(R.string.app_name), "口袋快爆-每天千款优惠券秒杀，一折限时疯抢！",
-////                "http://app-10046956.cos.myqcloud.com/toAvatar.png",
-////                "http://a.app.qq.com/o/simple.jsp?pkgname=com.neday.bomb"
-////            ).show()
-//        }
-//        mParentView.findViewById<View>(R.id.rl_credits).setOnClickListener {
-//            val intent = Intent()
+        dampView.setImageView(iv_damp)
+        dampView.setOnRefreshListener(this)
+//        ll_option
+//            .setOnClickListener { ActivityUtils.startActivity(AccountActivity::class.java) }
+//        iv_level
+//            .setOnClickListener { ActivityUtils.startActivity(VipActivity::class.java) }
+//        rl_me
+//            .setOnClickListener { ActivityUtils.startActivity(AccountActivity::class.java) }
+        ll_encourage.setOnClickListener { encourageWe() }
+        ll_about
+            .setOnClickListener { ActivityUtils.startActivity(AboutActivity::class.java) }
+        ll_feedback.setOnClickListener { CommonUtils.joinQQGroup(activity!!) }
+        ll_attention.setOnClickListener { attentionWe() }
+        ll_share.setOnClickListener {
+            //            ShareDialog(activity).builder(
+//                getString(R.string.app_name), "口袋快爆-每天千款优惠券秒杀，一折限时疯抢！",
+//                "http://app-10046956.cos.myqcloud.com/toAvatar.png",
+//                "http://a.app.qq.com/o/simple.jsp?pkgname=com.neday.bomb"
+//            ).show()
+        }
+        rl_credits.setOnClickListener {
+            val intent = Intent()
 //            intent.putExtra("userId", mCurrentUser.id)
-////            ActivityUtils.startActivity(CreditsHistoryActivity::class.java, intent)
-//        }
-////        tv_l_and_r.setOnClickListener { ActivityUtils.startActivity(LoginActivity::class.java) }
-////        mParentView.findViewById<View>(R.id.rl_0).setOnClickListener { aliTradeUtils.showCart() }
-////        mParentView.findViewById<View>(R.id.rl_1).setOnClickListener { aliTradeUtils.showOrder(1) }
-////        mParentView.findViewById<View>(R.id.rl_2).setOnClickListener { aliTradeUtils.showOrder(2) }
-////        mParentView.findViewById<View>(R.id.rl_3).setOnClickListener { aliTradeUtils.showOrder(3) }
-////        mParentView.findViewById<View>(R.id.rl_4).setOnClickListener { aliTradeUtils.showOrder(4) }
+//            ActivityUtils.startActivity(CreditsHistoryActivity::class.java, intent)
+        }
+        tv_l_and_r.setOnClickListener { ActivityUtils.startActivity(LoginActivity::class.java) }
+        rl_0.setOnClickListener { AliTradeHelper(activity!!).showMyCartsPage() }
+        rl_1
+            .setOnClickListener { AliTradeHelper(activity!!).showMyOrdersPage(1, true) }
+        rl_2
+            .setOnClickListener { AliTradeHelper(activity!!).showMyOrdersPage(2, true) }
+        rl_3
+            .setOnClickListener { AliTradeHelper(activity!!).showMyOrdersPage(3, true) }
+        rl_4
+            .setOnClickListener { AliTradeHelper(activity!!).showMyOrdersPage(4, true) }
     }
 
 
@@ -145,10 +131,10 @@ class MeFragment : BaseFragment(), DampView.IRefreshListener {
         refreshAvatar(user.avatarURL)
         val nickname = user.nickname
         if (TextUtils.isEmpty(nickname) || nickname == getString(R.string.default_nickname)) {
-            mNickname.text = getString(R.string.default_nickname)
+//            mNickname.text = getString(R.string.default_nickname)
 //            mNickname.setOnClickListener { ActivityUtils.startActivity(UpdateInfoActivity::class.java) }
         } else {
-            mNickname.text = nickname
+//            mNickname.text = nickname
         }
         val credit = user.credit
         when {
@@ -174,9 +160,9 @@ class MeFragment : BaseFragment(), DampView.IRefreshListener {
             val avatarUri = Uri.parse(avatarUrl)
             Glide.with(this)
                 .load(avatarUri)
-                .into(mAvatar)
+                .into(iv_me_avatar)
         } else {
-            mAvatar.setImageResource(R.drawable.avatar_default)
+            iv_me_avatar.setImageResource(R.drawable.avatar_default)
         }
     }
 

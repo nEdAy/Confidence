@@ -49,14 +49,30 @@
 # for DexGuard only
 -keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
-# BRVAH
--keep class com.chad.library.adapter.** {
-    *;
-}
--keep public class * extends com.chad.library.adapter.base.BaseQuickAdapter
--keep public class * extends com.chad.library.adapter.base.BaseViewHolder
--keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {
-    <init>(...);
+# 阿里百川
+-keepattributes Signature
+-keep class sun.misc.Unsafe { *; }
+-keep class com.alibaba.** {*;}
+-dontwarn com.alibaba.**
+-keep class com.alipay.** {*;}
+-dontwarn com.alipay.**
+-keep class com.taobao.** {*;}
+-dontwarn com.taobao.**
+-keep class com.ut.** {*;}
+-dontwarn com.ut.**
+-keep class com.ta.** {*;}
+-dontwarn com.ta.**
+-keep class mtopsdk.** {*;}
+-dontwarn mtopsdk.**
+-keep class org.json.** {*;}
+-keep class com.ali.auth.**  {*;}
+-dontwarn com.alimama.**
+-keep class com.alimama.** {*;}
+-keeppackagenames com.alimama.tunion.sdk.**
+-keeppackagenames com.alimama.tunion.sdk.**
+-keep class com.alimama.tunion.sdk.** {
+    public <fields>;
+    public <methods>;
 }
 
 # Mob Share
