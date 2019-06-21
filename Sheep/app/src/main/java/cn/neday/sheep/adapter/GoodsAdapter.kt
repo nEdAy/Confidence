@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cn.neday.sheep.R
 import cn.neday.sheep.activity.GoodsDetailsActivity
 import cn.neday.sheep.model.Goods
+import cn.neday.sheep.util.CommonUtils.getPrettyNumber
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.StringUtils
@@ -33,14 +34,13 @@ class GoodsAdapter : ListAdapter<Goods, GoodsAdapter.ViewHolder>(GoodsDiffCallba
         holder.bind(getItem(position))
     }
 
-
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(goods: Goods) {
             itemView.run {
                 tv_title.text = goods.dtitle
                 tv_money.text = goods.actualPrice.toString()
                 tv_sales_num.text = StringUtils.getString(R.string.tx_goods_monthSales, goods.monthSales)
-                tx_get_value.text = StringUtils.getString(R.string.tx_goods_couponPrice, goods.couponPrice)
+                tx_get_value.text = StringUtils.getString(R.string.tx_goods_couponPrice, getPrettyNumber(goods.couponPrice))
                 tv_mall_name.text = StringUtils.getString(
                     if (goods.istmall == 1) {
                         R.string.tx_tianmao

@@ -3,16 +3,13 @@ package cn.neday.sheep.fragment
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import cn.neday.sheep.R
-import cn.neday.sheep.activity.AboutActivity
 import cn.neday.sheep.model.User
 import cn.neday.sheep.util.CommonUtils
 import cn.neday.sheep.view.DampView
@@ -24,7 +21,6 @@ import com.flyco.animation.BounceEnter.BounceTopEnter
 import com.flyco.animation.SlideExit.SlideBottomExit
 import com.flyco.dialog.listener.OnBtnClickL
 import com.flyco.dialog.widget.NormalDialog
-import com.orhanobut.hawk.Hawk
 
 /**
  * 我的

@@ -55,7 +55,7 @@
     <string name="tx_quiet_period">从%1$s：%2$s到%3$s：%4$s</string>
 
     <string name="tx_goods_monthSales">当月销量：%1$d</string>
-    <string name="tx_goods_couponPrice">%1$f元券</string>
+    <string name="tx_goods_couponPrice">%1$s元券</string>
     <string name="tx_go_to_bug">前往抢购</string>
 
     <string name="tx_money_def_0">0.00</string>
