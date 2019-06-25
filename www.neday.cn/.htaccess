@@ -1,0 +1,9 @@
+<Files ~ "^.(htaccess|htpasswd)$">
+deny from all
+</Files>
+<FilesMatch ".(gif|jpg|jpeg|png|ico)$">
+Header set Cache-Control "max-age=86400"
+</FilesMatch>
+ErrorDocument 400 /404.html
+DirectoryIndex index.php       
+order deny,allow
