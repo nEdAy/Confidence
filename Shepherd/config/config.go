@@ -20,10 +20,10 @@ var (
 func Setup() {
 	var err error
 	Cfg, err = ini.Load("config/app.ini")
-	Cfg.BlockMode = false // if false, only reading, speed up read operations about 50-70% faster
 	if err != nil {
 		log.Fatal().Msgf("Fail to parse 'conf/app.ini': %v", err)
 	}
+	Cfg.BlockMode = false // if false, only reading, speed up read operations about 50-70% faster
 	loadApp()
 	loadServer()
 	loadPath()
@@ -37,7 +37,8 @@ func loadApp() {
 		log.Fatal().Msgf("Fail to get section 'App': %v", err)
 	}
 	App.RunMode = sec.Key("RUN_MODE").In("debug", []string{"debug", "release"})
-	App.JwtSecret = sec.Key("Jwt_Secret").MustString("123")
+	App.HmacSecret = sec.Key("Hmac_Secret").MustString("nEdAy")
+	App.HmacSecret = sec.Key("Password_Salt").MustString("nEdAy")
 }
 
 func loadServer() {
@@ -60,8 +61,8 @@ func loadPath() {
 	Path.DataPath = sec.Key("DATA_PATH").MustString("./runtime")
 	Path.LogPath = sec.Key("LOG_PATH").MustString("./runtime/log")
 	Path.CachePath = sec.Key("CACHE_PATH").MustString("./runtime/cache")
-	Path.CertFilePath = sec.Key("CERT_FILE_PATH").MustString("./data/ssl/ssl.cer")
-	Path.KeyFilePath = sec.Key("KEY_FILE_PATH").MustString("./data/ssl/ssl.key")
+	Path.CertFilePath = sec.Key("CERT_FILE_PATH").MustString("./data/ssl/www.neday.cn.pem")
+	Path.KeyFilePath = sec.Key("KEY_FILE_PATH").MustString("./data/ssl/www.neday.cn.key")
 }
 
 func loadDatabase() {
@@ -95,8 +96,9 @@ func loadWeChat() {
 }
 
 type app struct {
-	RunMode   string
-	JwtSecret string
+	RunMode      string
+	HmacSecret   string
+	PasswordSalt string
 }
 
 type server struct {

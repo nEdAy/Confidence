@@ -3,6 +3,7 @@ module Shepherd
 go 1.12
 
 require (
+	github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/dwdcth/consoleEx v0.0.0-20180521133551-f56f6eb78b76
 	github.com/gin-contrib/sse v0.0.0-20190301062529-5545eab6dad3 // indirect
@@ -17,6 +18,7 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/nEdAy/wx_attendance_api_server v0.0.0-20180723061605-502106216761
+	github.com/pkg/errors v0.8.1
 	github.com/rs/zerolog v1.14.3
 	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/smartystreets/goconvey v0.0.0-20190330032615-68dc04aab96a // indirect

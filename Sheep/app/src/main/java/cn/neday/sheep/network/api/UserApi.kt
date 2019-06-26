@@ -19,7 +19,7 @@ interface UserApi {
      * @param smsCode 短信验证码
      * @return 回调信息
      */
-    @POST("users")
+    @POST("v1/register")
     suspend fun signUp(@Body user: User, @Query("smsCode") smsCode: String): Response<User>
 
     /**
@@ -30,7 +30,7 @@ interface UserApi {
      * @param inviteCode 邀请人手机号
      * @return 回调信息
      */
-    @POST("users")
+    @POST("v1/register")
     suspend fun signUp(@Body user: User, @Query("smsCode") smsCode: String, @Query("inviteCode") inviteCode: String): Response<User>
 
     /**
@@ -47,7 +47,7 @@ interface UserApi {
      * 服务端颁发并验证一个带有时间戳的可信 token （或一次性的）。
      * 传输过程 HTTPS 加持。
      */
-    @GET("users")
+    @GET("v1/login")
     suspend fun login(@Query("username") username: String, @Query("password") password: String): Response<User>
 
     /**
@@ -56,7 +56,7 @@ interface UserApi {
      * @param options 参数
      * @return 用户信息
      */
-    @GET("users")
+    @GET("v1/user")
     suspend fun queryUser(@QueryMap options: Map<String, Any>): Response<User>
 
     /**

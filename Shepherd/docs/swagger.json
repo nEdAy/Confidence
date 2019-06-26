@@ -1,0 +1,96 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "{{.Description}}",
+    "title": "{{.Title}}",
+    "contact": {},
+    "license": {},
+    "version": "{{.Version}}"
+  },
+  "host": "{{.Host}}",
+  "basePath": "{{.BasePath}}",
+  "paths": {
+    "/v1/login/": {
+      "post": {
+        "description": "login user by username,password",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "用户登录",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Username",
+            "name": "username",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Password",
+            "name": "password",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "{\"time\": 1561513181, \"code\": 200, \"msg\": \"成功\", \"data\" : {}}",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "{\"time\": 1561513181, \"code\": 400, \"msg\": \"msg\"}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/v1/register/": {
+      "post": {
+        "description": "register user by username,password",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "添加用户",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Username",
+            "name": "username",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Password",
+            "name": "password",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "{\"time\": 1561513181, \"code\": 200, \"msg\": \"成功\", \"data\" : {}}",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "{\"time\": 1561513181, \"code\": 400, \"msg\": \"msg\"}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

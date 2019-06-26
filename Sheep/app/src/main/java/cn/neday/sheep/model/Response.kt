@@ -7,5 +7,5 @@ data class Response<out T>(
     val code: Int,
     // 返回状态描述 “成功”
     val msg: String,
-    val data: T
+    val data: T?
 )

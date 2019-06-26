@@ -1,0 +1,64 @@
+basePath: '{{.BasePath}}'
+host: '{{.Host}}'
+info:
+  contact: {}
+  description: '{{.Description}}'
+  license: {}
+  title: '{{.Title}}'
+  version: '{{.Version}}'
+paths:
+  /v1/login/:
+    post:
+      consumes:
+        - application/json
+      description: login user by username,password
+      parameters:
+        - description: Username
+          in: query
+          name: username
+          required: true
+          type: string
+        - description: Password
+          in: query
+          name: password
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"time": 1561513181, "code": 200, "msg": "成功", "data" : {}}'
+          schema:
+            type: string
+        "400":
+          description: '{"time": 1561513181, "code": 400, "msg": "msg"}'
+          schema:
+            type: string
+      summary: 用户登录
+  /v1/register/:
+    post:
+      consumes:
+        - application/json
+      description: register user by username,password
+      parameters:
+        - description: Username
+          in: query
+          name: username
+          required: true
+          type: string
+        - description: Password
+          in: query
+          name: password
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"time": 1561513181, "code": 200, "msg": "成功", "data" : {}}'
+          schema:
+            type: string
+        "400":
+          description: '{"time": 1561513181, "code": 400, "msg": "msg"}'
+          schema:
+            type: string
+      summary: 添加用户
+swagger: "2.0"

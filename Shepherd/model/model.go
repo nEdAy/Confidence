@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/rs/zerolog/log"
 )
 
@@ -16,9 +16,8 @@ var DB *gorm.DB
 type Model struct {
 	Id         int   `gorm:"column:id;primary_key" json:"id"`
 	CreateTime int64 `gorm:"column:create_time" json:"create_time"`
-	//CreatedOn  int `json:"created_on"`
-	//ModifiedOn int `json:"modified_on"`
-	//DeletedOn  int `json:"deleted_on"`
+	ModifyTime int64 `gorm:"column:modify_time" json:"modify_time"`
+	DeleteTime int64 `gorm:"column:delete_time" json:"delete_time"`
 }
 
 // 初始化数据库
