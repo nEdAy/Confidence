@@ -31,14 +31,14 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
     }
 
     private fun initHeader() {
-        // init Search
+        // Search
         // ll_search.setOnClickListener { ActivityUtils.startActivity(SearchActivity::class.java) }
         // btn_search.setOnClickListener { ActivityUtils.startActivity(SearchActivity::class.java) }
 
-        // init Banner
+        // Banner
         mViewModel.getBannerList()
 
-        // init Icon
+        // Icon
         // ll_sign.setOnClickListener { ActivityUtils.startActivity(SignActivity::class.java) }
         // ll_shake.setOnClickListener { ActivityUtils.startActivity(ShakeActivity::class.java) }
         ll_shop.setOnClickListener { }

@@ -37,6 +37,12 @@ func Setup() {
 			// 删除用户 curl -X DELETE https://127.0.0.1/v1/user/login/1
 			// user.DELETE("/:id", controller.DelUser)
 		}
+		// Banner相关API
+		banner := v1.Group("/banner")
+		{
+			// 获取Banners curl -X GET  https://127.0.0.1/v1/banner/
+			banner.GET("/", controller.GetBanners)
+		}
 		// 商品相关API
 		goods := v1.Group("/goods")
 		{

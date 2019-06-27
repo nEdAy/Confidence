@@ -12,6 +12,13 @@
 //import android.widget.TextView;
 //import cn.neday.sheep.R;
 //import cn.neday.sheep.util.CommonUtils;
+//import cn.sharesdk.framework.PlatformActionListener;
+//import cn.sharesdk.framework.ShareSDK;
+//import cn.sharesdk.sina.weibo.SinaWeibo;
+//import cn.sharesdk.system.text.ShortMessage;
+//import cn.sharesdk.tencent.qq.QQ;
+//import cn.sharesdk.wechat.friends.Wechat;
+//import cn.sharesdk.wechat.moments.WechatMoments;
 //import okhttp3.internal.platform.Platform;
 //
 //import java.util.HashMap;

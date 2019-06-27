@@ -39,9 +39,8 @@ class MeFragment : BaseFragment(), DampView.IRefreshListener {
 //        rl_me
 //            .setOnClickListener { ActivityUtils.startActivity(AccountActivity::class.java) }
         ll_encourage.setOnClickListener { encourageWe() }
-        ll_about
-            .setOnClickListener { ActivityUtils.startActivity(AboutActivity::class.java) }
-        ll_feedback.setOnClickListener { CommonUtils.joinQQGroup(activity!!) }
+        ll_about.setOnClickListener { ActivityUtils.startActivity(AboutActivity::class.java) }
+        ll_feedback.setOnClickListener { CommonUtils.joinQQGroup(activity) }
         ll_attention.setOnClickListener { attentionWe() }
         ll_share.setOnClickListener {
             //            ShareDialog(activity).builder(

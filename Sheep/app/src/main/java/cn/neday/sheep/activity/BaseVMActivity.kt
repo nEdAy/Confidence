@@ -1,9 +1,5 @@
 package cn.neday.sheep.activity
 
-import android.content.Context
-import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import cn.neday.sheep.viewmodel.BaseViewModel
 
@@ -16,8 +12,7 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity() {
 
     protected lateinit var mViewModel: VM
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    init {
         initProviderViewModel()
     }
 

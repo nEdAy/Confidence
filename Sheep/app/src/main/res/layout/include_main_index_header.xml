@@ -10,6 +10,7 @@
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/white"
             banner:bb_delay="5"
             banner:bb_indicatorGap="7dp"
             banner:bb_indicatorSelectRes="@drawable/ic_select"

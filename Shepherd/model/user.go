@@ -12,20 +12,18 @@ type User struct {
 	Token    string `gorm:"-" json:"token"`
 }
 
-// TableName 返回asc_door 表名称
+// TableName 返回user表名称
 func (User) TableName() string {
 	return gorm.DefaultTableNameHandler(nil, "user")
 }
 
-// AddUser insert a new User into database and returns
-// last inserted Id on success.
+// AddUser insert a new User into database and returns last inserted Id on success.
 func AddUser(m *User) (err error) {
 	err = DB.Create(m).Error
 	return err
 }
 
-// GetUserById retrieves User by Id. Returns error if
-// Id doesn't exist
+// GetUserById retrieves User by Id. Returns error if Id doesn't exist
 func GetUserById(id int) (user *User, err error) {
 	user = new(User)
 	if err = DB.First(&user, 10).Error; err == nil {
@@ -35,8 +33,7 @@ func GetUserById(id int) (user *User, err error) {
 	return nil, err
 }
 
-// GetUserByUsername retrieves User by username. Returns error if
-// Id doesn't exist
+// GetUserByUsername retrieves User by username. Returns error if Id doesn't exist
 func GetUserByUsername(username string) (user *User, err error) {
 	user = new(User)
 	if err = DB.Where("username = ?", username).Find(&user).Error; err == nil {
@@ -46,8 +43,7 @@ func GetUserByUsername(username string) (user *User, err error) {
 	return nil, err
 }
 
-// GetAllUser retrieves all User matches certain condition. Returns empty list if
-// no records exist
+// GetAllUser retrieves all User matches certain condition. Returns empty list if no records exist
 func GetAllUser() (users []*User, err error) {
 	if err = DB.Order("id desc").Select("id,username,nickname").Find(&users).Error; err == nil {
 		return users, nil
@@ -55,8 +51,7 @@ func GetAllUser() (users []*User, err error) {
 	return nil, err
 }
 
-// UpdateUser updates User by Id and returns error if
-// the record to be updated doesn't exist
+// UpdateUser updates User by Id and returns error if the record to be updated doesn't exist
 func UpdateUserById(user *User) (err error) {
 	// ascertain id exists in the database
 	if err = DB.First(&user, user.Id).Error; err == nil {
@@ -65,8 +60,7 @@ func UpdateUserById(user *User) (err error) {
 	return err
 }
 
-// DeleteUser deletes User by Id and returns error if
-// the record to be deleted doesn't exist
+// DeleteUser deletes User by Id and returns error if the record to be deleted doesn't exist
 func DeleteUser(id int) (err error) {
 	user := User{}
 	// ascertain id exists in the database
