@@ -1,9 +1,6 @@
 package cn.neday.sheep.activity
 
-import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
-import cn.neday.sheep.R
 import com.blankj.utilcode.util.ActivityUtils
 import com.orhanobut.hawk.Hawk
 import io.reactivex.Observable
@@ -62,7 +59,7 @@ class SplashActivity : BaseActivity() {
      */
     private fun doStartActivity(jumpPage: JumpPage) {
         when (jumpPage) {
-            JumpPage.GO_GUIDE -> ActivityUtils.finishActivity(GuideActivity::class.java)
+            JumpPage.GO_GUIDE -> ActivityUtils.startActivity(GuideActivity::class.java)
             JumpPage.GO_MAIN -> ActivityUtils.startActivity(MainActivity::class.java)
         }
         ActivityUtils.finishActivity(this)

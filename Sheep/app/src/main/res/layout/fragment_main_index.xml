@@ -37,6 +37,10 @@
                   app:layout_behavior="@string/appbar_scrolling_view_behavior"
                   android:orientation="vertical">
 
+        <View android:layout_width="match_parent"
+              android:layout_height="@dimen/divide_line_height"
+              android:background="@color/lineColor"/>
+
         <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/stl_index"
                 android:layout_width="match_parent"
@@ -52,10 +56,6 @@
                 app:tl_tab_space_equal="true"
                 app:tl_textSelectColor="@android:color/white"
                 app:tl_textUnselectColor="@color/textColor"/>
-
-        <View android:layout_width="match_parent"
-              android:layout_height="@dimen/divide_line_height"
-              android:background="@color/lineColor"/>
 
         <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vp_index"
