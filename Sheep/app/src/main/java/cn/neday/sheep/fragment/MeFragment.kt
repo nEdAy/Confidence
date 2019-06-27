@@ -6,16 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.text.TextUtils
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
 import cn.neday.sheep.R
 import cn.neday.sheep.activity.AboutActivity
 import cn.neday.sheep.model.User
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils
 import cn.neday.sheep.view.DampView
-import cn.neday.sheep.view.RiseNumberTextView
 import com.ali.auth.third.ui.LoginActivity
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -60,15 +56,11 @@ class MeFragment : BaseFragment(), DampView.IRefreshListener {
 //            ActivityUtils.startActivity(CreditsHistoryActivity::class.java, intent)
         }
         tv_l_and_r.setOnClickListener { ActivityUtils.startActivity(LoginActivity::class.java) }
-        rl_0.setOnClickListener { AliTradeHelper(activity!!).showMyCartsPage() }
-        rl_1
-            .setOnClickListener { AliTradeHelper(activity!!).showMyOrdersPage(1, true) }
-        rl_2
-            .setOnClickListener { AliTradeHelper(activity!!).showMyOrdersPage(2, true) }
-        rl_3
-            .setOnClickListener { AliTradeHelper(activity!!).showMyOrdersPage(3, true) }
-        rl_4
-            .setOnClickListener { AliTradeHelper(activity!!).showMyOrdersPage(4, true) }
+        rl_0.setOnClickListener { AliTradeHelper(activity).showMyCartsPage() }
+        rl_1.setOnClickListener { AliTradeHelper(activity).showMyOrdersPage(1, true) }
+        rl_2.setOnClickListener { AliTradeHelper(activity).showMyOrdersPage(2, true) }
+        rl_3.setOnClickListener { AliTradeHelper(activity).showMyOrdersPage(3, true) }
+        rl_4.setOnClickListener { AliTradeHelper(activity).showMyOrdersPage(4, true) }
     }
 
 
@@ -137,18 +129,20 @@ class MeFragment : BaseFragment(), DampView.IRefreshListener {
 //            mNickname.text = nickname
         }
         val credit = user.credit
-        when {
-            credit >= 200000 -> iv_vip.setImageResource(R.drawable.level_10)
-            credit >= 100000 -> iv_vip.setImageResource(R.drawable.level_9)
-            credit >= 50000 -> iv_vip.setImageResource(R.drawable.level_8)
-            credit >= 15000 -> iv_vip.setImageResource(R.drawable.level_7)
-            credit >= 5000 -> iv_vip.setImageResource(R.drawable.level_6)
-            credit >= 2000 -> iv_vip.setImageResource(R.drawable.level_5)
-            credit >= 1000 -> iv_vip.setImageResource(R.drawable.level_4)
-            credit >= 500 -> iv_vip.setImageResource(R.drawable.level_3)
-            credit >= 200 -> iv_vip.setImageResource(R.drawable.level_2)
-            credit >= 100 -> iv_vip.setImageResource(R.drawable.level_1)
-            else -> iv_vip.setImageResource(R.drawable.level_0)
+        if (credit != null) {
+            when {
+                credit >= 200000 -> iv_vip.setImageResource(R.drawable.level_10)
+                credit >= 100000 -> iv_vip.setImageResource(R.drawable.level_9)
+                credit >= 50000 -> iv_vip.setImageResource(R.drawable.level_8)
+                credit >= 15000 -> iv_vip.setImageResource(R.drawable.level_7)
+                credit >= 5000 -> iv_vip.setImageResource(R.drawable.level_6)
+                credit >= 2000 -> iv_vip.setImageResource(R.drawable.level_5)
+                credit >= 1000 -> iv_vip.setImageResource(R.drawable.level_4)
+                credit >= 500 -> iv_vip.setImageResource(R.drawable.level_3)
+                credit >= 200 -> iv_vip.setImageResource(R.drawable.level_2)
+                credit >= 100 -> iv_vip.setImageResource(R.drawable.level_1)
+                else -> iv_vip.setImageResource(R.drawable.level_0)
+            }
         }
     }
 

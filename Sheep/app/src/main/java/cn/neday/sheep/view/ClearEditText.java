@@ -9,14 +9,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
-import com.neday.bomb.R;
+import androidx.appcompat.widget.AppCompatEditText;
+import cn.neday.sheep.R;
 
 /**
  * 带清除功能的文本输入框
  *
  * @author nEdAy
  */
-public class ClearEditText extends EditText implements OnFocusChangeListener, TextWatcher {
+public class ClearEditText extends AppCompatEditText implements OnFocusChangeListener, TextWatcher {
 
     // 删除按钮的引用
     private Drawable mClearDrawable;

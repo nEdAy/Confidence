@@ -1,8 +1,14 @@
 apply plugin: 'com.mob.sdk'
 
 MobSDK {
-    appKey "替换为mob官方申请的appkey"
-    appSecret "替换为mob官方申请的appkey对应的appSecret"
+    appKey "2b8365a15465f"
+    appSecret "d25eaed975d84f7c8ca253756ffd7387"
+    SMSSDK {
+        // 默认使用GUI，若不使用GUI，通过以下开关关闭
+        gui false
+        // 若使用GUI的自动填充验证码功能，需打开此设置
+        autoSMS false
+    }
     ShareSDK {
         devInfo {
             ShortMessage {}

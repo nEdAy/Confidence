@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.text.TextUtils
 import cn.neday.sheep.BuildConfig
 import com.alibaba.baichuan.android.trade.AlibcTrade
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
@@ -25,7 +26,7 @@ import com.blankj.utilcode.util.ToastUtils
  *
  * @author nEdAy
  */
-class AliTradeHelper(private val activity: Activity) {
+class AliTradeHelper(private val activity: Activity?) {
 
     /**
      * 根据商品ID打开商品页
@@ -80,8 +81,10 @@ class AliTradeHelper(private val activity: Activity) {
      *
      * @param url 要展示的url
      */
-    fun showItemURLPage(url: String) {
-        showAlibcTradePage(AlibcPage(url))
+    fun showItemURLPage(url: String?) {
+        if (!TextUtils.isEmpty(url)) {
+            showAlibcTradePage(AlibcPage(url))
+        }
     }
 
     /**
@@ -90,7 +93,16 @@ class AliTradeHelper(private val activity: Activity) {
      * @param alibcPage 页面类型,必填，不可为null，详情见下面tradePage类型介绍
      */
     private fun showAlibcTradePage(alibcPage: AlibcBasePage) {
-        AlibcTrade.show(activity, alibcPage, alibcShowParams, alibcTaokeParams, alibcExParams, AliTradeCallback())
+        if (activity != null) {
+            AlibcTrade.show(
+                activity,
+                alibcPage,
+                alibcShowParams,
+                alibcTaokeParams,
+                alibcExParams,
+                AliTradeCallback()
+            )
+        }
     }
 
     /**
@@ -103,10 +115,8 @@ class AliTradeHelper(private val activity: Activity) {
             } else if (tradeResult.resultType == AlibcResultType.TYPEPAY) {
                 val orderId = tradeResult.payResult.paySuccessOrders.toString()
                 // 复制数据到剪切板
-                val mClipboardManager = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val myClip: ClipData
-                myClip = ClipData.newPlainText("text", orderId)
-                mClipboardManager.primaryClip = myClip
+                val mClipboardManager = activity?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+                mClipboardManager?.primaryClip = ClipData.newPlainText("text", orderId)
                 ToastUtils.showShort("支付成功,已复制订单号" + orderId + "到剪切板")
             }
             // 打开电商组件，用户操作中成功信息回调。tradeResult：成功信息（结果类型：加购，支付；支付结果）

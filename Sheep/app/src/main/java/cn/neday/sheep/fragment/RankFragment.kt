@@ -1,9 +1,10 @@
 package cn.neday.sheep.fragment
 
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import cn.neday.sheep.R
+import cn.neday.sheep.adapter.RankAdapter
+import cn.neday.sheep.viewmodel.RankViewModel
 import kotlinx.android.synthetic.main.fragment_main_rank.*
-import java.util.*
 
 /**
  * 各大榜单
@@ -11,21 +12,26 @@ import java.util.*
  * 2.全天销量榜
  * 3.热推榜
  */
-class RankFragment : BaseFragment() {
+class RankFragment(private val rankType: Int) : BaseVMFragment<RankViewModel>() {
+
+    private val mRankGoodsAdapter: RankAdapter = RankAdapter()
 
     override val layoutId: Int = R.layout.fragment_main_rank
 
+    override fun providerVMClass(): Class<RankViewModel>? = RankViewModel::class.java
+
     override fun initView() {
-        val mFragments = ArrayList<Fragment>()
-        mFragments.add(RankItemFragment(RankType.SHI_SHI_XIAO_XIANG_BANG.index))
-        mFragments.add(RankItemFragment(RankType.QUAN_TIAN_XIAO_LIANG_BANG.index))
-        mFragments.add(RankItemFragment(RankType.RE_TUI_BANG.index))
-        tl_rank.setViewPager(vp_rank, resources.getStringArray(R.array.item_mall_array), activity, mFragments)
+        srl_rank_item.setColorSchemeResources(R.color.red, R.color.orange, R.color.green, R.color.blue)
+        srl_rank_item.setOnRefreshListener { getRankingList() }
+        rv_rank_item_list.adapter = mRankGoodsAdapter
+        mViewModel.mRankGoods.observe(this, Observer {
+            mRankGoodsAdapter.submitList(it)
+            srl_rank_item.isRefreshing = false
+        })
+        getRankingList()
     }
 
-    enum class RankType(val index: Int) {
-        SHI_SHI_XIAO_XIANG_BANG(1),
-        QUAN_TIAN_XIAO_LIANG_BANG(2),
-        RE_TUI_BANG(3),
+    private fun getRankingList() {
+        mViewModel.getRankingList(rankType, null)
     }
 }

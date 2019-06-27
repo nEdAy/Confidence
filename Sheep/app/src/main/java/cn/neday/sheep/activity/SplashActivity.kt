@@ -1,6 +1,7 @@
 package cn.neday.sheep.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import cn.neday.sheep.R
 import com.blankj.utilcode.util.ActivityUtils
@@ -29,7 +30,7 @@ class SplashActivity : BaseActivity() {
 
     private fun checkIntentAndIsTaskRoot() {
         if (!(intent != null && intent.extras != null) && !isTaskRoot) {
-            finish()
+            ActivityUtils.finishActivity(this)
         }
     }
 

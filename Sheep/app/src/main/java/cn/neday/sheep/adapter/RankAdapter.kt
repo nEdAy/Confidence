@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import cn.neday.sheep.R
-import cn.neday.sheep.activity.GoodsDetailsActivity
 import cn.neday.sheep.model.Goods
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils.getPrettyNumber
@@ -20,7 +19,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.list_item_goods.view.*
+import kotlinx.android.synthetic.main.list_item_rank.view.*
 import java.util.concurrent.TimeUnit
 
 /**
@@ -28,10 +27,10 @@ import java.util.concurrent.TimeUnit
  *
  * @author nEdAy
  */
-class GoodsAdapter : ListAdapter<Goods, GoodsAdapter.ViewHolder>(GoodsDiffCallback()) {
+class RankAdapter : ListAdapter<Goods, RankAdapter.ViewHolder>(RankDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_goods, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_rank, parent, false)
         return ViewHolder(view)
     }
 
@@ -64,7 +63,7 @@ class GoodsAdapter : ListAdapter<Goods, GoodsAdapter.ViewHolder>(GoodsDiffCallba
                     .apply(RequestOptions().circleCrop())
                     .into(iv_img_shower)
                 setOnClickListener {
-                    ActivityUtils.startActivity(GoodsDetailsActivity::class.java)
+                    // ActivityUtils.startActivity(GoodsDetailsActivity::class.java)
                 }
                 setOnLongClickListener {
                     AliTradeHelper((ActivityUtils.getActivityByView(this))).showAddCartPage(goods.goodsId.toString())
@@ -116,7 +115,7 @@ class GoodsAdapter : ListAdapter<Goods, GoodsAdapter.ViewHolder>(GoodsDiffCallba
     }
 }
 
-private class GoodsDiffCallback : DiffUtil.ItemCallback<Goods>() {
+private class RankDiffCallback : DiffUtil.ItemCallback<Goods>() {
 
     override fun areItemsTheSame(oldItem: Goods, newItem: Goods): Boolean {
         return oldItem.id == newItem.id

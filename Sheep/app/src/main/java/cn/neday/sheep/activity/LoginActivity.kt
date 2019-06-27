@@ -6,10 +6,13 @@ import cn.neday.sheep.R
 import cn.neday.sheep.util.CommonUtils
 import cn.neday.sheep.view.ClearEditText
 import cn.neday.sheep.viewmodel.LoginViewModel
+import cn.smssdk.EventHandler
+import cn.smssdk.SMSSDK
 import com.blankj.utilcode.util.*
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
+
 
 /**
  * 登录页
@@ -20,9 +23,13 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
 
     override val layoutId = R.layout.activity_login
 
+    override fun providerVMClass(): Class<LoginViewModel>? = LoginViewModel::class.java
+
     override fun initView() {
+        // registerSMSSDK()
         initTitleAndBackgroundByTime()
         initEditViewByLastUsername()
+        iv_login_bg.setOnClickListener { KeyboardUtils.hideSoftInput(this) }
         btn_login.setOnClickListener { login() }
         btn_register.setOnClickListener { register() }
         tv_lostPassword.setOnClickListener { resetPassword() }
@@ -43,14 +50,46 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
     }
 
     private fun initTitleAndBackgroundByTime() {
-        val isAM = TimeUtils.getValueByCalendarField(TimeUtils.getNowDate(), Calendar.AM_PM) == Calendar.AM
-        if (isAM) {
+        val isTimeAM = TimeUtils.getValueByCalendarField(TimeUtils.getNowDate(), Calendar.AM_PM) == Calendar.AM
+        if (isTimeAM) {
             iv_login_bg.setImageResource(R.drawable.good_morning_img)
             tv_login_title.text = getString(R.string.tx_login_title_AM)
         } else {
             iv_login_bg.setImageResource(R.drawable.good_night_img)
             tv_login_title.text = getString(R.string.tx_login_title_PM)
         }
+    }
+
+    private fun registerSMSSDK() {
+        // 注册短信回调
+        SMSSDK.registerEventHandler(object : EventHandler() {
+            override fun afterEvent(event: Int, result: Int, data: Any) {
+                if (result == SMSSDK.RESULT_COMPLETE) {
+                    // 回调完成
+                    when (event) {
+                        SMSSDK.EVENT_GET_VERIFICATION_CODE -> {
+                            // 获取验证码成功
+                        }
+                        SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE -> {
+                            // 提交验证码成功
+                        }
+                        SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES -> {
+                            // 返回支持发送验证码的国家列表
+                        }
+                    }
+                    // TODO 利用国家代码和手机号码进行后续的操作
+                    // 处理成功的结果
+                    val phoneMap = data as HashMap<String, Any>
+                    // 国家代码，如“86”
+                    val country = phoneMap["country"] as String
+                    // 手机号码，如“13800138000”
+                    val phone = phoneMap["phone"] as String
+                } else {
+                    // TODO 处理错误的结果
+                    (data as Throwable).printStackTrace()
+                }
+            }
+        })
     }
 
     private fun login() {
@@ -72,7 +111,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         if (checkUserOk(username, password)) {
             KeyboardUtils.hideSoftInput(this)
             if (NetworkUtils.isAvailable()) {
-                // mViewModel.register(username, password)
+                mViewModel.register(username, password, "", "")
             } else {
                 ToastUtils.showShort(R.string.network_tips)
             }
@@ -81,6 +120,11 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
 
     private fun resetPassword() {
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SMSSDK.unregisterAllEventHandler()
     }
 
 //        toSubscribe(RxFactory.getUserServiceInstance(null)

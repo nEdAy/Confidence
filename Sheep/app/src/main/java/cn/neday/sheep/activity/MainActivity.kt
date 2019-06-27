@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import cn.neday.sheep.R
-import cn.neday.sheep.fragment.RankFragment
+import cn.neday.sheep.fragment.GoodsFragment
 import cn.neday.sheep.fragment.IndexFragment
 import cn.neday.sheep.fragment.CategoryFragment
 import cn.neday.sheep.fragment.MeFragment
@@ -37,7 +37,7 @@ class MainActivity : BaseActivity() {
         // 精选首页
         mFragments.add(IndexFragment())
         // 优惠快爆
-        mFragments.add(RankFragment())
+        mFragments.add(GoodsFragment())
         // 好货专题
         mFragments.add(CategoryFragment())
         // 我的页面

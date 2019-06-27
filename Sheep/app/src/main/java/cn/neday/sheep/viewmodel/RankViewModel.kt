@@ -6,7 +6,7 @@ import cn.neday.sheep.network.repository.GoodsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class RankItemViewModel : BaseViewModel() {
+class RankViewModel : BaseViewModel() {
 
     val mRankGoods: MutableLiveData<List<Goods>> = MutableLiveData()
 

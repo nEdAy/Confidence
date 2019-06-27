@@ -4,16 +4,13 @@
                 android:layout_height="match_parent"
                 android:focusableInTouchMode="true">
 
-    <FrameLayout android:layout_width="match_parent"
-                 android:layout_height="match_parent">
-        <ImageView
-                android:id="@+id/iv_login_bg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/good_morning_img"
-                tools:ignore="ContentDescription"/>
-    </FrameLayout>
+    <ImageView
+            android:id="@+id/iv_login_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/good_morning_img"
+            tools:ignore="ContentDescription"/>
 
     <TextView
             android:id="@+id/tv_login_title"
@@ -37,7 +34,8 @@
             android:gravity="center"
             android:text="We pursue a relaxed gaming experience"
             android:textColor="#9affffff"
-            android:textSize="10sp" android:textAlignment="center"/>
+            android:textSize="10sp"
+            android:textAlignment="center"/>
 
     <LinearLayout
             android:layout_width="match_parent"

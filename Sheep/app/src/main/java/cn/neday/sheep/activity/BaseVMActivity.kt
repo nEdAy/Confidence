@@ -1,6 +1,9 @@
 package cn.neday.sheep.activity
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import cn.neday.sheep.viewmodel.BaseViewModel
 
@@ -25,5 +28,5 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity() {
         }
     }
 
-    open fun providerVMClass(): Class<VM>? = null
+    abstract fun providerVMClass(): Class<VM>?
 }
