@@ -4,6 +4,7 @@ import cn.neday.sheep.R
 import cn.neday.sheep.view.GuideBanner
 import com.blankj.utilcode.util.ActivityUtils
 import com.orhanobut.hawk.Hawk
+import kotlinx.android.synthetic.main.activity_guide.*
 import java.util.*
 
 /**
@@ -13,13 +14,10 @@ import java.util.*
  */
 class GuideActivity : BaseActivity() {
 
-    private lateinit var mGuideBanner: GuideBanner
-
     override val layoutId = R.layout.activity_guide
 
     override fun initView() {
-        mGuideBanner = findViewById(R.id.guide_banner)
-        mGuideBanner.setIndicatorWidth(6f)
+        guide_banner.setIndicatorWidth(6f)
             .setIndicatorHeight(6f)
             .setIndicatorGap(12f)
             .setIndicatorCornerRadius(3.5f)
@@ -27,7 +25,7 @@ class GuideActivity : BaseActivity() {
             .barPadding(0f, 10f, 0f, 10f)
             .setSource(getGuides())
             .startScroll()
-        mGuideBanner.setOnGuideJumpClick {
+        guide_banner.setOnGuideJumpClick {
             Hawk.put("isFirstStartApp", false)
             ActivityUtils.startActivity(MainActivity::class.java)
             ActivityUtils.finishActivity(this)
@@ -44,11 +42,11 @@ class GuideActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        mGuideBanner.goOnScroll()
+        guide_banner.goOnScroll()
     }
 
     override fun onPause() {
         super.onPause()
-        mGuideBanner.pauseScroll()
+        guide_banner.pauseScroll()
     }
 }

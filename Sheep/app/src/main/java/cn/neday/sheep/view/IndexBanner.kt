@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.util.AttributeSet
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import cn.neday.sheep.R
 import cn.neday.sheep.model.Banner
@@ -17,19 +18,20 @@ import kotlinx.android.synthetic.main.adapter_banner.view.*
  *
  * @author nEdAy
  */
-class AdvertisingBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
-    BaseIndicatorBanner<Banner, AdvertisingBanner>(context, attrs, defStyle) {
+class IndexBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
+    BaseIndicatorBanner<Banner, IndexBanner>(context, attrs, defStyle) {
 
     override fun onCreateItemView(position: Int): View {
         val inflate = View.inflate(mContext, R.layout.adapter_banner, null)
-        val (_, picURL) = mDatas[position]
+        val picURL = mDatas[position].picURL
         val itemWidth = mDisplayMetrics.widthPixels
         val itemHeight = (itemWidth * 0.417f).toInt()
-        iv_banner.layoutParams = LinearLayout.LayoutParams(itemWidth, itemHeight)
+        val ivBanner = inflate.findViewById<ImageView>(R.id.iv_banner)
+        ivBanner.layoutParams = LinearLayout.LayoutParams(itemWidth, itemHeight)
         Glide.with(this)
             .load(Uri.parse(picURL))
             .apply(RequestOptions().circleCrop())
-            .into(iv_banner)
+            .into(ivBanner)
         return inflate
     }
 }

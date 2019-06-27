@@ -6,7 +6,7 @@
               android:layout_height="wrap_content"
               android:orientation="vertical">
 
-    <cn.neday.sheep.view.AdvertisingBanner
+    <cn.neday.sheep.view.IndexBanner
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

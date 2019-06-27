@@ -2,6 +2,7 @@ package cn.neday.sheep.fragment
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.viewpager.widget.ViewPager
 import cn.neday.sheep.R
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils
@@ -36,6 +37,21 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
         // btn_search.setOnClickListener { ActivityUtils.startActivity(SearchActivity::class.java) }
 
         // Banner
+//        banner.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+//            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+//
+//            override fun onPageSelected(position: Int) {}
+//
+//            override fun onPageScrollStateChanged(state: Int) {
+//                enableDisableSwipeRefresh(state == ViewPager.SCROLL_STATE_IDLE)
+//            }
+//
+//            private fun enableDisableSwipeRefresh(b: Boolean) {
+//                if (mSwipeRefreshLayout != null) {
+//                    mSwipeRefreshLayout.setEnabled(b)
+//                }
+//            }
+//        })
         mViewModel.getBannerList()
 
         // Icon

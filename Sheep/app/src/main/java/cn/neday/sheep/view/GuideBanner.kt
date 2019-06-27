@@ -20,7 +20,6 @@ class GuideBanner @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
     override fun onCreateItemView(position: Int): View {
         setBarShowWhenLast(false)
-
         val inflate = View.inflate(mContext, R.layout.adapter_guide, null)
 
         val ivGuideImg = inflate.findViewById<ImageView>(R.id.iv_guide_img)
