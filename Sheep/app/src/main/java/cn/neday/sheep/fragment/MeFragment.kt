@@ -33,7 +33,7 @@ class MeFragment : BaseFragment(), DampView.IRefreshListener {
 
     override val layoutId: Int = R.layout.fragment_main_me
 
-    override fun setUpViews() {
+    override fun initView() {
         dampView.setImageView(iv_damp)
         dampView.setOnRefreshListener(this)
 //        ll_option

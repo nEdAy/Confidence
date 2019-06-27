@@ -1,6 +1,5 @@
 package cn.neday.sheep.activity
 
-import android.os.Bundle
 import cn.neday.sheep.R
 import cn.neday.sheep.view.GuideBanner
 import com.blankj.utilcode.util.ActivityUtils
@@ -16,13 +15,9 @@ class GuideActivity : BaseActivity() {
 
     private lateinit var mGuideBanner: GuideBanner
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_guide)
-        initView()
-    }
+    override val layoutId = R.layout.activity_guide
 
-    private fun initView() {
+    override fun initView() {
         mGuideBanner = findViewById(R.id.guide_banner)
         mGuideBanner.setIndicatorWidth(6f)
             .setIndicatorHeight(6f)

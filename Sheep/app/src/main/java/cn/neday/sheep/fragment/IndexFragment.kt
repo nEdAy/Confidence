@@ -12,7 +12,7 @@ class IndexFragment : BaseFragment() {
 
     override val layoutId: Int = R.layout.fragment_main_rank
 
-    override fun setUpViews() {
+    override fun initView() {
         val mFragments = ArrayList<Fragment>()
         mFragments.add(RankItemFragment(1))
         mFragments.add(RankItemFragment(2))

@@ -19,11 +19,11 @@
             tl:tl_indicator_style="BLOCK"
             tl:tl_tab_space_equal="true"
             tl:tl_textSelectColor="@android:color/white"
-            tl:tl_textUnselectColor="@color/text_color"/>
+            tl:tl_textUnselectColor="@color/textColor"/>
 
     <View android:layout_width="match_parent"
           android:layout_height="@dimen/divide_line_height"
-          android:background="@color/line_color"/>
+          android:background="@color/lineColor"/>
 
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_rank"

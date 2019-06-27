@@ -5,6 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.text.TextUtils
+import android.view.View
+import android.view.animation.CycleInterpolator
+import android.view.animation.TranslateAnimation
 import cn.neday.sheep.R
 import com.blankj.utilcode.util.ToastUtils
 
@@ -22,6 +25,25 @@ object CommonUtils {
      */
     fun getPrettyNumber(number: Double): String {
         return BigDecimal.valueOf(number).stripTrailingZeros().toPlainString()
+    }
+
+    /**
+     * 检验密码长度是否正确
+     */
+    fun isValidPassword(target: CharSequence?): Boolean {
+        return target != null && target.length > 5 && target.length < 17
+    }
+
+    /**
+     * 指定View显示一个动画,抖5下
+     *
+     * @param view 指定的View
+     */
+    fun setShakeAnimation(view: View) {
+        val translateAnimation = TranslateAnimation(0f, 10f, 0f, 10f)
+        translateAnimation.interpolator = CycleInterpolator(5f)//抖5下
+        translateAnimation.duration = 1000
+        view.startAnimation(translateAnimation)
     }
 
     /**

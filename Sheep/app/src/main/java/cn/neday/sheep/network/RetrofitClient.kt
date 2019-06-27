@@ -47,7 +47,7 @@ class RetrofitClient {
         }
 
     companion object {
-        private const val BASE_URL = "https://www.neday.cn:8080/"
+        private const val BASE_URL = "https://www.neday.cn/"
         private const val TIME_OUT = 5
     }
 }

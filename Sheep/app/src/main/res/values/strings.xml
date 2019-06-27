@@ -14,6 +14,10 @@
         <item>分类直播</item>
         <item>我的</item>
     </string-array>
+
+    <string name="tx_login_title_AM">Good Morning</string>
+    <string name="tx_login_title_PM">Good Night</string>
+
     <string name="tx_pressed_back_hint">再按一次退出程序</string>
     <string name="tx_not_found_app_market">找不到您的应用商店</string>
     <string name="tx_exit_guide">立即体验</string>
@@ -29,14 +33,13 @@
     <string name="tx_logout">退出登录</string>
     <string name="tx_back">返回</string>
     <string name="tx_cancel">取 消</string>
-    <string name="tx_lost_password">忘记密码</string>
+    <string name="tx_lost_password">忘记密码？</string>
     <string name="tx_hint_password">请输入登录密码</string>
     <string name="toast_error_password_verify_error">两次新密码输入不相同</string>
     <string name="tx_hint_phone">请输入手机号码</string>
     <string name="tx_hint_invite_phone">请输入邀请人手机号码(选填)</string>
     <string name="tx_hint_sms">请输入验证码</string>
     <string name="tx_register">注册</string>
-    <string name="tx_register_new">注册新用户</string>
     <string name="network_tips">您已进入没有网络的异次元,请检查您的网络!</string>
     <string name="toast_error_phone_null">手机号不能为空</string>
     <string name="toast_error_phone_error">手机号格式不正确</string>

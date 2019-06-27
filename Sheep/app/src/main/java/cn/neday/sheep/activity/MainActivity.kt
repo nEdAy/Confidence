@@ -31,13 +31,9 @@ class MainActivity : BaseActivity() {
     // 记录当前Fragment的位置
     private var mCurrentTabIndex = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        initView()
-    }
+    override val layoutId = R.layout.activity_main
 
-    private fun initView() {
+    override fun initView() {
         // 精选首页
         mFragments.add(IndexFragment())
         // 优惠快爆

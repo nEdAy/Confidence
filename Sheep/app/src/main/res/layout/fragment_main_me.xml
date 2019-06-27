@@ -3,7 +3,7 @@
                               android:id="@+id/dampView"
                               android:layout_width="match_parent"
                               android:layout_height="match_parent"
-                              android:background="@color/background_color"
+                              android:background="@color/backgroundColor"
                               android:fadingEdge="none"
                               android:scrollbars="none">
 
@@ -163,7 +163,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="5.0dp"
                         android:text="购物车"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
             </RelativeLayout>
 
@@ -190,7 +190,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="5.0dp"
                         android:text="待付款"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
             </RelativeLayout>
 
@@ -218,7 +218,7 @@
                         android:layout_marginTop="5.0dp"
                         android:src="@drawable/ic_order_2"
                         android:text="待发货"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
             </RelativeLayout>
 
@@ -245,7 +245,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="5.0dp"
                         android:text="待收货"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
             </RelativeLayout>
 
@@ -272,7 +272,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="5.0dp"
                         android:text="待评价"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
 
             </RelativeLayout>
@@ -310,7 +310,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="账户设置"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
 
             </LinearLayout>
@@ -338,7 +338,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="@string/tx_encourage_us"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
 
             </LinearLayout>
@@ -366,7 +366,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="@string/tx_feedback"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
 
             </LinearLayout>
@@ -394,7 +394,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="@string/tx_share_to_friends"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
 
             </LinearLayout>
@@ -431,7 +431,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="@string/tx_about_us"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
 
             </LinearLayout>
@@ -458,7 +458,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="@string/tx_attention_us"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
 
             </LinearLayout>

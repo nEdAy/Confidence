@@ -2,6 +2,7 @@ package cn.neday.sheep.activity
 
 import android.os.Bundle
 import android.view.KeyEvent
+import cn.neday.sheep.R
 import com.blankj.utilcode.util.ActivityUtils
 import com.orhanobut.hawk.Hawk
 import io.reactivex.Observable
@@ -18,10 +19,10 @@ class SplashActivity : BaseActivity() {
 
     private lateinit var mDisposable: CompositeDisposable
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // 为保证启动速度，SplashActivity不要调用setContentView()方法
-        // setContentView(R.layout.activity_splash);
+    // 为保证启动速度，SplashActivity不要调用setContentView()方法
+    override val layoutId: Int? = null
+
+    override fun initView() {
         checkIntentAndIsTaskRoot()
         delayJumpPage()
     }
@@ -45,7 +46,7 @@ class SplashActivity : BaseActivity() {
      * @return 页面序数
      */
     private fun checkIsFirstStartApp(): JumpPage {
-        val userFirst = Hawk.get<Boolean>("isFirstStartApp", true)
+        val userFirst = Hawk.get("isFirstStartApp", true)
         return if (userFirst) {
             JumpPage.GO_GUIDE
         } else {

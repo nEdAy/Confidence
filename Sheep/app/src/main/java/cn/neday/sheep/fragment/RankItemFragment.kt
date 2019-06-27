@@ -20,7 +20,7 @@ class RankItemFragment(private val rankType: Int) : BaseVMFragment<RankItemViewM
 
     override fun providerVMClass(): Class<RankItemViewModel>? = RankItemViewModel::class.java
 
-    override fun setUpViews() {
+    override fun initView() {
         srl_rank_item.setOnRefreshListener { getRankingList() }
         rv_rank_item_list.adapter = mGoodsAdapter
         // 将数据的变化反映到UI上

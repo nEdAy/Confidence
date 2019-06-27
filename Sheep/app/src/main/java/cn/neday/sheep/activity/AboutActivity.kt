@@ -1,6 +1,5 @@
 package cn.neday.sheep.activity
 
-import android.os.Bundle
 import cn.neday.sheep.R
 
 /**
@@ -10,8 +9,9 @@ import cn.neday.sheep.R
  */
 class AboutActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about)
+    override val layoutId = R.layout.activity_about
+
+    override fun initView() {
+        // do nothing
     }
 }

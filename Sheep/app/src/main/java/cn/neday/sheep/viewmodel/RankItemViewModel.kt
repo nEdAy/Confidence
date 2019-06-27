@@ -9,7 +9,6 @@ import kotlinx.coroutines.withContext
 class RankItemViewModel : BaseViewModel() {
 
     val mRankGoods: MutableLiveData<List<Goods>> = MutableLiveData()
-    val errMsg: MutableLiveData<String> = MutableLiveData()
 
     private val repository by lazy { GoodsRepository() }
 
@@ -24,21 +23,21 @@ class RankItemViewModel : BaseViewModel() {
 //            .build()
 //    ).build()
 
-    fun getRankingList(rankType: Int, cid: String?) {
-        launch {
-            try {
-                val response = withContext(Dispatchers.IO) { repository.getRankingList(rankType, cid) }
-                executeResponse(response, { mRankGoods.value = response.data }, { errMsg.value = response.msg })
-            } catch (t: Throwable) {
-                t.printStackTrace()
-            }
-        }
-    }
-
     companion object {
 
         private const val PAGE_SIZE = 15
 
         private const val ENABLE_PLACEHOLDERS = false
+    }
+
+    fun getRankingList(rankType: Int, cid: String?) {
+        launch {
+            try {
+                val response = withContext(Dispatchers.IO) { repository.getRankingList(rankType, cid) }
+                executeResponse(response, { mRankGoods.value = response.data }, { mErrMsg.value = response.msg })
+            } catch (t: Throwable) {
+                t.printStackTrace()
+            }
+        }
     }
 }

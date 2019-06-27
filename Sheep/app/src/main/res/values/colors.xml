@@ -5,10 +5,11 @@
     <color name="colorAccent">#D81B60</color>
 
     <!-- function_color -->
-    <color name="text_color">#5f606d</color>
-    <color name="line_color">#d7d7d7</color>
-    <color name="label_color">#999999</color>
-    <color name="background_color">#f2f2f2</color>
+    <color name="textColor">#5f606d</color>
+    <color name="lineColor">#d7d7d7</color>
+    <color name="labelColor">#999999</color>
+    <color name="backgroundColor">#f2f2f2</color>
+    <color name="textInputLayout">#96ffffff</color>
 
     <!-- transparent_half_color -->
     <color name="black_transparent_half">#af000000</color>

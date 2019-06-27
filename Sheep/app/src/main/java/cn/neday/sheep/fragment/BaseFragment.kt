@@ -25,10 +25,10 @@ abstract class BaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpViews()
+        initView()
     }
 
-    abstract fun setUpViews()
+    abstract fun initView()
 
     override fun onDestroyView() {
         super.onDestroyView()

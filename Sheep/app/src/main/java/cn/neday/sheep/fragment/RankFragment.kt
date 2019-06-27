@@ -15,7 +15,7 @@ class RankFragment : BaseFragment() {
 
     override val layoutId: Int = R.layout.fragment_main_rank
 
-    override fun setUpViews() {
+    override fun initView() {
         val mFragments = ArrayList<Fragment>()
         mFragments.add(RankItemFragment(RankType.SHI_SHI_XIAO_XIANG_BANG.index))
         mFragments.add(RankItemFragment(RankType.QUAN_TIAN_XIAO_LIANG_BANG.index))
