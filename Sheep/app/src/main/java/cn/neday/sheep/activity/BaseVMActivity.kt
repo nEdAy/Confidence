@@ -12,7 +12,8 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity() {
 
     protected lateinit var mViewModel: VM
 
-    init {
+    override fun prepareInitView() {
+        super.prepareInitView()
         initProviderViewModel()
     }
 

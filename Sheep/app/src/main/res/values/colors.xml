@@ -24,4 +24,8 @@
     <color name="orange">#fe9200</color>
     <color name="pink">#F88283</color>
     <color name="gray">#b6b6b6</color>
+
+    <color name="colorSliderBackground">#FF181821</color>
+    <color name="colorTextColor">#FFFFFFFF</color>
+    <color name="colorSwitchColor">#FF2371FA</color>
 </resources>

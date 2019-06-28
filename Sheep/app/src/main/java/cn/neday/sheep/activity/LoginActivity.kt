@@ -11,6 +11,7 @@ import cn.smssdk.SMSSDK
 import com.blankj.utilcode.util.*
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_login.*
+import org.jetbrains.annotations.NotNull
 import java.util.*
 
 
@@ -26,13 +27,20 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
     override fun providerVMClass(): Class<LoginViewModel>? = LoginViewModel::class.java
 
     override fun initView() {
-        // registerSMSSDK()
+        registerSMSSDK()
         initTitleAndBackgroundByTime()
         initEditViewByLastUsername()
         iv_login_bg.setOnClickListener { KeyboardUtils.hideSoftInput(this) }
         btn_login.setOnClickListener { login() }
         btn_register.setOnClickListener { register() }
         tv_lostPassword.setOnClickListener { resetPassword() }
+        tv_sms.setOnClickListener { requestVerificationCode() }
+        ss_login.setOnSelectedChangeListener(new StickySwitch.OnSelectedChangeListener() {
+            @Override
+            public void onSelectedChange(@NotNull StickySwitch.Direction direction, @NotNull String text) {
+                Log.d(TAG, "Now Selected : " + direction.name() + ", Current Text : " + text);
+            }
+        });
         mViewModel.mUser.observe(this, Observer {
             ActivityUtils.finishActivity(this)
         })
@@ -50,46 +58,14 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
     }
 
     private fun initTitleAndBackgroundByTime() {
-        val isTimeAM = TimeUtils.getValueByCalendarField(TimeUtils.getNowDate(), Calendar.AM_PM) == Calendar.AM
-        if (isTimeAM) {
+        val isDayNotNight = TimeUtils.getValueByCalendarField(TimeUtils.getNowDate(), Calendar.HOUR_OF_DAY) in 8..20
+        if (isDayNotNight) {
             iv_login_bg.setImageResource(R.drawable.good_morning_img)
-            tv_login_title.text = getString(R.string.tx_login_title_AM)
+            tv_login_title.text = getString(R.string.tx_login_title_day)
         } else {
             iv_login_bg.setImageResource(R.drawable.good_night_img)
-            tv_login_title.text = getString(R.string.tx_login_title_PM)
+            tv_login_title.text = getString(R.string.tx_login_title_night)
         }
-    }
-
-    private fun registerSMSSDK() {
-        // 注册短信回调
-        SMSSDK.registerEventHandler(object : EventHandler() {
-            override fun afterEvent(event: Int, result: Int, data: Any) {
-                if (result == SMSSDK.RESULT_COMPLETE) {
-                    // 回调完成
-                    when (event) {
-                        SMSSDK.EVENT_GET_VERIFICATION_CODE -> {
-                            // 获取验证码成功
-                        }
-                        SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE -> {
-                            // 提交验证码成功
-                        }
-                        SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES -> {
-                            // 返回支持发送验证码的国家列表
-                        }
-                    }
-                    // TODO 利用国家代码和手机号码进行后续的操作
-                    // 处理成功的结果
-                    val phoneMap = data as HashMap<String, Any>
-                    // 国家代码，如“86”
-                    val country = phoneMap["country"] as String
-                    // 手机号码，如“13800138000”
-                    val phone = phoneMap["phone"] as String
-                } else {
-                    // TODO 处理错误的结果
-                    (data as Throwable).printStackTrace()
-                }
-            }
-        })
     }
 
     private fun login() {
@@ -120,6 +96,33 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
 
     private fun resetPassword() {
 
+    }
+
+    /**
+     * 重新请求短信验证码
+     */
+    private fun requestVerificationCode() {
+        // 先短信验证码，闲置30s后切换语音验证码
+//        if (isVoice) {
+//            val dialog = NormalDialog(mContext)
+//            dialog.content("确定后将致电您的手机号并语音播报验证码，如不希望被来点打扰请返回。")
+//                .style(NormalDialog.STYLE_TWO)
+//                .titleTextSize(23f)
+//                .showAnim(BounceTopEnter())
+//                .dismissAnim(SlideBottomExit())
+//                .show()
+//            dialog.setOnBtnClickL(
+//                OnBtnClickL { dialog.dismiss() },
+//                {
+//                    dialog.dismiss()
+//                    if (!CommonUtils.isNetworkAvailable()) {
+//                        CommonUtils.showToast(R.string.network_tips)
+//                    } else {
+//                        SMSSDK.getVoiceVerifyCode(country, phone)
+//                        tv_top_message.setText("我们正在致电语音播报验证码到您的手机号")
+//                    }
+//                })
+//        }
     }
 
     override fun onDestroy() {
@@ -199,5 +202,37 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         ToastUtils.showShort(toastErrorMsgRes)
         editTextView.requestFocus()
         CommonUtils.setShakeAnimation(editTextView)
+    }
+
+    private fun registerSMSSDK() {
+        // 注册短信回调
+        SMSSDK.registerEventHandler(object : EventHandler() {
+            override fun afterEvent(event: Int, result: Int, data: Any) {
+                if (result == SMSSDK.RESULT_COMPLETE) {
+                    // 回调完成
+                    when (event) {
+                        SMSSDK.EVENT_GET_VERIFICATION_CODE -> {
+                            // 获取验证码成功
+                        }
+                        SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE -> {
+                            // 提交验证码成功
+                        }
+                        SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES -> {
+                            // 返回支持发送验证码的国家列表
+                        }
+                    }
+                    // TODO 利用国家代码和手机号码进行后续的操作
+                    // 处理成功的结果
+                    val phoneMap = data as HashMap<String, Any>
+                    // 国家代码，如“86”
+                    val country = phoneMap["country"] as String
+                    // 手机号码，如“13800138000”
+                    val phone = phoneMap["phone"] as String
+                } else {
+                    // TODO 处理错误的结果
+                    (data as Throwable).printStackTrace()
+                }
+            }
+        })
     }
 }

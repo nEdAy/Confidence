@@ -51,7 +51,7 @@ class LoginViewModel : BaseViewModel() {
                 val response = withContext(Dispatchers.IO) { repository.login(username, passwordMD5) }
                 executeResponse(response, {
                     mUser.value = response.data
-                    Hawk.put("currentUser", response.data)
+                    Hawk.put("token", response.data?.token)
                 }, { mErrMsg.value = response.msg })
             } catch (t: Throwable) {
                 t.printStackTrace()

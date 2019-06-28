@@ -6,32 +6,34 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.text.TextUtils
+import android.view.View
 import cn.neday.sheep.R
 import cn.neday.sheep.activity.AboutActivity
 import cn.neday.sheep.model.User
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils
-import cn.neday.sheep.view.DampView
 import com.ali.auth.third.ui.LoginActivity
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.flyco.animation.BounceEnter.BounceTopEnter
 import com.flyco.animation.SlideExit.SlideBottomExit
 import com.flyco.dialog.listener.OnBtnClickL
 import com.flyco.dialog.widget.NormalDialog
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.fragment_main_me.*
 
 /**
  * 我的
  */
-class MeFragment : BaseFragment(), DampView.IRefreshListener {
+class MeFragment : BaseFragment() {
 
     override val layoutId: Int = R.layout.fragment_main_me
 
     override fun initView() {
         dampView.setImageView(iv_damp)
-        dampView.setOnRefreshListener(this)
+        dampView.setOnRefreshListener { getUserInfo() }
 //        ll_option
 //            .setOnClickListener { ActivityUtils.startActivity(AccountActivity::class.java) }
 //        iv_level
@@ -54,7 +56,7 @@ class MeFragment : BaseFragment(), DampView.IRefreshListener {
 //            intent.putExtra("userId", mCurrentUser.id)
 //            ActivityUtils.startActivity(CreditsHistoryActivity::class.java, intent)
         }
-        tv_l_and_r.setOnClickListener { ActivityUtils.startActivity(LoginActivity::class.java) }
+        tv_login.setOnClickListener { ActivityUtils.startActivity(LoginActivity::class.java) }
         rl_0.setOnClickListener { AliTradeHelper(activity).showMyCartsPage() }
         rl_1.setOnClickListener { AliTradeHelper(activity).showMyOrdersPage(1, true) }
         rl_2.setOnClickListener { AliTradeHelper(activity).showMyOrdersPage(2, true) }
@@ -69,40 +71,32 @@ class MeFragment : BaseFragment(), DampView.IRefreshListener {
     }
 
 
-    override fun onRefresh() {
-//        if (NetworkUtils.isAvailable()) {
-//            getUserById(mCurrentUser.id)
-//        }
-    }
-
     /**
      * 更新用户信息、点击状态、换皮肤
      */
     private fun initUserInfoAndChangeSkin() {
-        // mCurrentUser = User.getCurrentUser()
+        val isTokenEmpty = TextUtils.isEmpty(Hawk.get("token"))
 //        val isNetworkAvailable = NetworkUtils.isAvailable()
-//        if (NetworkUtils.isAvailable()) {
-//            getUserById(mCurrentUser.id)
-//            rl_top.visibility = View.VISIBLE
-//            rl_me.visibility = View.VISIBLE
-//            rl_credits.visibility = View.VISIBLE
-//            tv_l_and_r.visibility = View.GONE
-//        } else {
-//            rl_top.visibility = View.GONE
-//            rl_me.visibility = View.GONE
-//            rl_credits.visibility = View.GONE
-//            tv_l_and_r.visibility = View.VISIBLE
-//        }
-//        val selfCenterBgIndex = Hawk.get("self_center_bg_index", 0)
-//        iv_damp.setImageResource(selfCenterBgResIDs[selfCenterBgIndex])
+        if (isTokenEmpty) {
+//            getUserInfo(mCurrentUser.id)
+            rl_top.visibility = View.VISIBLE
+            rl_user_info.visibility = View.VISIBLE
+            rl_credits.visibility = View.VISIBLE
+            tv_login.visibility = View.GONE
+        } else {
+            rl_top.visibility = View.GONE
+            rl_user_info.visibility = View.GONE
+            rl_credits.visibility = View.GONE
+            tv_login.visibility = View.VISIBLE
+        }
+        val selfCenterBgIndex = Hawk.get("self_center_bg_index", 0)
+        iv_damp.setImageResource(selfCenterBgResIDs[selfCenterBgIndex])
     }
 
     /**
-     * 获取用户信息
-     *
-     * @param id 用户ID
+     * 获取当前用户信息
      */
-    private fun getUserById(id: Long?) {
+    private fun getUserInfo() {
 //        toSubscribe(RxFactory.getUserServiceInstance(null)
 //            .getUser(id),
 //            { user ->
@@ -130,17 +124,17 @@ class MeFragment : BaseFragment(), DampView.IRefreshListener {
         val credit = user.credit
         if (credit != null) {
             when {
-                credit >= 200000 -> iv_vip.setImageResource(R.drawable.level_10)
-                credit >= 100000 -> iv_vip.setImageResource(R.drawable.level_9)
-                credit >= 50000 -> iv_vip.setImageResource(R.drawable.level_8)
-                credit >= 15000 -> iv_vip.setImageResource(R.drawable.level_7)
-                credit >= 5000 -> iv_vip.setImageResource(R.drawable.level_6)
-                credit >= 2000 -> iv_vip.setImageResource(R.drawable.level_5)
-                credit >= 1000 -> iv_vip.setImageResource(R.drawable.level_4)
-                credit >= 500 -> iv_vip.setImageResource(R.drawable.level_3)
-                credit >= 200 -> iv_vip.setImageResource(R.drawable.level_2)
-                credit >= 100 -> iv_vip.setImageResource(R.drawable.level_1)
-                else -> iv_vip.setImageResource(R.drawable.level_0)
+                credit >= 200000 -> iv_user_vip.setImageResource(R.drawable.level_10)
+                credit >= 100000 -> iv_user_vip.setImageResource(R.drawable.level_9)
+                credit >= 50000 -> iv_user_vip.setImageResource(R.drawable.level_8)
+                credit >= 15000 -> iv_user_vip.setImageResource(R.drawable.level_7)
+                credit >= 5000 -> iv_user_vip.setImageResource(R.drawable.level_6)
+                credit >= 2000 -> iv_user_vip.setImageResource(R.drawable.level_5)
+                credit >= 1000 -> iv_user_vip.setImageResource(R.drawable.level_4)
+                credit >= 500 -> iv_user_vip.setImageResource(R.drawable.level_3)
+                credit >= 200 -> iv_user_vip.setImageResource(R.drawable.level_2)
+                credit >= 100 -> iv_user_vip.setImageResource(R.drawable.level_1)
+                else -> iv_user_vip.setImageResource(R.drawable.level_0)
             }
         }
     }
@@ -153,9 +147,9 @@ class MeFragment : BaseFragment(), DampView.IRefreshListener {
             val avatarUri = Uri.parse(avatarUrl)
             Glide.with(this)
                 .load(avatarUri)
-                .into(iv_me_avatar)
+                .into(iv_user_avatar)
         } else {
-            iv_me_avatar.setImageResource(R.drawable.avatar_default)
+            iv_user_avatar.setImageResource(R.drawable.avatar_default)
         }
     }
 

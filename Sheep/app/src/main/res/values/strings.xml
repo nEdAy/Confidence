@@ -15,8 +15,8 @@
         <item>我的</item>
     </string-array>
 
-    <string name="tx_login_title_AM">Good Morning</string>
-    <string name="tx_login_title_PM">Good Night</string>
+    <string name="tx_login_title_day">Good Morning</string>
+    <string name="tx_login_title_night">Good Night</string>
 
     <string name="tx_pressed_back_hint">再按一次退出程序</string>
     <string name="tx_not_found_app_market">找不到您的应用商店</string>
@@ -33,7 +33,7 @@
     <string name="tx_logout">退出登录</string>
     <string name="tx_back">返回</string>
     <string name="tx_cancel">取 消</string>
-    <string name="tx_lost_password">忘记密码？</string>
+    <string name="tx_lost_password">忘记密码</string>
     <string name="tx_hint_password">请输入登录密码</string>
     <string name="toast_error_password_verify_error">两次新密码输入不相同</string>
     <string name="tx_hint_phone">请输入手机号码</string>

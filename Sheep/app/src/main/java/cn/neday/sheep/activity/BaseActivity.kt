@@ -21,8 +21,13 @@ abstract class BaseActivity : AppCompatActivity() {
         layoutId?.let {
             setContentView(LayoutInflater.from(this).inflate(it, null))
         }
+        prepareInitView()
         initView()
         PushAgent.getInstance(this).onAppStart()
+    }
+
+    open fun prepareInitView() {
+        // do nothing
     }
 
     abstract fun initView()

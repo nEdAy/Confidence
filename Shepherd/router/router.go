@@ -46,8 +46,8 @@ func Setup() {
 		// 商品相关API
 		goods := v1.Group("/goods")
 		{
-			// 获取鉴权签名 curl -X GET  https://127.0.0.1/v1/cos/
-			goods.GET("/", controller.Login)
+			// 获取各大榜单 curl -X GET  https://127.0.0.1/v1/good/ranking/
+			goods.GET("/ranking", controller.GetRanking)
 		}
 	}
 }

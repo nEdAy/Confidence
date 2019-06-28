@@ -2,11 +2,12 @@ package cn.neday.sheep.fragment
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.viewpager.widget.ViewPager
 import cn.neday.sheep.R
+import cn.neday.sheep.activity.LoginActivity
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils
 import cn.neday.sheep.viewmodel.IndexViewModel
+import com.blankj.utilcode.util.ActivityUtils
 import kotlinx.android.synthetic.main.fragment_main_index.*
 import kotlinx.android.synthetic.main.include_main_index_header.*
 import kotlinx.android.synthetic.main.include_main_index_icon.*
@@ -52,12 +53,11 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
 //                }
 //            }
 //        })
-        mViewModel.getBannerList()
 
         // Icon
         // ll_sign.setOnClickListener { ActivityUtils.startActivity(SignActivity::class.java) }
         // ll_shake.setOnClickListener { ActivityUtils.startActivity(ShakeActivity::class.java) }
-        ll_shop.setOnClickListener { }
+        ll_shop.setOnClickListener { ActivityUtils.startActivity(LoginActivity::class.java) }
         ll_join.setOnClickListener { CommonUtils.joinQQGroup(activity) }
     }
 
@@ -67,6 +67,11 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
         mFragments.add(RankFragment(RankType.QUAN_TIAN_XIAO_LIANG_BANG.index))
         mFragments.add(RankFragment(RankType.RE_TUI_BANG.index))
         stl_index.setViewPager(vp_index, resources.getStringArray(R.array.item_mall_array), activity, mFragments)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mViewModel.getBannerList()
     }
 
     override fun onResume() {

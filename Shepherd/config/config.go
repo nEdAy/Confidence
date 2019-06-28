@@ -8,31 +8,33 @@ import (
 )
 
 var (
-	Cfg *ini.File
+	Config *ini.File
 
 	App      app
 	Server   server
 	Path     path
 	Database database
+	Dataoke  dataoke
 	WeChat   weChat
 )
 
 func Setup() {
 	var err error
-	Cfg, err = ini.Load("build/app.ini")
+	Config, err = ini.Load("build/app.ini")
 	if err != nil {
 		log.Fatal().Msgf("Fail to parse 'conf/app.ini': %v", err)
 	}
-	Cfg.BlockMode = false // if false, only reading, speed up read operations about 50-70% faster
+	Config.BlockMode = false // if false, only reading, speed up read operations about 50-70% faster
 	loadApp()
 	loadServer()
 	loadPath()
 	loadDatabase()
+	loadDataoke()
 	loadWeChat()
 }
 
 func loadApp() {
-	sec, err := Cfg.GetSection("App")
+	sec, err := Config.GetSection("App")
 	if err != nil {
 		log.Fatal().Msgf("Fail to get section 'App': %v", err)
 	}
@@ -42,7 +44,7 @@ func loadApp() {
 }
 
 func loadServer() {
-	sec, err := Cfg.GetSection("Server")
+	sec, err := Config.GetSection("Server")
 	if err != nil {
 		log.Fatal().Msgf("Fail to get section 'Server': %v", err)
 	}
@@ -54,7 +56,7 @@ func loadServer() {
 }
 
 func loadPath() {
-	sec, err := Cfg.GetSection("Paths")
+	sec, err := Config.GetSection("Paths")
 	if err != nil {
 		log.Fatal().Msgf("Fail to get section 'Paths': %v", err)
 	}
@@ -66,7 +68,7 @@ func loadPath() {
 }
 
 func loadDatabase() {
-	sec, err := Cfg.GetSection("Database")
+	sec, err := Config.GetSection("Database")
 	if err != nil {
 		log.Fatal().Msgf("Fail to get section 'Database': %v", err)
 	}
@@ -83,8 +85,18 @@ func loadDatabase() {
 	Database.PingInterval = time.Duration(sec.Key("PING_INTERVAL").MustInt(30)) * time.Second
 }
 
+func loadDataoke() {
+	sec, err := Config.GetSection("Dataoke")
+	if err != nil {
+		log.Fatal().Msgf("Fail to get section 'Dataoke': %v", err)
+	}
+	Dataoke.AppSecret = sec.Key("DATAOKE_APP_SECRET").String()
+	Dataoke.AppKey = sec.Key("DATAOKE_APP_KEY").String()
+	Dataoke.Version = sec.Key("DATAOKE_VERSION").String()
+}
+
 func loadWeChat() {
-	sec, err := Cfg.GetSection("WeChat")
+	sec, err := Config.GetSection("WeChat")
 	if err != nil {
 		log.Fatal().Msgf("Fail to get section 'WeChat': %v", err)
 	}
@@ -92,7 +104,6 @@ func loadWeChat() {
 	WeChat.AppID = sec.Key("APP_ID").String()
 	WeChat.AppSecret = sec.Key("APP_SECRET").String()
 	WeChat.SessionMagicID = sec.Key("SESSION_MAGIC_ID").String()
-
 }
 
 type app struct {
@@ -129,6 +140,12 @@ type database struct {
 	MaxIdleConns int
 	MaxOpenConns int
 	PingInterval time.Duration
+}
+
+type dataoke struct {
+	AppSecret string
+	AppKey    string
+	Version   string
 }
 
 type weChat struct {
