@@ -8,8 +8,8 @@ import (
 )
 
 func GetRanking(c *gin.Context) {
-	rankType := c.Param("string")
-	cid := c.Param("cid")
+	rankType := c.Query("rankType")
+	cid := c.Query("cid")
 	parameterMap := map[string]string{
 		"rankType": rankType,
 		"cid":      cid,
