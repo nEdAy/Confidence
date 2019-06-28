@@ -32,6 +32,6 @@ class RankFragment(private val rankType: Int) : BaseVMFragment<RankViewModel>() 
     }
 
     private fun getRankingList() {
-        mViewModel.getRankingList(rankType, null)
+        mViewModel.getRankingList(rankType, "")
     }
 }

@@ -24,12 +24,10 @@ class GoodsRepository : BaseRepository() {
      * @param cid 大淘客一级类目id 否 Number 实时销量榜和全天销量榜支持传入分类返回分类榜数据
      * @return 返回参数
      */
-    suspend fun getRankingList(rankType: Int, cid: String?): Response<List<Goods>> {
+    suspend fun getRankingList(rankType: Int, cid: String): Response<List<Goods>> {
         val parameterMap = TreeMap<String, Any>()
         parameterMap["rankType"] = rankType
-        cid?.let {
-            parameterMap["cid"] = it
-        }
+        parameterMap["cid"] = cid
         return apiCall { goodsApi.rankingList(SignMD5Util.getSignParameterMap(parameterMap)) }
     }
 }

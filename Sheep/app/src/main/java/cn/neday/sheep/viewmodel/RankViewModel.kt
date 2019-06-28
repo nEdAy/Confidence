@@ -30,7 +30,7 @@ class RankViewModel : BaseViewModel() {
         private const val ENABLE_PLACEHOLDERS = false
     }
 
-    fun getRankingList(rankType: Int, cid: String?) {
+    fun getRankingList(rankType: Int, cid: String) {
         launch {
             try {
                 val response = withContext(Dispatchers.IO) { repository.getRankingList(rankType, cid) }

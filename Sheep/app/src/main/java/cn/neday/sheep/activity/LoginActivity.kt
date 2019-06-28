@@ -11,7 +11,6 @@ import cn.smssdk.SMSSDK
 import com.blankj.utilcode.util.*
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.annotations.NotNull
 import java.util.*
 
 
@@ -35,12 +34,9 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         btn_register.setOnClickListener { register() }
         tv_lostPassword.setOnClickListener { resetPassword() }
         tv_sms.setOnClickListener { requestVerificationCode() }
-        ss_login.setOnSelectedChangeListener(new StickySwitch.OnSelectedChangeListener() {
-            @Override
-            public void onSelectedChange(@NotNull StickySwitch.Direction direction, @NotNull String text) {
-                Log.d(TAG, "Now Selected : " + direction.name() + ", Current Text : " + text);
-            }
-        });
+//        ss_login.setOnSelectedChangeListener {
+//
+//        }
         mViewModel.mUser.observe(this, Observer {
             ActivityUtils.finishActivity(this)
         })

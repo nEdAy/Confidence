@@ -8,6 +8,6 @@ import java.util.*
 
 interface GoodsApi {
 
-    @GET("https://openapi.dataoke.com/api/goods/get-ranking-list")
+    @GET("v1/goods/ranking")
     suspend fun rankingList(@QueryMap signParameterMap: SortedMap<String, Any>): Response<List<Goods>>
 }
