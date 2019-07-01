@@ -2,16 +2,18 @@ package redis
 
 import (
 	"Shepherd/config"
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 
 	"github.com/gomodule/redigo/redis"
 )
 
-var RedisConn *redis.Pool
+var redisConn *redis.Pool
 
 func Setup() {
-	RedisConn = &redis.Pool{
+	redisConn = &redis.Pool{
 		MaxIdle:     config.Redis.MaxIdle,
 		MaxActive:   config.Redis.MaxActive,
 		IdleTimeout: config.Redis.IdleTimeout,
@@ -36,7 +38,7 @@ func Setup() {
 }
 
 func Set(key string, data interface{}, time int) error {
-	conn := RedisConn.Get()
+	conn := redisConn.Get()
 	defer conn.Close()
 
 	value, err := json.Marshal(data)
@@ -49,7 +51,7 @@ func Set(key string, data interface{}, time int) error {
 		return err
 	}
 
-	_, err = conn.Do("EXPIRE", key, time)
+	_, err = conn.Do("EXPIRE", key, time*3600) // *小时
 	if err != nil {
 		return err
 	}
@@ -57,7 +59,7 @@ func Set(key string, data interface{}, time int) error {
 }
 
 func Exists(key string) bool {
-	conn := RedisConn.Get()
+	conn := redisConn.Get()
 	defer conn.Close()
 
 	exists, err := redis.Bool(conn.Do("EXISTS", key))
@@ -69,26 +71,25 @@ func Exists(key string) bool {
 }
 
 func Get(key string) ([]byte, error) {
-	conn := RedisConn.Get()
+	conn := redisConn.Get()
 	defer conn.Close()
 
 	reply, err := redis.Bytes(conn.Do("GET", key))
 	if err != nil {
 		return nil, err
 	}
-
 	return reply, nil
 }
 
 func Delete(key string) (bool, error) {
-	conn := RedisConn.Get()
+	conn := redisConn.Get()
 	defer conn.Close()
 
 	return redis.Bool(conn.Do("DEL", key))
 }
 
 func LikeDeletes(key string) error {
-	conn := RedisConn.Get()
+	conn := redisConn.Get()
 	defer conn.Close()
 
 	keys, err := redis.Strings(conn.Do("KEYS", "*"+key+"*"))
@@ -103,4 +104,12 @@ func LikeDeletes(key string) error {
 		}
 	}
 	return nil
+}
+
+func createKeyValuePairs(m map[string]string) string {
+	b := new(bytes.Buffer)
+	for key, value := range m {
+		_, _ = fmt.Fprintf(b, "%s=\"%s\"\n", key, value)
+	}
+	return b.String()
 }
