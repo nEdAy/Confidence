@@ -90,9 +90,9 @@ func loadDataoke() {
 	if err != nil {
 		log.Fatal().Msgf("Fail to get section 'Dataoke': %v", err)
 	}
-	Dataoke.AppSecret = sec.Key("DATAOKE_APP_SECRET").String()
-	Dataoke.AppKey = sec.Key("DATAOKE_APP_KEY").String()
-	Dataoke.Version = sec.Key("DATAOKE_VERSION").String()
+	Dataoke.AppSecret = sec.Key("APP_SECRET").String()
+	Dataoke.AppKey = sec.Key("APP_KEY").String()
+	Dataoke.Version = sec.Key("VERSION").String()
 }
 
 func loadWeChat() {
