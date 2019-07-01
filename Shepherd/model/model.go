@@ -33,6 +33,7 @@ func Setup() {
 			config.Database.Name))
 	if err != nil {
 		log.Fatal().Msg(err.Error())
+		return
 	}
 	// 设置表名前缀
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
@@ -45,9 +46,9 @@ func Setup() {
 		// debug 模式
 		DB = DB.Debug()
 	}
-	// DB.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
-	// DB.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
-	// DB.Callback().Delete().Replace("gorm:delete", deleteCallback)
+	DB.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
+	DB.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
+	DB.Callback().Delete().Replace("gorm:delete", deleteCallback)
 	// 连接池最大连接数
 	DB.DB().SetMaxIdleConns(config.Database.MaxIdleConns)
 	// 默认打开连接数
@@ -74,20 +75,19 @@ func Close() {
 	}
 }
 
-/*
-// updateTimeStampForCreateCallback will set `CreatedOn`, `ModifiedOn` when creating
+// updateTimeStampForCreateCallback will set `create_time`, `modify_time` when creating
 func updateTimeStampForCreateCallback(scope *gorm.Scope) {
 	if !scope.HasError() {
 		nowTime := time.Now().Unix()
-		if createTimeField, ok := scope.FieldByName("CreatedOn"); ok {
+		if createTimeField, ok := scope.FieldByName("create_time"); ok {
 			if createTimeField.IsBlank {
-				createTimeField.Set(nowTime)
+				_ = createTimeField.Set(nowTime)
 			}
 		}
 
-		if modifyTimeField, ok := scope.FieldByName("ModifiedOn"); ok {
+		if modifyTimeField, ok := scope.FieldByName("modify_time"); ok {
 			if modifyTimeField.IsBlank {
-				modifyTimeField.Set(nowTime)
+				_ = modifyTimeField.Set(nowTime)
 			}
 		}
 	}
@@ -95,8 +95,8 @@ func updateTimeStampForCreateCallback(scope *gorm.Scope) {
 
 // updateTimeStampForUpdateCallback will set `ModifiedOn` when updating
 func updateTimeStampForUpdateCallback(scope *gorm.Scope) {
-	if _, ok := scope.Get("gorm:update_column"); !ok {
-		scope.SetColumn("ModifiedOn", time.Now().Unix())
+	if _, ok := scope.Get("gorm:modify_time"); !ok {
+		_ = scope.SetColumn("modify_time", time.Now().Unix())
 	}
 }
 
@@ -107,7 +107,7 @@ func deleteCallback(scope *gorm.Scope) {
 			extraOption = fmt.Sprint(str)
 		}
 
-		deletedOnField, hasDeletedOnField := scope.FieldByName("DeletedOn")
+		deletedOnField, hasDeletedOnField := scope.FieldByName("delete_time")
 
 		if !scope.Search.Unscoped && hasDeletedOnField {
 			scope.Raw(fmt.Sprintf(
@@ -135,4 +135,3 @@ func addExtraSpaceIfExist(str string) string {
 	}
 	return ""
 }
-*/

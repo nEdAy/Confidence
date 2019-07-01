@@ -16,6 +16,7 @@ var (
 	Database database
 	Dataoke  dataoke
 	WeChat   weChat
+	Redis    redis
 )
 
 func Setup() {
@@ -31,6 +32,7 @@ func Setup() {
 	loadDatabase()
 	loadDataoke()
 	loadWeChat()
+	loadRedis()
 }
 
 func loadApp() {
@@ -106,6 +108,18 @@ func loadWeChat() {
 	WeChat.SessionMagicID = sec.Key("SESSION_MAGIC_ID").String()
 }
 
+func loadRedis() {
+	sec, err := Config.GetSection("Redis")
+	if err != nil {
+		log.Fatal().Msgf("Fail to get section 'Redis': %v", err)
+	}
+	Redis.Host = sec.Key("Host").String()
+	Redis.Password = sec.Key("Password").String()
+	Redis.MaxIdle = sec.Key("MaxIdle").MustInt()
+	Redis.MaxActive = sec.Key("MaxActive").MustInt()
+	Redis.IdleTimeout = time.Duration(sec.Key("IdleTimeout").MustInt(30)) * time.Second
+}
+
 type app struct {
 	RunMode      string
 	HmacSecret   string
@@ -146,6 +160,14 @@ type dataoke struct {
 	AppSecret string
 	AppKey    string
 	Version   string
+}
+
+type redis struct {
+	Host        string
+	Password    string
+	MaxIdle     int
+	MaxActive   int
+	IdleTimeout time.Duration
 }
 
 type weChat struct {

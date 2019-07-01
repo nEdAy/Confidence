@@ -4,6 +4,7 @@ import (
 	"Shepherd/config"
 	"Shepherd/logger"
 	"Shepherd/model"
+	"Shepherd/redis"
 	"Shepherd/router"
 	"context"
 	"fmt"
@@ -22,6 +23,8 @@ func init() {
 	config.Setup()
 	// 初始化Database
 	model.Setup()
+	// 初始化Redis
+	redis.Setup()
 	// 初始化Router
 	router.Setup()
 }

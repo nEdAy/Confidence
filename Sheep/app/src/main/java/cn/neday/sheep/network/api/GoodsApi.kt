@@ -9,5 +9,5 @@ import java.util.*
 interface GoodsApi {
 
     @GET("v1/goods/ranking")
-    suspend fun rankingList(@QueryMap signParameterMap: SortedMap<String, Any>): Response<List<Goods>>
+    suspend fun rankingList(@QueryMap parameterMap: Map<String, Any>): Response<List<Goods>>
 }

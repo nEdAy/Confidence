@@ -4,7 +4,6 @@ import cn.neday.sheep.model.Goods
 import cn.neday.sheep.model.Response
 import cn.neday.sheep.network.RetrofitClient
 import cn.neday.sheep.network.api.GoodsApi
-import cn.neday.sheep.util.SignMD5Util
 import java.util.*
 
 /**
@@ -25,9 +24,9 @@ class GoodsRepository : BaseRepository() {
      * @return 返回参数
      */
     suspend fun getRankingList(rankType: Int, cid: String): Response<List<Goods>> {
-        val parameterMap = TreeMap<String, Any>()
+        val parameterMap = HashMap<String, Any>()
         parameterMap["rankType"] = rankType
         parameterMap["cid"] = cid
-        return apiCall { goodsApi.rankingList(SignMD5Util.getSignParameterMap(parameterMap)) }
+        return apiCall { goodsApi.rankingList(parameterMap) }
     }
 }
