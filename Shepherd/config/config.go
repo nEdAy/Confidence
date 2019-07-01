@@ -22,7 +22,7 @@ func Setup() {
 	var err error
 	Config, err = ini.Load("build/app.ini")
 	if err != nil {
-		log.Fatal().Msgf("Fail to parse 'conf/app.ini': %v", err)
+		log.Fatal().Msgf("Fail to parse 'build/app.ini': %v", err)
 	}
 	Config.BlockMode = false // if false, only reading, speed up read operations about 50-70% faster
 	loadApp()
