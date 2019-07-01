@@ -14,5 +14,4 @@ func ResponseWithJsonError(c *gin.Context, msg string) {
 
 func ResponseWithJsonData(c *gin.Context, data interface{}) {
 	c.JSON(http.StatusOK, gin.H{"time": time.Now().Unix(), "code": 0, "msg": "成功", "data": data})
-	return
 }

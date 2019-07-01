@@ -10,15 +10,7 @@ import (
 
 var RedisConn *redis.Pool
 
-func newPool(addr string) *redis.Pool {
-	return &redis.Pool{
-		MaxIdle:     3,
-		IdleTimeout: 240 * time.Second,
-		Dial:        func() (redis.Conn, error) { return redis.Dial("tcp", addr) },
-	}
-}
-
-func Setup() error {
+func Setup() {
 	RedisConn = &redis.Pool{
 		MaxIdle:     config.Redis.MaxIdle,
 		MaxActive:   config.Redis.MaxActive,
@@ -41,7 +33,6 @@ func Setup() error {
 			return err
 		},
 	}
-	return nil
 }
 
 func Set(key string, data interface{}, time int) error {
@@ -62,7 +53,6 @@ func Set(key string, data interface{}, time int) error {
 	if err != nil {
 		return err
 	}
-
 	return nil
 }
 
@@ -112,6 +102,5 @@ func LikeDeletes(key string) error {
 			return err
 		}
 	}
-
 	return nil
 }
