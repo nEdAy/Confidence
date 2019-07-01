@@ -20,6 +20,6 @@ func GetRanking(c *gin.Context) {
 	if err != nil {
 		helper.ResponseWithJsonError(c, err.Error())
 	} else {
-		helper.ResponseWithJsonData(c, ranking)
+		helper.ResponseWithJsonData(c, ranking.String())
 	}
 }
