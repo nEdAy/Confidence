@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"Shepherd/helper"
 	"Shepherd/model"
+	"Shepherd/pkg/helper"
 	"Shepherd/util"
 	"github.com/gin-gonic/gin"
 	"time"
@@ -26,21 +26,21 @@ type register struct {
 func Register(c *gin.Context) {
 	var register register
 	if err := c.ShouldBindJSON(&register); err != nil {
-		helper.ResponseWithJsonError(c, err.Error())
+		helper.ResponseErrorWithMsg(c, err.Error())
 		return
 	}
 	isUserExist, err := model.IsUserExist(register.Username)
 	if err != nil {
-		helper.ResponseWithJsonError(c, err.Error())
+		helper.ResponseErrorWithMsg(c, err.Error())
 		return
 	}
 	if isUserExist {
-		helper.ResponseWithJsonError(c, "用户<"+register.Username+">已注册")
+		helper.ResponseErrorWithMsg(c, "用户<"+register.Username+">已注册")
 		return
 	}
 	token, err := util.CreateToken(register.Username)
 	if err != nil {
-		helper.ResponseWithJsonError(c, err.Error())
+		helper.ResponseErrorWithMsg(c, err.Error())
 		return
 	}
 	user := new(model.User)
@@ -50,9 +50,9 @@ func Register(c *gin.Context) {
 	if err := model.AddUser(user); err == nil {
 		user.Password = ""
 		user.Token = token
-		helper.ResponseWithJsonData(c, user)
+		helper.ResponseJsonWithData(c, user)
 	} else {
-		helper.ResponseWithJsonError(c, err.Error())
+		helper.ResponseErrorWithMsg(c, err.Error())
 	}
 }
 
@@ -62,12 +62,12 @@ func GetUser(c *gin.Context) {
 	if ok {
 		user, err := model.GetUserByUsername(username.(string))
 		if err != nil {
-			helper.ResponseWithJsonError(c, err.Error())
+			helper.ResponseErrorWithMsg(c, err.Error())
 		} else {
-			helper.ResponseWithJsonData(c, user)
+			helper.ResponseJsonWithData(c, user)
 		}
 	} else {
-		helper.ResponseWithJsonError(c, "Token异常，用户名不存在")
+		helper.ResponseErrorWithMsg(c, "Token异常，用户名不存在")
 	}
 }
 
@@ -76,7 +76,7 @@ func GetUser(c *gin.Context) {
 //	list := make([]*model.User, 0)
 //	list, err := model.GetAllUser()
 //	if err != nil {
-//		helper.ResponseWithJsonError(c, err.Error())
+//		helper.ResponseErrorWithMsg(c, err.Error())
 //		return
 //	}
 //	c.JSON(http.StatusOK, list)
@@ -100,25 +100,25 @@ type login struct {
 func Login(c *gin.Context) {
 	var login login
 	if err := c.ShouldBindJSON(&login); err != nil {
-		helper.ResponseWithJsonError(c, err.Error())
+		helper.ResponseErrorWithMsg(c, err.Error())
 		return
 	}
 	user, err := model.GetUserByUsername(login.Username)
 	if err != nil {
-		helper.ResponseWithJsonError(c, err.Error())
+		helper.ResponseErrorWithMsg(c, err.Error())
 		return
 	}
 	if user.Password == util.GetScryptPasswordBase64(login.Password) {
 		token, err := util.CreateToken(user.Username)
 		if err != nil {
-			helper.ResponseWithJsonError(c, err.Error())
+			helper.ResponseErrorWithMsg(c, err.Error())
 			return
 		}
 		user.Password = ""
 		user.Token = token
-		helper.ResponseWithJsonData(c, user)
+		helper.ResponseJsonWithData(c, user)
 	} else {
-		helper.ResponseWithJsonError(c, "账户或密码错误")
+		helper.ResponseErrorWithMsg(c, "账户或密码错误")
 	}
 }
 
@@ -127,12 +127,12 @@ func Login(c *gin.Context) {
 //	id := c.Param("id")
 //	intId, err := strconv.Atoi(id)
 //	if err != nil {
-//		helper.ResponseWithJsonError(c, "输入删除用户id非法")
+//		helper.ResponseErrorWithMsg(c, "输入删除用户id非法")
 //		return
 //	}
 //	err = model.DeleteUser(intId)
 //	if err != nil {
-//		helper.ResponseWithJsonError(c, err.Error())
+//		helper.ResponseErrorWithMsg(c, err.Error())
 //		return
 //	}
 //	c.JSON(http.StatusOK, "ok")

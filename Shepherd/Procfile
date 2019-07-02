@@ -1,1 +1,1 @@
-Shepherd: ./build/Shepherd
+Shepherd: git pull; make linux_build; ./build/Shepherd

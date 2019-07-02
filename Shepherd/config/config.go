@@ -17,6 +17,7 @@ var (
 	Dataoke  dataoke
 	WeChat   weChat
 	Redis    redis
+	Mob      mob
 )
 
 func Setup() {
@@ -33,6 +34,7 @@ func Setup() {
 	loadDataoke()
 	loadWeChat()
 	loadRedis()
+	loadMob()
 }
 
 func loadApp() {
@@ -120,6 +122,14 @@ func loadRedis() {
 	Redis.IdleTimeout = time.Duration(sec.Key("IdleTimeout").MustInt(30)) * time.Second
 }
 
+func loadMob() {
+	sec, err := Config.GetSection("Mob")
+	if err != nil {
+		log.Fatal().Msgf("Fail to get section 'Mob': %v", err)
+	}
+	Mob.AppKey = sec.Key("APP_KEY").String()
+}
+
 type app struct {
 	RunMode      string
 	HmacSecret   string
@@ -175,4 +185,8 @@ type weChat struct {
 	AppID            string
 	AppSecret        string
 	SessionMagicID   string
+}
+
+type mob struct {
+	AppKey string
 }

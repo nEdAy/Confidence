@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"Shepherd/helper"
-	"Shepherd/redis"
+	"Shepherd/pkg/helper"
+	"Shepherd/pkg/redis"
 	"Shepherd/util"
 	"github.com/gin-gonic/gin"
 	"gopkg.in/resty.v1"
@@ -17,7 +17,7 @@ type ranking struct {
 func GetRanking(c *gin.Context) {
 	var ranking ranking
 	if err := c.ShouldBindQuery(&ranking); err != nil {
-		helper.ResponseWithJsonError(c, err.Error())
+		helper.ResponseErrorWithMsg(c, err.Error())
 		return
 	}
 	parameterMap := map[string]string{
@@ -42,13 +42,13 @@ func getRankingSource(c *gin.Context, parameterMap map[string]string, cacheKey s
 		SetQueryParams(util.SignParameterMap(parameterMap)).
 		Get("https://openapi.dataoke.com/api/goods/get-ranking-list")
 	if err != nil {
-		helper.ResponseWithJsonError(c, err.Error())
+		helper.ResponseErrorWithMsg(c, err.Error())
 	} else {
 		if rankingData.IsSuccess() {
 			c.String(http.StatusOK, rankingData.String())
 			_ = redis.Set(cacheKey, rankingData.String(), 2)
 		} else {
-			helper.ResponseWithJsonError(c, "大淘客API异常")
+			helper.ResponseErrorWithMsg(c, "大淘客API异常")
 		}
 	}
 }

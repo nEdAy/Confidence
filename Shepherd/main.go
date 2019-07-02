@@ -2,9 +2,9 @@ package main
 
 import (
 	"Shepherd/config"
-	"Shepherd/logger"
 	"Shepherd/model"
-	"Shepherd/redis"
+	"Shepherd/pkg/logger"
+	"Shepherd/pkg/redis"
 	"Shepherd/router"
 	"context"
 	"fmt"
