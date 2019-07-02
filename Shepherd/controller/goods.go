@@ -5,7 +5,6 @@ import (
 	"Shepherd/redis"
 	"Shepherd/util"
 	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/gin/binding"
 	"gopkg.in/resty.v1"
 	"net/http"
 )
@@ -16,8 +15,8 @@ type ranking struct {
 }
 
 func GetRanking(c *gin.Context) {
-	ranking := new(ranking)
-	if err := c.ShouldBindWith(&ranking, binding.Query); err != nil {
+	var ranking ranking
+	if err := c.ShouldBindQuery(&ranking); err != nil {
 		helper.ResponseWithJsonError(c, err.Error())
 		return
 	}
@@ -25,23 +24,31 @@ func GetRanking(c *gin.Context) {
 		"rankType": ranking.RankType,
 		"cid":      ranking.Cid,
 	}
-	cacheKey := c.Request.RequestURI + ranking.RankType + "_" + ranking.Cid
+	cacheKey := c.Request.RequestURI
 	if redis.Exists(cacheKey) {
 		data, err := redis.Get(cacheKey)
 		if err != nil {
-			helper.ResponseWithJsonError(c, err.Error())
+			getRankingSource(c, parameterMap, cacheKey)
 		} else {
 			c.String(http.StatusOK, string(data))
 		}
 	} else {
-		rankingData, err := resty.R().
-			SetQueryParams(util.SignParameterMap(parameterMap)).
-			Get("https://openapi.dataoke.com/api/goods/get-ranking-list")
-		if err != nil {
-			helper.ResponseWithJsonError(c, err.Error())
-		} else {
-			_ = redis.Set(cacheKey, rankingData.String(), 2)
+		getRankingSource(c, parameterMap, cacheKey)
+	}
+}
+
+func getRankingSource(c *gin.Context, parameterMap map[string]string, cacheKey string) {
+	rankingData, err := resty.R().
+		SetQueryParams(util.SignParameterMap(parameterMap)).
+		Get("https://openapi.dataoke.com/api/goods/get-ranking-list")
+	if err != nil {
+		helper.ResponseWithJsonError(c, err.Error())
+	} else {
+		if rankingData.IsSuccess() {
 			c.String(http.StatusOK, rankingData.String())
+			_ = redis.Set(cacheKey, rankingData.String(), 2)
+		} else {
+			helper.ResponseWithJsonError(c, "大淘客API异常")
 		}
 	}
 }

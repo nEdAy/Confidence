@@ -5,7 +5,6 @@ import (
 	"Shepherd/model"
 	"Shepherd/util"
 	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/gin/binding"
 	"time"
 )
 
@@ -25,8 +24,8 @@ type register struct {
 // @Failure 400 {string} json "{"time": 1561513181, "code": 400, "msg": "msg"}"
 // @Router /v1/register/ [post]
 func Register(c *gin.Context) {
-	register := new(register)
-	if err := c.ShouldBindWith(&register, binding.JSON); err != nil {
+	var register register
+	if err := c.ShouldBindJSON(&register); err != nil {
 		helper.ResponseWithJsonError(c, err.Error())
 		return
 	}
@@ -99,8 +98,8 @@ type login struct {
 // @Failure 400 {string} json "{"time": 1561513181, "code": 400, "msg": "msg"}"
 // @Router /v1/login/ [post]
 func Login(c *gin.Context) {
-	login := new(login)
-	if err := c.ShouldBindWith(&login, binding.JSON); err != nil {
+	var login login
+	if err := c.ShouldBindJSON(&login); err != nil {
 		helper.ResponseWithJsonError(c, err.Error())
 		return
 	}
