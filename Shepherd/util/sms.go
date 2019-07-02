@@ -55,6 +55,8 @@ func VerifySMS(phone string, code string) (bool, error) {
 			return false, CodeIsError
 		case 474:
 			return false, ConfigIsError
+		default:
+			return false, errors.New("校验验证码其他错误")
 		}
 	}
 }
