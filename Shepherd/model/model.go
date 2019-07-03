@@ -15,9 +15,9 @@ var DB *gorm.DB
 
 type Model struct {
 	Id         int   `gorm:"column:id;primary_key" json:"id"`
-	CreateTime int64 `gorm:"column:create_time" json:"create_time"`
-	ModifyTime int64 `gorm:"column:modify_time" json:"modify_time"`
-	DeleteTime int64 `gorm:"column:delete_time" json:"delete_time"`
+	CreateTime int64 `gorm:"column:create_time" json:"create_time,omitempty"`
+	ModifyTime int64 `gorm:"column:modify_time" json:"modify_time,omitempty"`
+	DeleteTime int64 `gorm:"column:delete_time" json:"delete_time,omitempty"`
 }
 
 // 初始化数据库

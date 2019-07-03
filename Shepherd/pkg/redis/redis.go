@@ -51,7 +51,7 @@ func Set(key string, data interface{}, time int) error {
 		return err
 	}
 
-	_, err = conn.Do("EXPIRE", key, time*3600) // *小时
+	_, err = conn.Do("EXPIRE", key, time)
 	if err != nil {
 		return err
 	}
@@ -66,7 +66,6 @@ func Exists(key string) bool {
 	if err != nil {
 		return false
 	}
-
 	return exists
 }
 

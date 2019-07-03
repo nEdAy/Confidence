@@ -8,7 +8,7 @@ import (
 type User struct {
 	Model
 	Username string `gorm:"column:username" json:"username"`
-	Password string `gorm:"column:password" json:"password"`
+	Password string `gorm:"column:password" json:"-"`
 	Token    string `gorm:"-" json:"token"`
 }
 
@@ -27,7 +27,6 @@ func AddUser(m *User) (err error) {
 func GetUserById(id int) (user *User, err error) {
 	user = new(User)
 	if err = DB.First(&user, 10).Error; err == nil {
-		user.Password = ""
 		return user, nil
 	}
 	return nil, err
@@ -37,7 +36,6 @@ func GetUserById(id int) (user *User, err error) {
 func GetUserByUsername(username string) (user *User, err error) {
 	user = new(User)
 	if err = DB.Where("username = ?", username).Find(&user).Error; err == nil {
-		user.Password = ""
 		return user, nil
 	}
 	return nil, err

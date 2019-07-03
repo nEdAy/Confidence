@@ -114,7 +114,6 @@ func Login(c *gin.Context) {
 			helper.ResponseErrorWithMsg(c, err.Error())
 			return
 		}
-		user.Password = ""
 		user.Token = token
 		helper.ResponseJsonWithData(c, user)
 	} else {
