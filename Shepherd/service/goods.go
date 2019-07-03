@@ -7,7 +7,7 @@ import (
 	"gopkg.in/resty.v1"
 )
 
-func GetRanking(cacheKey string, parameterMap map[string]string) (string, error) {
+func GetRanking(cacheKey string, parameterMap map[string]interface{}) (string, error) {
 	rankingData, err := redis.Get(cacheKey)
 	if err != nil {
 		rankingData, err := getRankingSource(parameterMap)
@@ -22,7 +22,7 @@ func GetRanking(cacheKey string, parameterMap map[string]string) (string, error)
 	}
 }
 
-func getRankingSource(parameterMap map[string]string) (string, error) {
+func getRankingSource(parameterMap map[string]interface{}) (string, error) {
 	rankingData, err := resty.R().
 		SetQueryParams(util.SignParameterMap(parameterMap)).
 		Get("https://openapi.dataoke.com/api/goods/get-ranking-list")

@@ -8,7 +8,7 @@ import (
 	"sort"
 )
 
-func SignParameterMap(parameterMap map[string]string) map[string]string {
+func SignParameterMap(parameterMap map[string]interface{}) map[string]string {
 	parameterMap["appKey"] = config.Dataoke.AppKey
 	parameterMap["version"] = config.Dataoke.Version
 	var buffer bytes.Buffer
@@ -25,7 +25,7 @@ func SignParameterMap(parameterMap map[string]string) map[string]string {
 	return parameterMap
 }
 
-func sortedMap(m map[string]string, f func(k string, v interface{})) {
+func sortedMap(m map[string]interface{}, f func(k string, v interface{})) {
 	var keys []string
 	for k := range m {
 		keys = append(keys, k)

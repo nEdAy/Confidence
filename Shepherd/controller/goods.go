@@ -3,6 +3,7 @@ package controller
 import (
 	"Shepherd/pkg/helper"
 	"Shepherd/service"
+	"github.com/fatih/structs"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -18,12 +19,8 @@ func GetRanking(c *gin.Context) {
 		helper.ResponseErrorWithMsg(c, err.Error())
 		return
 	}
-	parameterMap := map[string]string{
-		"rankType": ranking.RankType,
-		"cid":      ranking.Cid,
-	}
 	cacheKey := c.Request.RequestURI
-	rankingData, err := service.GetRanking(cacheKey, parameterMap)
+	rankingData, err := service.GetRanking(cacheKey, structs.Map(ranking))
 	if err != nil {
 		helper.ResponseErrorWithMsg(c, err.Error())
 	} else {
