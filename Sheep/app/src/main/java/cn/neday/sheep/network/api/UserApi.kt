@@ -3,7 +3,6 @@ package cn.neday.sheep.network.api
 
 import cn.neday.sheep.model.Response
 import cn.neday.sheep.model.User
-import cn.neday.sheep.network.repository.UserRepository
 import retrofit2.http.*
 
 /**
@@ -16,20 +15,29 @@ interface UserApi {
     /**
      * 注册
      *
-     * @param login   用户信息（帐号，密码MD5，短信验证码，邀请码）
+     * @param register   用户信息（帐号，密码MD5，短信验证码，邀请码）
      * @return 用户信息（token、id等）
      */
     @POST("register")
-    suspend fun register(@Body login: UserRepository.RegisterModel): Response<User>
+    suspend fun register(@Body register: Map<String, Any>): Response<User>
 
     /**
      * 登录
      *
-     * @param loginModel 用户信息（帐号，密码MD5）
+     * @param login 用户信息（帐号，密码MD5）
      * @return 用户信息（token、id等）
      */
     @POST("login")
-    suspend fun login(@Body loginModel: UserRepository.LoginModel): Response<User>
+    suspend fun login(@Body login: Map<String, Any>): Response<User>
+
+    /**
+     * 登录
+     *
+     * @param login 用户信息（帐号，短信验证码）
+     * @return 用户信息（token、id等）
+     */
+    @POST("loginSms")
+    suspend fun loginSms(@Body login: Map<String, Any>): Response<User>
 
     /**
      * 获取指定条件用户信息

@@ -26,8 +26,10 @@ func Setup() {
 	{
 		// 注册用户
 		v1.POST("/register", controller.Register)
-		// 用户登录
+		// 用户登录(密码)
 		v1.POST("/login", controller.Login)
+		// 用户登录（短信验证码）
+		v1.POST("/loginSms", controller.LoginSms)
 		// 用户相关API
 		user := v1.Group("/user", jwt.JWT())
 		{
