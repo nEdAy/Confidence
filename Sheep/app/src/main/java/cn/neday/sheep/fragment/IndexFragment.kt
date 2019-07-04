@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import cn.neday.sheep.R
 import cn.neday.sheep.activity.LoginActivity
+import cn.neday.sheep.activity.SignInActivity
 import cn.neday.sheep.enum.RankType
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils
@@ -56,7 +57,7 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
 //        })
 
         // Icon
-        // ll_sign.setOnClickListener { ActivityUtils.startActivity(SignActivity::class.java) }
+        ll_sign.setOnClickListener { ActivityUtils.startActivity(SignInActivity::class.java) }
         // ll_shake.setOnClickListener { ActivityUtils.startActivity(ShakeActivity::class.java) }
         ll_shop.setOnClickListener { ActivityUtils.startActivity(LoginActivity::class.java) }
         ll_join.setOnClickListener { CommonUtils.joinQQGroup(activity) }
@@ -84,5 +85,4 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
         super.onPause()
         banner.pauseScroll()
     }
-
 }

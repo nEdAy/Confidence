@@ -1,8 +1,10 @@
 package cn.neday.sheep.activity
 
 import android.text.TextUtils
+import android.view.View
 import androidx.lifecycle.Observer
 import cn.neday.sheep.R
+import cn.neday.sheep.config.HawkConfig.TOKEN
 import cn.neday.sheep.util.CommonUtils
 import cn.neday.sheep.view.ClearEditText
 import cn.neday.sheep.viewmodel.LoginViewModel
@@ -32,12 +34,14 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         iv_login_bg.setOnClickListener { KeyboardUtils.hideSoftInput(this) }
         btn_login.setOnClickListener { login() }
         btn_register.setOnClickListener { register() }
+        tv_change_login_way.setOnClickListener { changeLoginWay() }
         tv_lostPassword.setOnClickListener { resetPassword() }
         tv_sms.setOnClickListener { requestVerificationCode() }
 //        ss_login.setOnSelectedChangeListener {
 //
 //        }
         mViewModel.mUser.observe(this, Observer {
+            Hawk.put(TOKEN, it.token)
             ActivityUtils.finishActivity(this)
         })
     }
@@ -86,6 +90,22 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                 mViewModel.register(username, password, "", "")
             } else {
                 ToastUtils.showShort(R.string.network_tips)
+            }
+        }
+
+        // getVoiceVerifyCode
+    }
+
+    private fun changeLoginWay() {
+        if (btn_login.visibility == View.VISIBLE) {
+            if (tv_change_login_way.text == getString(R.string.tx_change_login_via_password)) {
+                tv_change_login_way.text = getString(R.string.tx_change_login_via_sms_code)
+                rl_sms.visibility = View.VISIBLE
+                til_password.visibility = View.GONE
+            } else {
+                tv_change_login_way.text = getString(R.string.tx_change_login_via_password)
+                til_password.visibility = View.VISIBLE
+                rl_sms.visibility = View.GONE
             }
         }
     }
@@ -209,6 +229,12 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                     when (event) {
                         SMSSDK.EVENT_GET_VERIFICATION_CODE -> {
                             // 获取验证码成功
+                            val smart = data as Boolean
+                            if (smart) {
+                                //通过Mob云验证
+                            } else {
+                                //依然走短信验证
+                            }
                         }
                         SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE -> {
                             // 提交验证码成功

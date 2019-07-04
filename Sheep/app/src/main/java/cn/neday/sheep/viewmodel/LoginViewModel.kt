@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import cn.neday.sheep.model.User
 import cn.neday.sheep.network.repository.UserRepository
 import com.blankj.utilcode.util.EncryptUtils
-import com.orhanobut.hawk.Hawk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -30,7 +29,6 @@ class LoginViewModel : BaseViewModel() {
                     withContext(Dispatchers.IO) { repository.register(username, passwordMD5, smsCode, inviteCode) }
                 executeResponse(response, {
                     mUser.value = response.data
-                    Hawk.put("currentUser", response.data)
                 }, { mErrMsg.value = response.msg })
             } catch (t: Throwable) {
                 t.printStackTrace()
@@ -51,7 +49,6 @@ class LoginViewModel : BaseViewModel() {
                 val response = withContext(Dispatchers.IO) { repository.login(username, passwordMD5) }
                 executeResponse(response, {
                     mUser.value = response.data
-                    Hawk.put("token", response.data?.token)
                 }, { mErrMsg.value = response.msg })
             } catch (t: Throwable) {
                 t.printStackTrace()

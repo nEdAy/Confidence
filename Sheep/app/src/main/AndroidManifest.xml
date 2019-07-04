@@ -23,6 +23,7 @@
             tools:targetApi="m">
 
         <activity android:name=".activity.SplashActivity"
+                  android:launchMode="singleTask"
                   android:screenOrientation="portrait"
                   android:theme="@style/SplashTheme">
             <intent-filter>
@@ -37,19 +38,32 @@
 
         <activity android:name=".activity.GuideActivity"
                   android:screenOrientation="portrait"
+                  android:launchMode="singleTask"
                   android:theme="@style/FullscreenTheme"/>
 
         <activity android:name=".activity.MainActivity"
+                  android:launchMode="singleTask"
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.LoginActivity"
+                  android:launchMode="singleTop"
                   android:screenOrientation="portrait"
                   android:theme="@style/FullscreenTheme"/>
 
+        <activity android:name=".activity.SearchResultActivity"
+                  android:launchMode="singleTop"
+                  android:screenOrientation="portrait"/>
+
         <activity android:name=".activity.GoodsDetailsActivity"
+                  android:launchMode="singleTop"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.SignInActivity"
+                  android:launchMode="singleTop"
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.AboutActivity"
+                  android:launchMode="singleTop"
                   android:screenOrientation="portrait"/>
     </application>
 </manifest>

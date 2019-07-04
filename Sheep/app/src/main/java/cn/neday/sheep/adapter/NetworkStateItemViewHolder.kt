@@ -56,7 +56,7 @@ class NetworkStateItemViewHolder(
 
         fun create(parent: ViewGroup, retryCallback: () -> Unit): NetworkStateItemViewHolder {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.network_state_item, parent, false)
+                .inflate(R.layout.list_item_network_state, parent, false)
             return NetworkStateItemViewHolder(view, retryCallback)
         }
 

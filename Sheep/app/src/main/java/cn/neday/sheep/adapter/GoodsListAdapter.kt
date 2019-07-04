@@ -22,7 +22,7 @@ class GoodsListAdapter(private val retryCallback: () -> Unit) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
             R.layout.list_item_goods -> (holder as GoodsViewHolder).bind(getItem(position))
-            R.layout.network_state_item -> (holder as NetworkStateItemViewHolder).bindTo(
+            R.layout.list_item_network_state -> (holder as NetworkStateItemViewHolder).bindTo(
                 networkState
             )
         }
@@ -40,7 +40,7 @@ class GoodsListAdapter(private val retryCallback: () -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             R.layout.list_item_goods -> GoodsViewHolder.create(parent)
-            R.layout.network_state_item -> NetworkStateItemViewHolder.create(parent, retryCallback)
+            R.layout.list_item_network_state -> NetworkStateItemViewHolder.create(parent, retryCallback)
             else -> throw IllegalArgumentException("unknown view type $viewType")
         }
     }
@@ -49,7 +49,7 @@ class GoodsListAdapter(private val retryCallback: () -> Unit) :
 
     override fun getItemViewType(position: Int): Int {
         return if (hasExtraRow() && position == itemCount - 1) {
-            R.layout.network_state_item
+            R.layout.list_item_network_state
         } else {
             R.layout.list_item_goods
         }

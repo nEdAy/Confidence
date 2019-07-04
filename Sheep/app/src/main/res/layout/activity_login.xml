@@ -145,8 +145,38 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-            <Button
-                    android:id="@+id/btn_register"
+            <LinearLayout
+                    android:id="@+id/ll_login_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:id="@+id/tv_change_login_way"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/calibri"
+                        android:text="@string/tx_change_login_via_password"
+                        android:padding="16dp"
+                        android:textAlignment="viewStart"
+                        android:textColor="#96ffffff"
+                        android:textSize="16sp"/>
+
+                <Button
+                        android:id="@+id/btn_login"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/button_shape_white_bg"
+                        android:fontFamily="@font/calibri"
+                        android:text="@string/tx_login"
+                        android:textAllCaps="false"
+                        android:textColor="#96ffffff"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+            </LinearLayout>
+
+            <Button android:id="@+id/btn_register"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -154,19 +184,6 @@
                     android:background="@drawable/button_shape_white_bg"
                     android:fontFamily="@font/calibri"
                     android:text="@string/tx_register"
-                    android:textAllCaps="false"
-                    android:textColor="#96ffffff"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
-
-            <Button
-                    android:id="@+id/btn_login"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:background="@drawable/button_shape_white_bg"
-                    android:fontFamily="@font/calibri"
-                    android:text="@string/tx_login"
                     android:textAllCaps="false"
                     android:textColor="#96ffffff"
                     android:textSize="16sp"

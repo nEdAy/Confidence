@@ -35,6 +35,8 @@
     <string name="tx_logout">退出登录</string>
     <string name="tx_back">返回</string>
     <string name="tx_cancel">取 消</string>
+    <string name="tx_change_login_via_password">切换密码登录</string>
+    <string name="tx_change_login_via_sms_code">切换短信验证码登录</string>
     <string name="tx_lost_password">忘记密码</string>
     <string name="tx_hint_password">请输入登录密码</string>
     <string name="toast_error_password_verify_error">两次新密码输入不相同</string>
