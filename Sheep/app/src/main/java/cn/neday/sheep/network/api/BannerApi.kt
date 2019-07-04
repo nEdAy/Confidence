@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface BannerApi {
 
-    @GET("v1/banner")
+    @GET("banner")
     suspend fun bannerList(): Response<List<Banner>>
 }

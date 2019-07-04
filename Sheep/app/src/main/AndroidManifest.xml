@@ -36,12 +36,17 @@
         </activity>
 
         <activity android:name=".activity.GuideActivity"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"
+                  android:theme="@style/FullscreenTheme"/>
 
         <activity android:name=".activity.MainActivity"
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.LoginActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/FullscreenTheme"/>
+
+        <activity android:name=".activity.GoodsDetailsActivity"
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.AboutActivity"

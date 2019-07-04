@@ -1,16 +1,11 @@
 package cn.neday.sheep.util
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.text.TextUtils
 import android.view.View
 import android.view.animation.CycleInterpolator
 import android.view.animation.TranslateAnimation
-import cn.neday.sheep.R
-import com.blankj.utilcode.util.ToastUtils
-
 import java.math.BigDecimal
 
 /**
@@ -44,34 +39,6 @@ object CommonUtils {
         translateAnimation.interpolator = CycleInterpolator(5f)//抖5下
         translateAnimation.duration = 1000
         view.startAnimation(translateAnimation)
-    }
-
-    /**
-     * 启动到app应用商店详情界面
-     *
-     *
-     * 主流应用商店对应的包名如下：
-     * com.qihoo.appstore  360手机助手
-     * com.taobao.appcenter    淘宝手机助手
-     * com.tencent.android.qqdownloader    应用宝
-     * com.hiapk.marketpho 安卓市场
-     * cn.goapk.market 安智市场
-     *
-     * @param marketPkg 应用商店包名 ,如果为""则由系统弹出应用商店列表供用户选择,否则调转到目标市场的应用详情界面，某些应用商店可能会失败
-     */
-    fun launchAppDetail(mContext: Context?, marketPkg: String?) {
-        try {
-            val uri = Uri.parse("market://details?id=" + mContext?.packageName)
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            if (!TextUtils.isEmpty(marketPkg)) {
-                intent.setPackage(marketPkg)
-            }
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            mContext?.startActivity(intent)
-        } catch (e: Exception) {
-            ToastUtils.showLong(mContext?.getString(R.string.tx_not_found_app_market))
-        }
-
     }
 
     /**

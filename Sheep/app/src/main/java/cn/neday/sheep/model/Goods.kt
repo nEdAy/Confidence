@@ -63,8 +63,8 @@ data class Goods(
     val tbcid: Int,
     // 折扣力度	Number	0.74
     val discounts: Double,
-    // 佣金比例	Number	20
-    val commissionRate: Int,
+    // 佣金比例	Number	20.01
+    val commissionRate: Double,
     // 券总量	Number	7000
     val couponTotalNum: Int,
     // 是否海淘，1-海淘商品，0-非海淘商品	Number	0

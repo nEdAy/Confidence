@@ -11,6 +11,7 @@ import (
 // Binding from Register JSON
 type register struct {
 	Username string `json:"username" binding:"required"`
+	SmsCode string `json:"smsCode" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
 

@@ -2,14 +2,15 @@ package cn.neday.sheep.network.repository
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.Transformations
+import androidx.paging.Config
 import androidx.paging.toLiveData
 import cn.neday.sheep.model.Goods
+import cn.neday.sheep.model.Listing
 import cn.neday.sheep.model.RankGoods
 import cn.neday.sheep.model.Response
 import cn.neday.sheep.network.RetrofitClient
 import cn.neday.sheep.network.api.GoodsApi
-import java.util.*
-import java.util.concurrent.Executors
+import cn.neday.sheep.network.datasource.GoodsDataSourceFactory
 
 /**
  * RankGoods Repository
@@ -20,37 +21,33 @@ class GoodsRepository : BaseRepository() {
 
     private val goodsApi: GoodsApi by lazy { RetrofitClient().getRetrofit(GoodsApi::class.java) }
 
-    /**
-     * 各大榜单
-     * 实时销量榜等特色榜单。该接口包含大淘客平台的实时销量榜全天销量榜及热推榜，接口实时更新，推荐最新的榜单商品
-     *
-     * @param rankType 榜单类型 是 Number 1.实时销量榜 2.全天销量榜 3.热推榜
-     * @param cid 大淘客一级类目id 否 Number 实时销量榜和全天销量榜支持传入分类返回分类榜数据
-     * @return 返回参数
-     */
     suspend fun getRankingList(rankType: Int, cid: String): Response<List<RankGoods>> {
-        val parameterMap = HashMap<String, Any>()
-        parameterMap["rankType"] = rankType
-        parameterMap["cid"] = cid
-        return apiCall { goodsApi.rankingList(parameterMap) }
+        return apiCall { goodsApi.rankingList(rankType, cid) }
     }
 
-    // thread pool used for network requests
-    @Suppress("PrivatePropertyName")
-    private val NETWORK_IO = Executors.newFixedThreadPool(5)
+    suspend fun getListSimilerGoodsByOpen(id: Int, size: Int): Response<List<Goods>> {
+        return apiCall { goodsApi.listSimilerGoodsByOpen(id, size) }
+    }
+
+    suspend fun getListSuperGoods(
+        type: Int, keyWords: String,
+        tmall: Int, haitao: Int, sort: String
+    ): Response<List<Goods>> {
+        return apiCall { goodsApi.listSuperGoods(type, keyWords, tmall, haitao, sort) }
+    }
 
     @MainThread
-    fun getNineOpGoodsList(pageSize: Int, cid: String): Listing<Goods> {
-        val sourceFactory = GoodsDataSourceFactory(goodsApi, cid, NETWORK_IO)
-
+    fun getNineOpGoodsList(cid: String): Listing<Goods> {
+        val sourceFactory = GoodsDataSourceFactory(goodsApi, cid)
         // We use toLiveData Kotlin extension function here, you could also use LivePagedListBuilder
         val livePagedList = sourceFactory.toLiveData(
-            pageSize = pageSize,
-            // provide custom executor for network requests, otherwise it will default to
-            // Arch Components' IO pool which is also used for disk access
-            fetchExecutor = NETWORK_IO
+            config = Config(
+                pageSize = PAGE_SIZE,
+                prefetchDistance = PREFETCH_DISTANCE,
+                enablePlaceholders = true,
+                initialLoadSizeHint = PAGE_SIZE * INITIAL_PAGE_MULTIPLIER
+            )
         )
-
         val refreshState = Transformations.switchMap(sourceFactory.sourceLiveData) {
             it.initialLoad
         }
@@ -67,5 +64,12 @@ class GoodsRepository : BaseRepository() {
             },
             refreshState = refreshState
         )
+    }
+
+    companion object {
+        // 默认100 ，可选范围：10,50,100,200，如果小于10按10处理，大于200按照200处理，其它非范围内数字按100处理
+        private const val PAGE_SIZE = 10
+        private const val PREFETCH_DISTANCE = 3
+        private const val INITIAL_PAGE_MULTIPLIER = 3
     }
 }

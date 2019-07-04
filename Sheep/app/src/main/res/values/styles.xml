@@ -8,12 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="SplashTheme" parent="@style/AppTheme">
+    <style name="FullscreenTheme" parent="@style/AppTheme">
         <!-- splash background image-->
-        <item name="android:windowBackground">@drawable/bg_welcome_page</item>
+        <item name="colorPrimary">@null</item>
+        <item name="colorPrimaryDark">@null</item>
+        <item name="colorAccent">@null</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <style name="SplashTheme" parent="@style/FullscreenTheme">
+        <!-- splash background image-->
+        <item name="android:windowBackground">@drawable/bg_welcome_page</item>
     </style>
 
     <style name="EditScreenTextInputLayoutStyle" parent="Theme.AppCompat.Light.NoActionBar">

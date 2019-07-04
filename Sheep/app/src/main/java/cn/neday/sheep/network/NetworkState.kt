@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.neday.sheep.network.repository
+package cn.neday.sheep.network
 
 enum class Status {
     RUNNING,
@@ -24,8 +24,9 @@ enum class Status {
 
 @Suppress("DataClassPrivateConstructor")
 data class NetworkState private constructor(
-        val status: Status,
-        val msg: String? = null) {
+    val status: Status,
+    val msg: String? = null
+) {
     companion object {
         val LOADED = NetworkState(Status.SUCCESS)
         val LOADING = NetworkState(Status.RUNNING)

@@ -19,7 +19,7 @@ interface UserApi {
      * @param login   用户信息（帐号，密码MD5，短信验证码，邀请码）
      * @return 用户信息（token、id等）
      */
-    @POST("v1/register")
+    @POST("register")
     suspend fun register(@Body login: UserRepository.RegisterModel): Response<User>
 
     /**
@@ -28,7 +28,7 @@ interface UserApi {
      * @param loginModel 用户信息（帐号，密码MD5）
      * @return 用户信息（token、id等）
      */
-    @POST("v1/login")
+    @POST("login")
     suspend fun login(@Body loginModel: UserRepository.LoginModel): Response<User>
 
     /**
@@ -37,7 +37,7 @@ interface UserApi {
      * @param options 参数
      * @return 用户信息
      */
-    @GET("v1/user")
+    @GET("user")
     suspend fun queryUser(@QueryMap options: Map<String, Any>): Response<User>
 
     /**
@@ -46,7 +46,7 @@ interface UserApi {
      * @param objectId 用户ID
      * @return 用户信息
      */
-    @GET("users/{objectId}")
+    @GET("user/{objectId}")
     suspend fun getUser(@Path("objectId") objectId: String): Response<User>
 
     /**
@@ -56,7 +56,7 @@ interface UserApi {
      * @param include  指定返回字段
      * @return 对应信息
      */
-    @GET("users/{objectId}")
+    @GET("user/{objectId}")
     suspend fun getUser(@Path("objectId") objectId: String, @Query("include") include: String): Response<User>
 
     /**
@@ -66,7 +66,7 @@ interface UserApi {
      * @param user     需要更新的用户信息
      * @return 回调信息 "updatedAt": YYYY-mm-dd HH:ii:ss
      */
-    @PUT("users/{objectId}")
+    @PUT("user/{objectId}")
     suspend fun updateUser(@Path("objectId") objectId: String, @Body user: User): Response<User>
 
     /**
@@ -77,7 +77,7 @@ interface UserApi {
      * @param code     验证码
      * @return 回调信息
      */
-    @PUT("users")
+    @PUT("user")
     suspend fun resetUserPassword(
         @Query("username") username: String,
         @Query("password") password: String, @Query("code") code: String
@@ -91,7 +91,7 @@ interface UserApi {
      * @param newPassword 新密码(MD5后)
      * @return 回调信息
      */
-    @PUT("users/{objectId}")
+    @PUT("user/{objectId}")
     suspend fun updateUserPassword(
         @Path("objectId") objectId: String,
         @Query("oldPassword") oldPassword: String, @Query("newPassword") newPassword: String

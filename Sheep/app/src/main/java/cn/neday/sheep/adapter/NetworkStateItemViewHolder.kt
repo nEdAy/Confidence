@@ -24,8 +24,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.neday.sheep.R
-import cn.neday.sheep.network.repository.NetworkState
-import cn.neday.sheep.network.repository.Status
+import cn.neday.sheep.network.NetworkState
+import cn.neday.sheep.network.Status
 
 /**
  * A View Holder that can display a loading or have click action.

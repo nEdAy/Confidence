@@ -6,7 +6,7 @@ import cn.neday.sheep.R
 import cn.neday.sheep.adapter.GoodsListAdapter
 import cn.neday.sheep.enum.NineType
 import cn.neday.sheep.model.Goods
-import cn.neday.sheep.network.repository.NetworkState
+import cn.neday.sheep.network.NetworkState
 import cn.neday.sheep.viewmodel.NineGoodsListViewModel
 import kotlinx.android.synthetic.main.fragment_goods_list.*
 

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import cn.neday.sheep.R
 import cn.neday.sheep.model.Goods
-import cn.neday.sheep.network.repository.NetworkState
+import cn.neday.sheep.network.NetworkState
 
 
 /**

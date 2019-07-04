@@ -1,10 +1,9 @@
-package cn.neday.sheep.network.repository
+package cn.neday.sheep.network.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import cn.neday.sheep.model.Goods
 import cn.neday.sheep.network.api.GoodsApi
-import java.util.concurrent.Executor
 
 /**
  * A simple data source factory which also provides a way to observe the last created data source.
@@ -13,14 +12,13 @@ import java.util.concurrent.Executor
  */
 class GoodsDataSourceFactory(
     private val goodsApi: GoodsApi,
-    private val cid: String,
-    private val retryExecutor: Executor
+    private val cid: String
 ) : DataSource.Factory<String, Goods>() {
 
     val sourceLiveData = MutableLiveData<GoodsDataSource>()
 
     override fun create(): DataSource<String, Goods> {
-        val source = GoodsDataSource(goodsApi, cid, retryExecutor)
+        val source = GoodsDataSource(goodsApi, cid)
         sourceLiveData.postValue(source)
         return source
     }

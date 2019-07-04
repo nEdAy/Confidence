@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package cn.neday.sheep.network.repository
+package cn.neday.sheep.model
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
+import cn.neday.sheep.network.NetworkState
 
 /**
  * Data class that is necessary for a UI to show a listing and interact w/ the rest of the system

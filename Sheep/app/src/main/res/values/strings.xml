@@ -18,6 +18,8 @@
     <string name="tx_login_title_day">Good Morning</string>
     <string name="tx_login_title_night">Good Night</string>
 
+    <string name="tx_retry">重试</string>
+
     <string name="tx_pressed_back_hint">再按一次退出程序</string>
     <string name="tx_not_found_app_market">找不到您的应用商店</string>
     <string name="tx_exit_guide">立即体验</string>
