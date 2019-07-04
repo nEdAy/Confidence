@@ -7,6 +7,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.text.TextUtils
 import cn.neday.sheep.BuildConfig
+import cn.neday.sheep.R
 import com.alibaba.baichuan.android.trade.AlibcTrade
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback
@@ -115,8 +116,7 @@ class AliTradeHelper(private val activity: Activity?) {
             } else if (tradeResult.resultType == AlibcResultType.TYPEPAY) {
                 val orderId = tradeResult.payResult.paySuccessOrders.toString()
                 // 复制数据到剪切板
-                val mClipboardManager = activity?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
-                mClipboardManager?.primaryClip = ClipData.newPlainText("text", orderId)
+                ClipboardUtils.copyText(orderId)
                 ToastUtils.showShort("支付成功,已复制订单号" + orderId + "到剪切板")
             }
             // 打开电商组件，用户操作中成功信息回调。tradeResult：成功信息（结果类型：加购，支付；支付结果）

@@ -48,7 +48,7 @@ class GoodsDataSource(
         GlobalScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    getNineOpGoodsList(params.requestedLoadSize, params.key, "-1")
+                    getNineOpGoodsList(params.requestedLoadSize, params.key, cid)
                 }
                 executeResponse(response, {
                     val data = response.data
