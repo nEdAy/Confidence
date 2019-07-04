@@ -33,9 +33,9 @@ func GetRankingList(c *gin.Context) {
 }
 
 type nineOpGoodsList struct {
-	pageSize string `form:"pageSize" binding:"required"`
-	pageId   string `form:"pageId" binding:"required"`
-	cid      string `form:"cid" binding:"required"`
+	PageSize string `form:"pageSize" binding:"required"`
+	PageId   string `form:"pageId" binding:"required"`
+	Cid      string `form:"cid" binding:"required"`
 }
 
 func GetNineOpGoodsList(c *gin.Context) {
@@ -49,9 +49,9 @@ func GetNineOpGoodsList(c *gin.Context) {
 		2 * 60,
 		"https://openapi.dataoke.com/api/goods/nine/op-goods-list",
 		map[string]string{
-			"pageSize": nineOpGoodsList.pageSize,
-			"pageId":   nineOpGoodsList.pageId,
-			"cid":      nineOpGoodsList.cid,
+			"pageSize": nineOpGoodsList.PageSize,
+			"pageId":   nineOpGoodsList.PageId,
+			"cid":      nineOpGoodsList.Cid,
 		}})
 	if err != nil {
 		helper.ResponseErrorWithMsg(c, err.Error())

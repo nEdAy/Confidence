@@ -1,19 +1,31 @@
 package cn.neday.sheep.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import cn.neday.sheep.model.Goods
+import androidx.lifecycle.Transformations
 import cn.neday.sheep.network.repository.GoodsRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class NineGoodsListViewModel : BaseViewModel() {
 
-    val mGoods: MutableLiveData<List<Goods>> = MutableLiveData()
-    val mPageId: MutableLiveData<String> = MutableLiveData()
-    val mTotalNum: MutableLiveData<Int> = MutableLiveData()
+    private val mRepository by lazy { GoodsRepository() }
 
-    private val pageId: String = "1"
-    private val repository by lazy { GoodsRepository() }
+    private val mCid = MutableLiveData<String>()
+
+    private val mRepoResult = Transformations.map(mCid) {
+        mRepository.getNineOpGoodsList(PAGE_SIZE, it)
+    }
+
+    val posts = Transformations.switchMap(mRepoResult) { it.pagedList }
+    val networkState = Transformations.switchMap(mRepoResult) { it.networkState }
+    val refreshState = Transformations.switchMap(mRepoResult) { it.refreshState }
+
+    fun refresh() {
+        mRepoResult.value?.refresh?.invoke()
+    }
+
+    fun retry() {
+        val listing = mRepoResult.value
+        listing?.retry?.invoke()
+    }
 
 //    val rankGoods = LivePagedListBuilder(
 //        mRankGoods, PagedList.Config.Builder()
@@ -29,22 +41,9 @@ class NineGoodsListViewModel : BaseViewModel() {
     companion object {
         // 默认100 ，可选范围：10,50,100,200，如果小于10按10处理，大于200按照200处理，其它非范围内数字按100处理
         private const val PAGE_SIZE = 10
-        prefetchDistance
-        private const val ENABLE_PLACEHOLDERS = false
     }
 
-    fun getNineOpGoodsList(cid: String) {
-        launch {
-            try {
-                val response = withContext(Dispatchers.IO) { repository.getNineOpGoodsList(PAGE_SIZE, pageId, cid) }
-                executeResponse(response, {
-                    mGoods.value = response.data?.list
-                    mTotalNum.value = response.data?.totalNum
-                    mPageId.value = response.data?.pageId
-                }, { mErrMsg.value = response.msg })
-            } catch (t: Throwable) {
-                t.printStackTrace()
-            }
-        }
+    fun showNineOpGoodsList(cid: String) {
+        mCid.value = cid
     }
 }

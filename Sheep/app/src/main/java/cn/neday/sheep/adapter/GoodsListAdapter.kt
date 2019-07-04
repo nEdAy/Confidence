@@ -1,26 +1,12 @@
 package cn.neday.sheep.adapter
 
-import android.annotation.SuppressLint
-import android.net.Uri
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import cn.neday.sheep.R
 import cn.neday.sheep.model.Goods
-import cn.neday.sheep.util.AliTradeHelper
-import cn.neday.sheep.util.CommonUtils.getPrettyNumber
-import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.NetworkUtils
-import com.blankj.utilcode.util.StringUtils
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.list_item_ranking.view.*
-import java.util.concurrent.TimeUnit
+import cn.neday.sheep.network.repository.NetworkState
 
 
 /**
@@ -28,104 +14,74 @@ import java.util.concurrent.TimeUnit
  *
  * @author nEdAy
  */
-class GoodsListAdapter : PagedListAdapter<Goods, GoodsListAdapter.ViewHolder>(GoodsDiffCallback()) {
+class GoodsListAdapter(private val retryCallback: () -> Unit) :
+    PagedListAdapter<Goods, RecyclerView.ViewHolder>(GOODS_DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_goods, parent, false)
-        return ViewHolder(view)
-    }
+    private var networkState: NetworkState? = null
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val goods = getItem(position)
-        if (goods != null) {
-            holder.bind(goods)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (getItemViewType(position)) {
+            R.layout.list_item_goods -> (holder as GoodsViewHolder).bind(getItem(position))
+            R.layout.network_state_item -> (holder as NetworkStateItemViewHolder).bindTo(
+                networkState
+            )
         }
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(goods: Goods) {
-            itemView.run {
-                tv_title.text = goods.dtitle
-                tv_money.text = goods.actualPrice.toString()
-                tv_sales_num.text = StringUtils.getString(R.string.tx_goods_monthSales, goods.monthSales)
-                tx_get_value.text =
-                    StringUtils.getString(R.string.tx_goods_couponPrice, getPrettyNumber(goods.couponPrice))
-                tv_mall_name.text = StringUtils.getString(
-                    if (goods.shopType == 1) {
-                        R.string.tx_tianmao
-                    } else {
-                        R.string.tx_taobao
-                    }
-                )
-                lv_text.visibility = if (goods.monthSales >= 10000) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
-                Glide.with(this)
-                    .load(convertPicUrlToUri(goods.mainPic))
-                    .apply(RequestOptions().circleCrop())
-                    .into(iv_img_shower)
-                setOnClickListener {
-                    // ActivityUtils.startActivity(GoodsDetailsActivity::class.java)
-                }
-                setOnLongClickListener {
-                    AliTradeHelper((ActivityUtils.getActivityByView(this))).showAddCartPage(goods.goodsId.toString())
-                    true
-                }
-                ll_get.setOnClickListener {
-                    AliTradeHelper(ActivityUtils.getActivityByView(this)).showItemURLPage(goods.couponLink)
-                    changePressedViewBg(it, R.drawable.bg_get_btn, R.drawable.bg_get_btn_pressed)
-                }
-                tx_buy_url.setOnClickListener {
-                    if (goods.commissionType == 1) { //todo: commissionType??
-                        AliTradeHelper(ActivityUtils.getActivityByView(this)).showItemURLPage("http://www.neday.cn/index.php?r=p/d&id=" + goods.id)
-                    } else {
-                        AliTradeHelper(ActivityUtils.getActivityByView(this)).showDetailPage(goods.goodsId)
-                    }
-                    changePressedViewBg(it, R.drawable.bg_buy_btn, R.drawable.bg_buy_btn_pressed)
-                }
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
+        if (payloads.isNotEmpty()) {
+            val item = getItem(position)
+            (holder as GoodsViewHolder).update(item)
+        } else {
+            onBindViewHolder(holder, position)
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            R.layout.list_item_goods -> GoodsViewHolder.create(parent)
+            R.layout.network_state_item -> NetworkStateItemViewHolder.create(parent, retryCallback)
+            else -> throw IllegalArgumentException("unknown view type $viewType")
+        }
+    }
+
+    private fun hasExtraRow() = networkState != null && networkState != NetworkState.LOADED
+
+    override fun getItemViewType(position: Int): Int {
+        return if (hasExtraRow() && position == itemCount - 1) {
+            R.layout.network_state_item
+        } else {
+            R.layout.list_item_goods
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return super.getItemCount() + if (hasExtraRow()) 1 else 0
+    }
+
+    fun setNetworkState(newNetworkState: NetworkState?) {
+        val previousState = this.networkState
+        val hadExtraRow = hasExtraRow()
+        this.networkState = newNetworkState
+        val hasExtraRow = hasExtraRow()
+        if (hadExtraRow != hasExtraRow) {
+            if (hadExtraRow) {
+                notifyItemRemoved(super.getItemCount())
+            } else {
+                notifyItemInserted(super.getItemCount())
             }
-        }
-
-        /**
-         * 点击时修改子控件背景样式并在0.5s后恢复
-         *
-         * @param view       要修改的子控件
-         * @param bg         要恢复的背景
-         * @param bgPressed 要变化的背景
-         */
-        @SuppressLint("CheckResult")
-        private fun changePressedViewBg(view: View, bg: Int, bgPressed: Int) {
-            view.isPressed = true
-            view.setBackgroundResource(bgPressed)
-            Observable.timer(500, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    view.isPressed = false
-                    view.setBackgroundResource(bg)
-                }
-        }
-
-        companion object {
-            private fun convertPicUrlToUri(picUrl: String): Uri {
-                return if (NetworkUtils.is4G()) {
-                    Uri.parse(picUrl + StringUtils.getString(R.string._200x200_jpg))
-                } else {
-                    Uri.parse(picUrl + StringUtils.getString(R.string._300x300_jpg))
-                }
-            }
+        } else if (hasExtraRow && previousState != newNetworkState) {
+            notifyItemChanged(itemCount - 1)
         }
     }
-}
 
-private class GoodsDiffCallback : DiffUtil.ItemCallback<Goods>() {
+    companion object {
+        val GOODS_DIFF_CALLBACK = object : DiffUtil.ItemCallback<Goods>() {
+            override fun areContentsTheSame(oldItem: Goods, newItem: Goods): Boolean =
+                oldItem == newItem
 
-    override fun areItemsTheSame(oldItem: Goods, newItem: Goods): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Goods, newItem: Goods): Boolean {
-        return oldItem == newItem
+            override fun areItemsTheSame(oldItem: Goods, newItem: Goods): Boolean =
+                oldItem.id == newItem.id
+        }
     }
 }

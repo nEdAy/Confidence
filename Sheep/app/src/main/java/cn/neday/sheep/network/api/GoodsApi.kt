@@ -13,5 +13,5 @@ interface GoodsApi {
     suspend fun rankingList(@QueryMap parameterMap: HashMap<String, Any>): Response<List<RankGoods>>
 
     @GET("goods/nine/op-goods-list")
-    suspend fun nineOpGoodsList(@QueryMap parameterMap: HashMap<String, Any>): Response<Pages<List<Goods>>>
+    suspend fun nineOpGoodsList(@QueryMap parameterMap: HashMap<String, Any>): Response<Pages<Goods>>
 }
