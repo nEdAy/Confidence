@@ -3,7 +3,6 @@ package controller
 import (
 	"Shepherd/pkg/helper"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 type rankingList struct {
@@ -17,7 +16,7 @@ func GetRankingList(c *gin.Context) {
 		helper.ResponseErrorWithMsg(c, err.Error())
 		return
 	}
-	rankingData, err := GetDataByCacheOrSource(Dataoke{
+	getFromDataoke(c, Dataoke{
 		c.Request.RequestURI,
 		2 * 60,
 		"https://openapi.dataoke.com/api/goods/get-ranking-list",
@@ -25,11 +24,6 @@ func GetRankingList(c *gin.Context) {
 			"rankType": rankingList.RankType,
 			"cid":      rankingList.Cid,
 		}})
-	if err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
-	} else {
-		c.String(http.StatusOK, rankingData)
-	}
 }
 
 type nineOpGoodsList struct {
@@ -44,7 +38,7 @@ func GetNineOpGoodsList(c *gin.Context) {
 		helper.ResponseErrorWithMsg(c, err.Error())
 		return
 	}
-	rankingData, err := GetDataByCacheOrSource(Dataoke{
+	getFromDataoke(c, Dataoke{
 		c.Request.RequestURI,
 		2 * 60,
 		"https://openapi.dataoke.com/api/goods/nine/op-goods-list",
@@ -53,9 +47,25 @@ func GetNineOpGoodsList(c *gin.Context) {
 			"pageId":   nineOpGoodsList.PageId,
 			"cid":      nineOpGoodsList.Cid,
 		}})
-	if err != nil {
+}
+
+type listSimilerGoodsByOpen struct {
+	Id   string `form:"id" binding:"required"`
+	Size string `form:"size" `
+}
+
+func ListSimilerGoodsByOpen(c *gin.Context) {
+	var listSimilerGoodsByOpen listSimilerGoodsByOpen
+	if err := c.ShouldBindQuery(&listSimilerGoodsByOpen); err != nil {
 		helper.ResponseErrorWithMsg(c, err.Error())
-	} else {
-		c.String(http.StatusOK, rankingData)
+		return
 	}
+	getFromDataoke(c, Dataoke{
+		c.Request.RequestURI,
+		2 * 60,
+		"https://openapi.dataoke.com/api/goods/list-similer-goods-by-open",
+		map[string]string{
+			"id":   listSimilerGoodsByOpen.Id,
+			"size": listSimilerGoodsByOpen.Size,
+		}})
 }

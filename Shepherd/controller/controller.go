@@ -2,12 +2,15 @@ package controller
 
 import (
 	"Shepherd/config"
+	"Shepherd/pkg/helper"
 	"Shepherd/pkg/redis"
 	"bytes"
 	"crypto/md5"
 	"errors"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"gopkg.in/resty.v1"
+	"net/http"
 	"sort"
 )
 
@@ -18,7 +21,16 @@ type Dataoke struct {
 	params    map[string]string
 }
 
-func GetDataByCacheOrSource(dataoke Dataoke) (string, error) {
+func getFromDataoke(c *gin.Context, dataoke Dataoke) {
+	data, err := getDataByCacheOrSource(dataoke)
+	if err != nil {
+		helper.ResponseErrorWithMsg(c, err.Error())
+	} else {
+		c.String(http.StatusOK, data)
+	}
+}
+
+func getDataByCacheOrSource(dataoke Dataoke) (string, error) {
 	data, err := redis.Get(dataoke.cacheKey)
 	if err != nil {
 		data, err := getDataBySource(dataoke.url, dataoke.params)

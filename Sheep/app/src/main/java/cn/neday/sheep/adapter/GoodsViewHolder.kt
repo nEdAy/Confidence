@@ -51,7 +51,7 @@ class GoodsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 // ActivityUtils.startActivity(GoodsDetailsActivity::class.java)
             }
             setOnLongClickListener {
-                AliTradeHelper((ActivityUtils.getActivityByView(this))).showAddCartPage(goods.goodsId.toString())
+                AliTradeHelper((ActivityUtils.getActivityByView(this))).showAddCartPage(goods.goodsId)
                 true
             }
             ll_get.setOnClickListener {
@@ -59,18 +59,19 @@ class GoodsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 changePressedViewBg(it, R.drawable.bg_get_btn, R.drawable.bg_get_btn_pressed)
             }
             tx_buy_url.setOnClickListener {
-                if (goods.commissionType == 1) { //todo: commissionType??
-                    AliTradeHelper(ActivityUtils.getActivityByView(this)).showItemURLPage("http://www.neday.cn/index.php?r=p/d&id=" + goods.id)
-                } else {
-                    AliTradeHelper(ActivityUtils.getActivityByView(this)).showDetailPage(goods.goodsId)
-                }
+                //                if (goods.commissionType == 1) {
+//                    AliTradeHelper(ActivityUtils.getActivityByView(this)).showItemURLPage("http://www.neday.cn/index.php?r=p/d&id=" + goods.id)
+//                } else {
+                // todo:高佣金测试
+                AliTradeHelper(ActivityUtils.getActivityByView(this)).showDetailPage(goods.goodsId)
+//                }
                 changePressedViewBg(it, R.drawable.bg_buy_btn, R.drawable.bg_buy_btn_pressed)
             }
         }
     }
 
     fun update(item: Goods?) {
-
+        //todo: update
     }
 
     /**
@@ -93,7 +94,7 @@ class GoodsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     companion object {
-        
+
         fun create(parent: ViewGroup): GoodsViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.list_item_goods, parent, false)

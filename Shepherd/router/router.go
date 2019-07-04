@@ -49,6 +49,14 @@ func Setup() {
 			goods.GET("/get-ranking-list", controller.GetRankingList)
 			// 获取9.9精选
 			goods.GET("/nine/op-goods-list", controller.GetNineOpGoodsList)
+			// 获取猜你喜欢
+			goods.GET("/list-similer-goods-by-open", controller.ListSimilerGoodsByOpen)
+		}
+		// 分类相关API
+		category := v1.Group("/category")
+		{
+			// 获取热搜记录
+			category.GET("/get-top100", controller.GetTop100)
 		}
 	}
 }
