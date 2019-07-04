@@ -69,3 +69,30 @@ func ListSimilerGoodsByOpen(c *gin.Context) {
 			"size": listSimilerGoodsByOpen.Size,
 		}})
 }
+
+type listSuperGoods struct {
+	Type     string `form:"type"`
+	KeyWords string `form:"keyWords" binding:"required"`
+	Tmall    string `form:"tmall"`
+	Haitao   string `form:"haitao"`
+	Sort     string `form:"sort"`
+}
+
+func ListSuperGoods(c *gin.Context) {
+	var listSuperGoods listSuperGoods
+	if err := c.ShouldBindQuery(&listSuperGoods); err != nil {
+		helper.ResponseErrorWithMsg(c, err.Error())
+		return
+	}
+	getFromDataoke(c, Dataoke{
+		c.Request.RequestURI,
+		2 * 60,
+		"https://openapi.dataoke.com/api/goods/list-super-goods",
+		map[string]string{
+			"type":     listSuperGoods.Type,
+			"keyWords": listSuperGoods.KeyWords,
+			"tmall":    listSuperGoods.Tmall,
+			"haitao":   listSuperGoods.Haitao,
+			"sort":     listSuperGoods.Sort,
+		}})
+}
