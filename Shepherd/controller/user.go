@@ -11,7 +11,7 @@ import (
 // Binding from Register JSON
 type register struct {
 	Username string `json:"username" binding:"required"`
-	SmsCode string `json:"smsCode" binding:"required"`
+	SmsCode  string `json:"smsCode" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
 
@@ -37,6 +37,11 @@ func Register(c *gin.Context) {
 	}
 	if isUserExist {
 		helper.ResponseErrorWithMsg(c, "用户<"+register.Username+">已注册")
+		return
+	}
+	err = util.VerifySMS(register.Username, register.SmsCode)
+	if err != nil {
+		helper.ResponseErrorWithMsg(c, err.Error())
 		return
 	}
 	token, err := util.CreateToken(register.Username)

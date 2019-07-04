@@ -19,7 +19,7 @@ var (
 	ConfigIsError     = errors.New("没有打开服务端验证开关")
 )
 
-func VerifySMS(phone string, code string) (bool, error) {
+func VerifySMS(phone string, code string) error {
 	parameterMap := map[string]string{
 		"appkey": config.Mob.AppKey,
 		"phone":  phone,
@@ -30,33 +30,33 @@ func VerifySMS(phone string, code string) (bool, error) {
 		SetBody(parameterMap).
 		Post("https://webapi.sms.mob.com/sms/verify")
 	if err != nil {
-		return false, err
+		return err
 	} else {
 		if !gjson.Valid(response.String()) {
-			return false, InvalidJson
+			return InvalidJson
 		}
 		status := gjson.Get(response.String(), "status").Int()
 		switch status {
 		case 200:
-			return true, nil
+			return nil
 		case 405:
-			return false, AppkeyIsNull
+			return AppkeyIsNull
 		case 406:
-			return false, AppkeyIsIllegal
+			return AppkeyIsIllegal
 		case 457:
-			return false, PhoneOrCodeIsNull
+			return PhoneOrCodeIsNull
 		case 456:
-			return false, PhoneIsIllegal
+			return PhoneIsIllegal
 		case 466:
-			return false, CodeIsNull
+			return CodeIsNull
 		case 467:
-			return false, IsFrequentChecks
+			return IsFrequentChecks
 		case 468:
-			return false, CodeIsError
+			return CodeIsError
 		case 474:
-			return false, ConfigIsError
+			return ConfigIsError
 		default:
-			return false, errors.New("校验验证码其他错误")
+			return errors.New("校验验证码其他错误")
 		}
 	}
 }
