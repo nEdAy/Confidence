@@ -15,7 +15,6 @@ func Setup() {
 	Router = gin.Default()
 	Router.Use(gin.Logger())
 	Router.Use(gin.Recovery())
-	// Router.Use(jwt.JWT())
 	Router.Static("/assets", "./assets")
 	Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	// Ping test
@@ -25,29 +24,31 @@ func Setup() {
 	// v1
 	v1 := Router.Group("/v1")
 	{
-		// 注册用户 curl -X POST https://127.0.0.1/v1/auth/
+		// 注册用户
 		v1.POST("/register", controller.Register)
-		// 用户登录 curl -X POST https://127.0.0.1/v1/user/login/
+		// 用户登录
 		v1.POST("/login", controller.Login)
 		// 用户相关API
 		user := v1.Group("/user", jwt.JWT())
 		{
-			// 获取用户 curl -X GET  https://127.0.0.1/v1/user/
+			// 获取用户
 			user.GET("/", controller.GetUser)
-			// 删除用户 curl -X DELETE https://127.0.0.1/v1/user/login/1
+			// 删除用户
 			// user.DELETE("/:id", controller.DelUser)
 		}
 		// Banner相关API
 		banner := v1.Group("/banner")
 		{
-			// 获取Banners curl -X GET  https://127.0.0.1/v1/banner/
+			// 获取Banners
 			banner.GET("/", controller.GetBanners)
 		}
 		// 商品相关API
 		goods := v1.Group("/goods")
 		{
-			// 获取各大榜单 curl -X GET  https://127.0.0.1/v1/good/ranking/
-			goods.GET("/ranking", controller.GetRanking)
+			// 获取各大榜单
+			goods.GET("/get-ranking-list", controller.GetRankingList)
+			// 获取9.9精选
+			goods.GET("/nine/op-goods-list", controller.GetNineOpGoodsList)
 		}
 	}
 }

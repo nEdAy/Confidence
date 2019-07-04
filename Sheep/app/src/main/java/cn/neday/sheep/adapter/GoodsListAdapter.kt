@@ -5,8 +5,8 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import cn.neday.sheep.R
 import cn.neday.sheep.model.Goods
@@ -19,23 +19,27 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.list_item_rank.view.*
+import kotlinx.android.synthetic.main.list_item_ranking.view.*
 import java.util.concurrent.TimeUnit
 
+
 /**
- * Adapter for the [RecyclerView] in [RankItemFragment].
+ * Adapter for the [RecyclerView]
  *
  * @author nEdAy
  */
-class RankAdapter : ListAdapter<Goods, RankAdapter.ViewHolder>(RankDiffCallback()) {
+class GoodsListAdapter : PagedListAdapter<Goods, GoodsListAdapter.ViewHolder>(GoodsDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_rank, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_goods, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val goods = getItem(position)
+        if (goods != null) {
+            holder.bind(goods)
+        }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -47,7 +51,7 @@ class RankAdapter : ListAdapter<Goods, RankAdapter.ViewHolder>(RankDiffCallback(
                 tx_get_value.text =
                     StringUtils.getString(R.string.tx_goods_couponPrice, getPrettyNumber(goods.couponPrice))
                 tv_mall_name.text = StringUtils.getString(
-                    if (goods.istmall == 1) {
+                    if (goods.shopType == 1) {
                         R.string.tx_tianmao
                     } else {
                         R.string.tx_taobao
@@ -59,7 +63,7 @@ class RankAdapter : ListAdapter<Goods, RankAdapter.ViewHolder>(RankDiffCallback(
                     View.GONE
                 }
                 Glide.with(this)
-                    .load(convertPicUrlToUri(goods.pic))
+                    .load(convertPicUrlToUri(goods.mainPic))
                     .apply(RequestOptions().circleCrop())
                     .into(iv_img_shower)
                 setOnClickListener {
@@ -77,7 +81,7 @@ class RankAdapter : ListAdapter<Goods, RankAdapter.ViewHolder>(RankDiffCallback(
                     if (goods.commissionType == 1) { //todo: commissionType??
                         AliTradeHelper(ActivityUtils.getActivityByView(this)).showItemURLPage("http://www.neday.cn/index.php?r=p/d&id=" + goods.id)
                     } else {
-                        AliTradeHelper(ActivityUtils.getActivityByView(this)).showDetailPage(goods.goodsId.toString())
+                        AliTradeHelper(ActivityUtils.getActivityByView(this)).showDetailPage(goods.goodsId)
                     }
                     changePressedViewBg(it, R.drawable.bg_buy_btn, R.drawable.bg_buy_btn_pressed)
                 }
@@ -115,7 +119,7 @@ class RankAdapter : ListAdapter<Goods, RankAdapter.ViewHolder>(RankDiffCallback(
     }
 }
 
-private class RankDiffCallback : DiffUtil.ItemCallback<Goods>() {
+private class GoodsDiffCallback : DiffUtil.ItemCallback<Goods>() {
 
     override fun areItemsTheSame(oldItem: Goods, newItem: Goods): Boolean {
         return oldItem.id == newItem.id

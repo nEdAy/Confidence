@@ -1,1 +1,1 @@
-Shepherd: git pull; make linux_build; ./build/Shepherd
+Shepherd: git pull; make linux_build; supervisorctl reload

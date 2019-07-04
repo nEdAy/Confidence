@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import cn.neday.sheep.R
 import cn.neday.sheep.fragment.GoodsFragment
 import cn.neday.sheep.fragment.IndexFragment
-import cn.neday.sheep.fragment.CategoryFragment
+import cn.neday.sheep.fragment.NineGoodsFragment
 import cn.neday.sheep.fragment.MeFragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -39,7 +39,7 @@ class MainActivity : BaseActivity() {
         // 优惠快爆
         mFragments.add(GoodsFragment())
         // 好货专题
-        mFragments.add(CategoryFragment())
+        mFragments.add(NineGoodsFragment())
         // 我的页面
         mFragments.add(MeFragment())
         val tabEntitiesArray = resources.getStringArray(R.array.tab_entities_array)

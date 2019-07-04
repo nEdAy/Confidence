@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import cn.neday.sheep.R
 import cn.neday.sheep.activity.LoginActivity
+import cn.neday.sheep.enum.RankType
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils
 import cn.neday.sheep.viewmodel.IndexViewModel
@@ -63,10 +64,10 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
 
     private fun initViewPager() {
         val mFragments = ArrayList<Fragment>()
-        mFragments.add(RankFragment(RankType.SHI_SHI_XIAO_XIANG_BANG.index))
-        mFragments.add(RankFragment(RankType.QUAN_TIAN_XIAO_LIANG_BANG.index))
-        mFragments.add(RankFragment(RankType.RE_TUI_BANG.index))
-        stl_index.setViewPager(vp_index, resources.getStringArray(R.array.item_mall_array), activity, mFragments)
+        mFragments.add(RankingListFragment(RankType.SHISHIXIAOXIANGBANG))
+        mFragments.add(RankingListFragment(RankType.QUANTIANXIAOLIANGBANG))
+        mFragments.add(RankingListFragment(RankType.RETUIBANG))
+        stl_index.setViewPager(vp_index, resources.getStringArray(R.array.rank_type_array), activity, mFragments)
     }
 
     override fun onStart() {
@@ -84,15 +85,4 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
         banner.pauseScroll()
     }
 
-    /**
-     * 各大榜单
-     * 1.实时销量榜
-     * 2.全天销量榜
-     * 3.热推榜
-     */
-    enum class RankType(val index: Int) {
-        SHI_SHI_XIAO_XIANG_BANG(1),
-        QUAN_TIAN_XIAO_LIANG_BANG(2),
-        RE_TUI_BANG(3),
-    }
 }

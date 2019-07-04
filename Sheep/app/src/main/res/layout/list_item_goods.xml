@@ -54,7 +54,7 @@
                         android:id="@+id/tv_sales_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="goods.monthSales"
+                        android:text="rankGoods.monthSales"
                         android:layout_alignParentEnd="true"
                         android:textColor="@color/textColor"
                         tools:text="当月销量：869"
