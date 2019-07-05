@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Binding from Register JSON
+// Binding from RegisterOrLogin JSON
 type register struct {
 	Username   string `json:"username" binding:"required"`
 	SmsCode    string `json:"smsCode"`
@@ -15,8 +15,8 @@ type register struct {
 	InviteCode string `json:"inviteCode"`
 }
 
-// @Summary 添加用户
-// @Description register user by username,password
+// @Summary 用户注册 用户登录(密码) 用户登录（短信验证码）
+// @Description register or login user by username,password,smsCode
 // @Accept  json
 // @Produce  json
 // @Param username query string true "Username"
@@ -25,129 +25,75 @@ type register struct {
 // @Param inviteCode query string false "InviteCode"
 // @Success 200 {string} json "{"time": 1561513181, "code": 200, "msg": "成功", "data" : {}}"
 // @Failure 400 {string} json "{"time": 1561513181, "code": 400, "msg": "msg"}"
-// @Router /v1/register/ [post]
-func Register(c *gin.Context) {
-	var register register
-	if err := c.ShouldBindJSON(&register); err != nil {
+// @Router /v1/registerOrLogin/ [post]
+func RegisterOrLogin(c *gin.Context) {
+	var param register
+	if err := c.ShouldBindJSON(&param); err != nil {
 		helper.ResponseErrorWithMsg(c, err.Error())
 		return
 	}
-	isUserExist, err := model.IsUserExist(register.Username)
+	user, err := model.GetUserByUsername(param.Username)
 	if err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
-		return
-	}
-	if isUserExist {
-		helper.ResponseErrorWithMsg(c, "用户<"+register.Username+">已注册")
-		return
-	}
-	var scryptPassword string
-	if len(register.Password) > 0 {
-		scryptPassword = util.GetScryptPasswordBase64(register.Password)
-	} else if len(register.SmsCode) > 0 {
-		err = util.VerifySMS(register.Username, register.SmsCode)
+		// （未注册）进行注册流程
+		var scryptPassword string
+		if len(param.Password) > 0 { // 如果存在密码，则加密存储
+			scryptPassword = util.GetScryptPasswordBase64(param.Password)
+		}
+		// Verify SmsCode
+		err = util.VerifySMS(param.Username, param.SmsCode)
 		if err != nil {
 			helper.ResponseErrorWithMsg(c, err.Error())
 			return
 		}
-	} else {
-		helper.ResponseErrorWithMsg(c, "密码和短信验证码都为空，无法进行注册")
-		return
-	}
-	token, err := util.CreateToken(register.Username)
-	if err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
-		return
-	}
-	user := new(model.User)
-	user.Username = register.Username
-	user.Password = scryptPassword
-	if err := model.AddUser(user); err == nil {
-		user.Password = ""
-		user.Token = token
-		helper.ResponseJsonWithData(c, user)
-	} else {
-		helper.ResponseErrorWithMsg(c, err.Error())
-	}
-}
-
-// Binding from Login JSON
-type login struct {
-	Username string `json:"username" binding:"required"`
-	Password string `json:"password" binding:"required"`
-}
-
-// @Summary 用户登录(密码)
-// @Description login user by username,password
-// @Accept  json
-// @Produce  json
-// @Param username query string true "Username"
-// @Param password query string true "Password"
-// @Success 200 {string} json "{"time": 1561513181, "code": 200, "msg": "成功", "data" : {}}"
-// @Failure 400 {string} json "{"time": 1561513181, "code": 400, "msg": "msg"}"
-// @Router /v1/login/ [post]
-func Login(c *gin.Context) {
-	var login login
-	if err := c.ShouldBindJSON(&login); err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
-		return
-	}
-	user, err := model.GetUserByUsername(login.Username)
-	if err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
-		return
-	}
-	if user.Password == util.GetScryptPasswordBase64(login.Password) {
-		token, err := util.CreateToken(user.Username)
+		// Create Token
+		token, err := util.CreateToken(param.Username)
 		if err != nil {
 			helper.ResponseErrorWithMsg(c, err.Error())
 			return
 		}
+		user := new(model.User)
+		user.Username = param.Username
+		user.Password = scryptPassword
 		user.Token = token
-		helper.ResponseJsonWithData(c, user)
+		// Creat User DB
+		if err := model.AddUser(user); err == nil {
+			helper.ResponseJsonWithData(c, user)
+		} else {
+			helper.ResponseErrorWithMsg(c, err.Error())
+		}
 	} else {
-		helper.ResponseErrorWithMsg(c, "账户或密码错误")
+		// （已注册）进行登录流程
+		if len(param.Password) > 0 { // login via password
+			if user.Password != util.GetScryptPasswordBase64(param.Password) {
+				helper.ResponseErrorWithMsg(c, "账户或密码错误")
+				return
+			}
+			// Create Token
+			token, err := util.CreateToken(user.Username)
+			if err != nil {
+				helper.ResponseErrorWithMsg(c, err.Error())
+				return
+			}
+			user.Token = token
+			helper.ResponseJsonWithData(c, user)
+		} else if len(param.SmsCode) > 0 { // login via smsCode
+			err = util.VerifySMS(param.Username, param.SmsCode)
+			if err != nil {
+				helper.ResponseErrorWithMsg(c, err.Error())
+				return
+			}
+			// Create Token
+			token, err := util.CreateToken(user.Username)
+			if err != nil {
+				helper.ResponseErrorWithMsg(c, err.Error())
+				return
+			}
+			user.Token = token
+			helper.ResponseJsonWithData(c, user)
+		} else {
+			helper.ResponseErrorWithMsg(c, "参数缺少密码或短信验证码，无法登录")
+		}
 	}
-}
-
-// Binding from LoginSms JSON
-type loginSms struct {
-	Username string `json:"username" binding:"required"`
-	SmsCode  string `json:"smsCode" binding:"required"`
-}
-
-// @Summary 用户登录（短信验证码）
-// @Description login user by username,password via SmsCode
-// @Accept  json
-// @Produce  json
-// @Param username query string true "Username"
-// @Param smsCode query string true "SmsCode"
-// @Success 200 {string} json "{"time": 1561513181, "code": 200, "msg": "成功", "data" : {}}"
-// @Failure 400 {string} json "{"time": 1561513181, "code": 400, "msg": "msg"}"
-// @Router /v1/login/ [post]
-func LoginSms(c *gin.Context) {
-	var loginSms loginSms
-	if err := c.ShouldBindJSON(&loginSms); err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
-		return
-	}
-	user, err := model.GetUserByUsername(loginSms.Username)
-	if err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
-		return
-	}
-	err = util.VerifySMS(loginSms.Username, loginSms.SmsCode)
-	if err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
-		return
-	}
-	token, err := util.CreateToken(user.Username)
-	if err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
-		return
-	}
-	user.Token = token
-	helper.ResponseJsonWithData(c, user)
 }
 
 // @Summary 获取用户

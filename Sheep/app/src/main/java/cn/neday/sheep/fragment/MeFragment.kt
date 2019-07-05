@@ -50,7 +50,7 @@ class MeFragment : BaseFragment() {
 //            ).show()
         }
         rl_credits.setOnClickListener {
-            val intent = Intent()
+//            val intent = Intent()
 //            intent.putExtra("userId", mCurrentUser.id)
 //            ActivityUtils.startActivity(CreditsHistoryActivity::class.java, intent)
         }

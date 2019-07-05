@@ -24,12 +24,8 @@ func Setup() {
 	// v1
 	v1 := Router.Group("/v1")
 	{
-		// 注册用户
-		v1.POST("/register", controller.Register)
-		// 用户登录(密码)
-		v1.POST("/login", controller.Login)
-		// 用户登录（短信验证码）
-		v1.POST("/loginSms", controller.LoginSms)
+		// 注册用户 / 用户登录(密码) / 用户登录（短信验证码）
+		v1.POST("/registerOrLogin", controller.RegisterOrLogin)
 		// 用户相关API
 		user := v1.Group("/user", jwt.JWT())
 		{
