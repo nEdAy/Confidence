@@ -9,7 +9,6 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.StringUtils
 import com.orhanobut.hawk.Hawk
 import com.umeng.analytics.MobclickAgent
-import com.umeng.message.PushAgent
 
 /**
  * Activity基类
@@ -33,7 +32,6 @@ abstract class BaseActivity : AppCompatActivity() {
         }
         prepareInitView()
         initView()
-        PushAgent.getInstance(this).onAppStart()
     }
 
     open fun prepareInitView() {
