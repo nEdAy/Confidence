@@ -14,11 +14,13 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.StringUtils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.list_item_ranking.view.*
 import java.util.concurrent.TimeUnit
+
 
 class GoodsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(goods: Goods?) {
@@ -45,7 +47,15 @@ class GoodsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             }
             Glide.with(this)
                 .load(convertPicUrlToUri(goods.mainPic))
-                .apply(RequestOptions().circleCrop())
+                .thumbnail(
+                    Glide.with(this)
+                        .load(Uri.parse(goods.mainPic + "_100x100_jpg"))
+                )
+                .apply(
+                    RequestOptions().transform(RoundedCorners(10))
+                        .placeholder(R.drawable.icon_stub)
+                        .error(R.drawable.icon_error)
+                )
                 .into(iv_img_shower)
             setOnClickListener {
                 // ActivityUtils.startActivity(GoodsDetailsActivity::class.java)
@@ -68,10 +78,6 @@ class GoodsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 changePressedViewBg(it, R.drawable.bg_buy_btn, R.drawable.bg_buy_btn_pressed)
             }
         }
-    }
-
-    fun update(item: Goods?) {
-        //todo: update
     }
 
     /**

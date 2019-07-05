@@ -1,5 +1,6 @@
 package cn.neday.sheep.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
@@ -8,7 +9,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
-import android.widget.EditText;
 import androidx.appcompat.widget.AppCompatEditText;
 import cn.neday.sheep.R;
 
@@ -40,7 +40,7 @@ public class ClearEditText extends AppCompatEditText implements OnFocusChangeLis
         // 获取EditText的DrawableRight,假如没有设置我们就使用默认的图片
         mClearDrawable = getCompoundDrawables()[2];
         if (mClearDrawable == null) {
-            // noinspection deprecation,deprecation
+            // noinspection
             mClearDrawable = getResources().getDrawable(R.drawable.ic_delete);
         }
         if (mClearDrawable != null) {
@@ -56,6 +56,7 @@ public class ClearEditText extends AppCompatEditText implements OnFocusChangeLis
      * 当我们按下的位置 在  EditText的宽度 - 图标到控件右边的间距 - 图标的宽度  和
      * EditText的宽度 - 图标到控件右边的间距之间我们就算点击了图标，竖直方向没有考虑
      */
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (getCompoundDrawables()[2] != null) {
@@ -76,7 +77,7 @@ public class ClearEditText extends AppCompatEditText implements OnFocusChangeLis
      */
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
+        if (hasFocus && getText() != null) {
             setClearIconVisible(getText().length() > 0);
         } else {
             setClearIconVisible(false);

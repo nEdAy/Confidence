@@ -68,8 +68,8 @@ class GoodsRepository : BaseRepository() {
 
     companion object {
         // 默认100 ，可选范围：10,50,100,200，如果小于10按10处理，大于200按照200处理，其它非范围内数字按100处理
-        private const val PAGE_SIZE = 10
-        private const val PREFETCH_DISTANCE = 3
-        private const val INITIAL_PAGE_MULTIPLIER = 3
+        private const val PAGE_SIZE = 50
+        private const val PREFETCH_DISTANCE = 20
+        private const val INITIAL_PAGE_MULTIPLIER = 1
     }
 }
