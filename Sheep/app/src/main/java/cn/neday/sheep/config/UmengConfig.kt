@@ -2,10 +2,7 @@ package cn.neday.sheep.config
 
 import android.content.Context
 import cn.neday.sheep.BuildConfig
-import com.blankj.utilcode.util.LogUtils
 import com.umeng.commonsdk.UMConfigure
-import com.umeng.message.IUmengRegisterCallback
-import com.umeng.message.PushAgent
 
 
 object UmengConfig {
@@ -39,18 +36,5 @@ object UmengConfig {
          * 参数：boolean 默认为false（不加密）
          */
         UMConfigure.setEncryptEnabled(!BuildConfig.DEBUG)
-        // 获取消息推送代理示例
-        val mPushAgent = PushAgent.getInstance(applicationContext)
-        // 注册推送服务，每次调用register方法都会回调该接口
-        mPushAgent.register(object : IUmengRegisterCallback {
-            override fun onSuccess(deviceToken: String) {
-                //注册成功会返回deviceToken deviceToken是推送消息的唯一标志
-                LogUtils.i("注册成功：deviceToken：-------->  $deviceToken")
-            }
-
-            override fun onFailure(s: String, s1: String) {
-                LogUtils.e("注册失败：-------->  s:$s,s1:$s1")
-            }
-        })
     }
 }

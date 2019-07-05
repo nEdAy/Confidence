@@ -14,39 +14,20 @@ class LoginViewModel : BaseViewModel() {
     private val repository by lazy { UserRepository() }
 
     /**
-     * 用户注册
+     * 注册用户 / 用户登录(密码) / 用户登录（短信验证码）
      *
      * @param username 手机号
      * @param password 原始密码
      * @param smsCode 短信验证码
      * @param inviteCode 邀请码
      */
-    fun register(username: String, password: String, smsCode: String, inviteCode: String) {
+    fun registerOrLogin(username: String, password: String, smsCode: String, inviteCode: String) {
         val passwordMD5 = EncryptUtils.encryptMD5ToString(password).toUpperCase()
         launch {
             try {
-                val response =
-                    withContext(Dispatchers.IO) { repository.register(username, passwordMD5, smsCode, inviteCode) }
-                executeResponse(response, {
-                    mUser.value = response.data
-                }, { mErrMsg.value = response.msg })
-            } catch (t: Throwable) {
-                t.printStackTrace()
-            }
-        }
-    }
-
-    /**
-     * 用户登录
-     *
-     * @param username 手机号
-     * @param password 原始密码
-     */
-    fun login(username: String, password: String) {
-        val passwordMD5 = EncryptUtils.encryptMD5ToString(password).toUpperCase()
-        launch {
-            try {
-                val response = withContext(Dispatchers.IO) { repository.login(username, passwordMD5) }
+                val response = withContext(Dispatchers.IO) {
+                    repository.registerOrLogin(username, passwordMD5, smsCode, inviteCode)
+                }
                 executeResponse(response, {
                     mUser.value = response.data
                 }, { mErrMsg.value = response.msg })

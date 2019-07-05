@@ -54,6 +54,9 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
             Hawk.put(USERNAME, it.username)
             ActivityUtils.finishActivity(this)
         })
+        mViewModel.mErrMsg.observe(this, Observer {
+            ToastUtils.showShort(it)
+        })
     }
 
     /**
@@ -213,7 +216,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
 
     private fun registerSMSSDK() {
         SMSSDK.registerEventHandler(object : EventHandler() {
-            override fun afterEvent(event: Int, result: Int, data: Any) {
+            override fun afterEvent(event: Int, result: Int, data: Any?) {
                 runOnUiThread {
                     if (result == SMSSDK.RESULT_COMPLETE) {
                         // 禁止点击获取验证码按钮和修改手机号

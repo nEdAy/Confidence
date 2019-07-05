@@ -164,7 +164,7 @@
                     android:fontFamily="@font/calibri"
                     android:text="@string/tx_change_login_via_password"
                     android:padding="16dp"
-                    android:textAlignment="viewStart"
+                    android:textAlignment="textStart"
                     android:textColor="#96ffffff"
                     android:textSize="16sp"/>
 
@@ -199,6 +199,7 @@
             <ImageView
                     android:id="@+id/iv_agreement"
                     android:layout_width="18.0dp"
+                    android:padding="2dp"
                     android:layout_height="18.0dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
@@ -219,7 +220,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="口袋快爆承诺不会向第三方透露您的个人信息"
                 android:textColor="#96ffffff"/>
     </LinearLayout>

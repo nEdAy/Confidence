@@ -41,12 +41,12 @@ class ThisApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        UmengConfig.init(instance)
         if (!ProcessUtils.isMainProcess()) {
             return
         }
         DoraemonKit.install(instance)
         BuglyConfig.init(instance)
-        UmengConfig.init(instance)
         MobSDK.init(instance)
         Hawk.init(instance).build()
         AliTradeHelper.asyncInit(instance)

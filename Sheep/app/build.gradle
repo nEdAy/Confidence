@@ -43,7 +43,9 @@ android {
     }
     buildTypes {
         debug {
+            minifyEnabled true
             signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
             minifyEnabled true
@@ -63,6 +65,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 
@@ -144,10 +152,6 @@ dependencies {
     implementation 'com.umeng.umsdk:analytics:8.0.0'
     implementation 'com.umeng.umsdk:common:2.0.0'
 
-    // Push
-    implementation 'com.umeng.umsdk:push:5.0.2'
-    implementation 'com.umeng.umsdk:utdid:1.1.5.3'
-
     // 阿里百川
     // （必选）基础电商组件 包含打开detail,淘客分润,jsbridge注入等功能.(211kb)
     implementation 'com.alibaba.sdk.android:alibc_trade_common:3.1.1.221'
@@ -167,7 +171,7 @@ dependencies {
     // （必选）AppLink，打通“手机淘宝”与三方app的桥梁，实现手机淘宝与三方app之间的往返跳转,包括登陆时跳手淘授权,用手淘打开商品页,店铺等(53kb)
     implementation 'com.alibaba.sdk.android:alibc_link_partner:1.1.0.6'
     // （必选）UT，deviceID，主要用于计算设备的uttid，设备唯一标识 （67kb） // 和Umeng Sdk冲突
-    // implementation 'com.taobao.android:utdid4all:1.1.5.3_proguard@jar'
+     implementation 'com.taobao.android:utdid4all:1.1.5.3_proguard@jar'
     // （必选）UT，用于组件、接口可用性统计（337kb）
     implementation 'com.alibaba.mtl:app-monitor-sdk:2.6.4_for_bc@jar'
     // （可选）支付，使用支付宝极简支付的isv需要该组件,否则会降级到h5支付,功能不会有影响,但是用户体验会降低(245kb)

@@ -30,8 +30,8 @@ class GoodsListAdapter(private val retryCallback: () -> Unit) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
         if (payloads.isNotEmpty()) {
-            val item = getItem(position)
-            (holder as GoodsViewHolder).update(item)
+            // val item = getItem(position)
+            // (holder as GoodsViewHolder).update(item)
         } else {
             onBindViewHolder(holder, position)
         }

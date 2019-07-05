@@ -30,6 +30,13 @@ object CommonUtils {
     }
 
     /**
+     * 检验短信验证码长度是否正确
+     */
+    fun isValidSmsCode(target: CharSequence?): Boolean {
+        return target != null && target.length == 4
+    }
+
+    /**
      * 指定View显示一个动画,抖5下
      *
      * @param view 指定的View
