@@ -101,6 +101,10 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
     }
 
     private fun registerOrLogin() {
+        if (!isAgreeAgreement) {
+            ToastUtils.showShort("您尚未同意《用户使用协议》")
+            return
+        }
         val username = et_username.text.toString().trim { it <= ' ' }.replace(" ", "")
         val password = et_password.text.toString().trim()
         val smsCode = et_sms.text.toString().trim()
