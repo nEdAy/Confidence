@@ -13,31 +13,13 @@ import retrofit2.http.*
 interface UserApi {
 
     /**
-     * 注册
+     * 注册用户 / 用户登录(密码) / 用户登录（短信验证码）
      *
      * @param register   用户信息（帐号，密码MD5，短信验证码，邀请码）
      * @return 用户信息（token、id等）
      */
-    @POST("register")
-    suspend fun register(@Body register: Map<String, Any>): Response<User>
-
-    /**
-     * 登录
-     *
-     * @param login 用户信息（帐号，密码MD5）
-     * @return 用户信息（token、id等）
-     */
-    @POST("login")
-    suspend fun login(@Body login: Map<String, Any>): Response<User>
-
-    /**
-     * 登录
-     *
-     * @param login 用户信息（帐号，短信验证码）
-     * @return 用户信息（token、id等）
-     */
-    @POST("loginSms")
-    suspend fun loginSms(@Body login: Map<String, Any>): Response<User>
+    @POST("registerOrLogin")
+    suspend fun registerOrLogin(@Body register: Map<String, String>): Response<User>
 
     /**
      * 获取指定条件用户信息
@@ -46,7 +28,7 @@ interface UserApi {
      * @return 用户信息
      */
     @GET("user")
-    suspend fun queryUser(@QueryMap options: Map<String, Any>): Response<User>
+    suspend fun queryUser(@QueryMap options: Map<String, String>): Response<User>
 
     /**
      * 获取指定objectId用户全部信息

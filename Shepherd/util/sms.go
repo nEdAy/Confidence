@@ -20,14 +20,9 @@ var (
 )
 
 func VerifySMS(phone string, code string) error {
-	parameterMap := map[string]string{
-		"appkey": config.Mob.AppKey,
-		"phone":  phone,
-		"zone":   "86",
-		"code":   code,
-	}
+	parameter := "appkey=" + config.Mob.AppKey + "&phone=" + phone + "&zone=" + "86" + "&code=" + code
 	response, err := resty.R().
-		SetBody(parameterMap).
+		SetBody(parameter).
 		Post("https://webapi.sms.mob.com/sms/verify")
 	if err != nil {
 		return err

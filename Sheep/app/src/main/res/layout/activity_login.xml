@@ -22,7 +22,8 @@
             android:fontFamily="@font/gotham"
             tools:text="@string/tx_login_title_day"
             android:textColor="#ffffff"
-            android:textSize="32sp" android:textAlignment="center"/>
+            android:textSize="32sp"
+            android:textAlignment="center"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -137,10 +138,21 @@
                     android:text=" 获取验证码 "/>
         </RelativeLayout>
 
+        <TextView
+                android:id="@+id/tx_hint_voice_verify_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:fontFamily="@font/calibri"
+                android:gravity="center"
+                android:textColor="#9affffff"
+                android:textSize="12sp"
+                android:textAlignment="center"/>
+
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -169,7 +181,6 @@
                     android:textSize="16sp"
                     android:textStyle="bold"/>
         </LinearLayout>
-
         <TextView
                 android:id="@+id/tv_lostPassword"
                 android:layout_width="wrap_content"
@@ -180,5 +191,36 @@
                 android:textAlignment="center"
                 android:textColor="#96ffffff"
                 android:textSize="16sp"/>
+
+        <RelativeLayout
+                android:id="@+id/rl_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <ImageView
+                    android:id="@+id/iv_agreement"
+                    android:layout_width="18.0dp"
+                    android:layout_height="18.0dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/check_pressed"/>
+            <TextView
+                    android:id="@+id/tv_agreement"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/iv_agreement"
+                    android:gravity="center"
+                    android:text="我同意《用户使用协议》"
+                    android:textColor="#96ffffff"/>
+        </RelativeLayout>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="口袋快爆承诺不会向第三方透露您的个人信息"
+                android:textColor="#96ffffff"/>
     </LinearLayout>
 </RelativeLayout>

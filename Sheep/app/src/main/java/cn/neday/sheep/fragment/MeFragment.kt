@@ -1,17 +1,17 @@
 package cn.neday.sheep.fragment
 
-import android.content.Intent
 import android.net.Uri
 import android.text.TextUtils
 import android.view.View
 import cn.neday.sheep.R
 import cn.neday.sheep.activity.AboutActivity
+import cn.neday.sheep.activity.LoginActivity
+import cn.neday.sheep.config.HawkConfig.TOKEN
 import cn.neday.sheep.model.User
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.AppStoreUtils
 import cn.neday.sheep.util.ClipboardUtils
 import cn.neday.sheep.util.CommonUtils
-import com.ali.auth.third.ui.LoginActivity
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
@@ -73,9 +73,9 @@ class MeFragment : BaseFragment() {
      * 更新用户信息、点击状态、换皮肤
      */
     private fun initUserInfoAndChangeSkin() {
-        val isTokenEmpty = TextUtils.isEmpty(Hawk.get("token"))
+        val isTokenEmpty = TextUtils.isEmpty(Hawk.get(TOKEN))
 //        val isNetworkAvailable = NetworkUtils.isAvailable()
-        if (isTokenEmpty) {
+        if (!isTokenEmpty) {
 //            getUserInfo(mCurrentUser.id)
             rl_top.visibility = View.VISIBLE
             rl_user_info.visibility = View.VISIBLE

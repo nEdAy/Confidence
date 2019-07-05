@@ -50,6 +50,7 @@
     <string name="toast_error_password_null">密码不能为空</string>
     <string name="toast_error_password_error">密码长度不正确，请输入6–16位</string>
     <string name="toast_error_sms_null">验证码不能为空</string>
+    <string name="toast_error_sms_error">验证码长度不正确，请输入4位</string>
     <string name="account_center_account">账户</string>
     <string name="account_center_key_login">修改登录密码</string>
     <string name="shake_times">您今天还可以摇%1$d次</string>
