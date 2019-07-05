@@ -5,14 +5,13 @@ import (
 	"Shepherd/pkg/helper"
 	"Shepherd/util"
 	"github.com/gin-gonic/gin"
-	"time"
 )
 
 // Binding from Register JSON
 type register struct {
 	Username   string `json:"username" binding:"required"`
-	SmsCode    string `json:"smsCode" binding:"required"`
-	Password   string `json:"password" binding:"required"`
+	SmsCode    string `json:"smsCode"`
+	Password   string `json:"password"`
 	InviteCode string `json:"inviteCode"`
 }
 
@@ -21,8 +20,8 @@ type register struct {
 // @Accept  json
 // @Produce  json
 // @Param username query string true "Username"
-// @Param password query string true "Password"
-// @Param smsCode query string true "SmsCode"
+// @Param password query string false "Password"
+// @Param smsCode query string false "SmsCode"
 // @Param inviteCode query string false "InviteCode"
 // @Success 200 {string} json "{"time": 1561513181, "code": 200, "msg": "成功", "data" : {}}"
 // @Failure 400 {string} json "{"time": 1561513181, "code": 400, "msg": "msg"}"
@@ -42,9 +41,17 @@ func Register(c *gin.Context) {
 		helper.ResponseErrorWithMsg(c, "用户<"+register.Username+">已注册")
 		return
 	}
-	err = util.VerifySMS(register.Username, register.SmsCode)
-	if err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
+	var scryptPassword string
+	if len(register.Password) > 0 {
+		scryptPassword = util.GetScryptPasswordBase64(register.Password)
+	} else if len(register.SmsCode) > 0 {
+		err = util.VerifySMS(register.Username, register.SmsCode)
+		if err != nil {
+			helper.ResponseErrorWithMsg(c, err.Error())
+			return
+		}
+	} else {
+		helper.ResponseErrorWithMsg(c, "密码和短信验证码都为空，无法进行注册")
 		return
 	}
 	token, err := util.CreateToken(register.Username)
@@ -54,8 +61,7 @@ func Register(c *gin.Context) {
 	}
 	user := new(model.User)
 	user.Username = register.Username
-	user.Password = util.GetScryptPasswordBase64(register.Password)
-	user.CreateTime = time.Now().Unix()
+	user.Password = scryptPassword
 	if err := model.AddUser(user); err == nil {
 		user.Password = ""
 		user.Token = token

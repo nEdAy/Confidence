@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import cn.neday.sheep.R
 import cn.neday.sheep.config.HawkConfig.TOKEN
+import cn.neday.sheep.config.HawkConfig.USERNAME
 import cn.neday.sheep.util.CommonUtils
 import cn.neday.sheep.view.ClearEditText
 import cn.neday.sheep.viewmodel.LoginViewModel
@@ -42,13 +43,14 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
 //        }
         mViewModel.mUser.observe(this, Observer {
             Hawk.put(TOKEN, it.token)
+            Hawk.put(USERNAME, it.username)
             ActivityUtils.finishActivity(this)
         })
     }
 
     private fun initEditViewByLastUsername() {
-        val username = Hawk.get<String>("username")
-        if (!TextUtils.isEmpty(username)) {
+        val username = Hawk.get<String>(USERNAME)
+        if (!StringUtils.isTrimEmpty(username)) {
             et_username.setText(username)
             et_password.isFocusable = true
             et_password.isFocusableInTouchMode = true
