@@ -1,5 +1,7 @@
 package cn.neday.sheep.model
 
+import java.io.Serializable
+
 data class Goods(
     // 商品id	Number	18926311
     val id: Int,
@@ -33,16 +35,18 @@ data class Goods(
     val commissionType: Int,
     // 推广文案	String	“宽松舒适，难以磨损典，雅而优美，倍感丝滑，质感优越，庄严而心仪，简约设计，色调清新脱俗，适合各种场合”
     val desc: String,
+    // 优惠券金额	Number	10
+    val couponPrice: Double,
     // 领券量	Number	1000
     val couponReceiveNum: Int,
+    // 券总量	Number	7000
+    val couponTotalNum: Int,
     // 优惠券链接	String	“https://uland.taobao.com/quan/detail?sellerId=4014489195&activityId=df6c5ba6aa6d4f21a303b50cca2f4a45“
     val couponLink: String,
     // 优惠券结束时间	String	“2019-04-08 23:59:59”
     val couponEndTime: String,
     // 优惠券开始时间	String	“2019-04-01 00:00:00”
     val couponStartTime: String,
-    // 优惠券金额	Number	10
-    val couponPrice: Double,
     // 优惠券使用条件	String	“38”
     val couponConditions: String,
     // 活动类型，1-无活动，2-淘抢购，3-聚划算	Number	1
@@ -65,8 +69,6 @@ data class Goods(
     val discounts: Double,
     // 佣金比例	Number	20.01
     val commissionRate: Double,
-    // 券总量	Number	7000
-    val couponTotalNum: Int,
     // 是否海淘，1-海淘商品，0-非海淘商品	Number	0
     val haitao: Int,
     // 店铺名称	String	“西维里旗舰店”
@@ -99,4 +101,4 @@ data class Goods(
     val teamName: String,
     // 是否天猫超市商品，1-天猫超市商品，0-非天猫超市商品	Number	0
     val tchaoshi: Int
-)
+) : Serializable

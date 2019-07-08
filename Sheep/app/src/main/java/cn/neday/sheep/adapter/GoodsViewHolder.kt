@@ -2,16 +2,18 @@ package cn.neday.sheep.adapter
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import cn.neday.sheep.R
+import cn.neday.sheep.activity.GoodsDetailsActivity
 import cn.neday.sheep.model.Goods
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils
+import cn.neday.sheep.util.CommonUtils.convertPicUrlToUri
 import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.StringUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -58,7 +60,9 @@ class GoodsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 )
                 .into(iv_img_shower)
             setOnClickListener {
-                // ActivityUtils.startActivity(GoodsDetailsActivity::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable(GoodsDetailsActivity.extra, goods)
+                ActivityUtils.startActivity(bundle, GoodsDetailsActivity::class.java)
             }
             setOnLongClickListener {
                 AliTradeHelper((ActivityUtils.getActivityByView(this))).showAddCartPage(goods.goodsId)
@@ -69,12 +73,7 @@ class GoodsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 changePressedViewBg(it, R.drawable.bg_get_btn, R.drawable.bg_get_btn_pressed)
             }
             tx_buy_url.setOnClickListener {
-                //                if (goods.commissionType == 1) {
-//                    AliTradeHelper(ActivityUtils.getActivityByView(this)).showItemURLPage("http://www.neday.cn/index.php?r=p/d&id=" + goods.id)
-//                } else {
-                // todo:高佣金测试
                 AliTradeHelper(ActivityUtils.getActivityByView(this)).showDetailPage(goods.goodsId)
-//                }
                 changePressedViewBg(it, R.drawable.bg_buy_btn, R.drawable.bg_buy_btn_pressed)
             }
         }
@@ -105,14 +104,6 @@ class GoodsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.list_item_goods, parent, false)
             return GoodsViewHolder(view)
-        }
-
-        private fun convertPicUrlToUri(picUrl: String): Uri {
-            return if (NetworkUtils.is4G()) {
-                Uri.parse(picUrl + StringUtils.getString(R.string._200x200_jpg))
-            } else {
-                Uri.parse(picUrl + StringUtils.getString(R.string._300x300_jpg))
-            }
         }
     }
 }

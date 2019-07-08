@@ -3,36 +3,45 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
         android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorPrimary"
+                android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
             <LinearLayout android:layout_width="match_parent"
                           android:layout_height="match_parent"
                           android:orientation="vertical">
-
-                <include layout="@layout/include_main_index_search"/>
-
+                <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+                        android:id="@+id/titleBar_index"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:centerType="searchView"
+                        app:centerSearchRightType="delete"
+                        app:statusBarMode="light"
+                        app:titleBarColor="@color/red"
+                        app:fillStatusBar="false"
+                        app:showBottomLine="false"
+                        app:centerSearchEditable="false"
+                        app:leftType="imageButton"
+                        app:leftImageResource="@drawable/ic_subject_white_24dp"
+                        app:rightImageResource="@drawable/ic_search_white_24dp"
+                        app:rightType="imageButton"/>
                 <include layout="@layout/include_main_index_header"/>
             </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent"
+                  android:layout_height="wrap_content"
                   android:clipToPadding="false"
                   app:layout_behavior="@string/appbar_scrolling_view_behavior"
                   android:orientation="vertical">

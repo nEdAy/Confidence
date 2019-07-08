@@ -1,10 +1,12 @@
 package cn.neday.sheep.model
 
+import java.io.Serializable
+
 data class RankGoods(
     // 商品id，在大淘客的商品id Number 19259135
     val id: Int,
     // 淘宝商品id Number 590858626868
-    val goodsId: Long,
+    val goodsId: String,
     // 榜单名次 Number 1
     val ranking: Int,
     // 短标题 String 【李佳琦推荐】奢华芯肌素颜爆水霜
@@ -55,4 +57,4 @@ data class RankGoods(
     val istmall: Int,
     // 优惠券使用条件 Number 22.01
     val quanUsageCondition: Double
-)
+) : Serializable

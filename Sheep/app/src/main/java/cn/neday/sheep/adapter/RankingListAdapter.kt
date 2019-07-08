@@ -2,6 +2,7 @@ package cn.neday.sheep.adapter
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import cn.neday.sheep.R
+import cn.neday.sheep.activity.RankGoodsDetailsActivity
 import cn.neday.sheep.model.RankGoods
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils.getPrettyNumber
@@ -72,7 +74,9 @@ class RankingListAdapter : ListAdapter<RankGoods, RankingListAdapter.ViewHolder>
                     )
                     .into(iv_img_shower)
                 setOnClickListener {
-                    // ActivityUtils.startActivity(GoodsDetailsActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putSerializable(RankGoodsDetailsActivity.extra, rankGoods)
+                    ActivityUtils.startActivity(bundle, RankGoodsDetailsActivity::class.java)
                 }
                 setOnLongClickListener {
                     AliTradeHelper((ActivityUtils.getActivityByView(this))).showAddCartPage(rankGoods.goodsId.toString())
@@ -83,11 +87,7 @@ class RankingListAdapter : ListAdapter<RankGoods, RankingListAdapter.ViewHolder>
                     changePressedViewBg(it, R.drawable.bg_get_btn, R.drawable.bg_get_btn_pressed)
                 }
                 tx_buy_url.setOnClickListener {
-                    if (rankGoods.commissionType == 1) { //todo: commissionType??
-                        AliTradeHelper(ActivityUtils.getActivityByView(this)).showItemURLPage("http://www.neday.cn/index.php?r=p/d&id=" + rankGoods.id)
-                    } else {
-                        AliTradeHelper(ActivityUtils.getActivityByView(this)).showDetailPage(rankGoods.goodsId.toString())
-                    }
+                    AliTradeHelper(ActivityUtils.getActivityByView(this)).showDetailPage(rankGoods.goodsId.toString())
                     changePressedViewBg(it, R.drawable.bg_buy_btn, R.drawable.bg_buy_btn_pressed)
                 }
             }

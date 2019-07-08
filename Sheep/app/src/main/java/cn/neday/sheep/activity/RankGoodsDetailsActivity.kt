@@ -2,7 +2,7 @@ package cn.neday.sheep.activity
 
 import android.net.Uri
 import cn.neday.sheep.R
-import cn.neday.sheep.model.Goods
+import cn.neday.sheep.model.RankGoods
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils.convertPicUrlToUri
 import com.blankj.utilcode.util.ActivityUtils
@@ -19,17 +19,18 @@ import kotlinx.android.synthetic.main.include_port_item_details.*
  *
  * @author nEdAy
  */
-class GoodsDetailsActivity : BaseActivity() {
+class RankGoodsDetailsActivity : BaseActivity() {
     override val layoutId = R.layout.activity_goods_details
 
     override fun initView() {
         // 获取商品信息
-        val goods = intent.extras?.get(extra) as Goods?
-        if (goods == null) {
+        val rankGoods = intent.extras?.get(extra) as RankGoods?
+        if (rankGoods == null) {
             ActivityUtils.finishActivity(this)
             return
         }
-        titleBar_goods_details.centerTextView.text = goods.dtitle
+        //初始化标题栏
+        titleBar_goods_details.centerTextView.text = rankGoods.dtitle
         titleBar_goods_details.setListener { _, action, _ ->
             if (action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
 //                ShareDialog(mContext).builder(
@@ -42,29 +43,18 @@ class GoodsDetailsActivity : BaseActivity() {
         }
         //注册点击事件监听
         ll_get.setOnClickListener {
-            AliTradeHelper(this).showItemURLPage(goods.couponLink)
+            AliTradeHelper(this).showItemURLPage(rankGoods.couponLink)
         }
         ll_buy.setOnClickListener {
-            AliTradeHelper(this).showDetailPage(goods.goodsId)
+            AliTradeHelper(this).showDetailPage(rankGoods.goodsId)
         }
-        ll_add.setOnClickListener { AliTradeHelper(this).showAddCartPage(goods.goodsId) }
-        //初始化标题栏
-//        val img_url = goods.getPic()
-//        val cms_url = "http://www.neday.cn/index_.php?r=p/d&id=" + goods.getID()
-//        initTopBarForBoth("精选详情", getString(R.string.tx_back), "分享") {
-//            ShareDialog(mContext).builder(
-//                "口袋快爆",
-//                "您的好友向您推荐了一款商品",
-//                img_url,
-//                cms_url
-//            ).show()
-//        }
+        ll_add.setOnClickListener { AliTradeHelper(this).showAddCartPage(rankGoods.goodsId) }
         //初始化商品主图
         Glide.with(this)
-            .load(convertPicUrlToUri(goods.mainPic))
+            .load(convertPicUrlToUri(rankGoods.pic))
             .thumbnail(
                 Glide.with(this)
-                    .load(Uri.parse(goods.mainPic + "_100x100_jpg"))
+                    .load(Uri.parse(rankGoods.pic + "_100x100_jpg"))
             )
             .apply(
                 RequestOptions().transform(RoundedCorners(10))
@@ -73,24 +63,24 @@ class GoodsDetailsActivity : BaseActivity() {
             )
             .into(iv_img_shower)
         // 显示标题
-        tv_title.text = goods.title
+        tv_title.text = rankGoods.title
         // 显示券后价
-        tv_money.text = goods.actualPrice.toString()
+        tv_money.text = rankGoods.actualPrice.toString()
         // 判断是否是天猫
-        tv_mall_name.text = if (goods.shopType == 1) "天猫商城" else "淘宝"
+        tv_mall_name.text = if (rankGoods.istmall == 1) "天猫商城" else "淘宝"
         // 显示销量和评分
         tv_sales_num_and_dsr.text =
-            "目前销量：" + goods.monthSales + " | 评分：" + goods.descScore
+            "目前销量：" + rankGoods.monthSales + " | 热推值：" + rankGoods.hotPush
         // 显示介绍
-        tv_introduce.text = goods.desc
+        tv_introduce.text = rankGoods.description
         // 显示券详情信息
         tv_quan.text =
-            "（" + goods.originalPrice + "元在售，袋友们可领取" + goods.couponPrice + "元优惠券（剩余数量" + goods.couponReceiveNum + "/" + goods.couponTotalNum + "）" + "，实付" + goods.actualPrice + "元包邮到手，价格很不错，喜欢的袋友速速入手了！（有效期：" + goods.couponStartTime + " - " + goods.couponEndTime + "，使用条件：" + goods.couponConditions + "）"
+            "（" + rankGoods.originPrice + "元在售，袋友们可领取" + rankGoods.couponPrice + "元优惠券（剩余数量" + rankGoods.couponReceiveNum + "/" + rankGoods.couponTotalNum + "）" + "，实付" + rankGoods.actualPrice + "元包邮到手，价格很不错，喜欢的袋友速速入手了！（有效期：" + rankGoods.couponStartTime + " - " + rankGoods.couponEndTime + "，使用条件：" + rankGoods.quanUsageCondition + "）"
     }
 
 
     companion object {
 
-        const val extra = "goods"
+        const val extra = "rankGoods"
     }
 }

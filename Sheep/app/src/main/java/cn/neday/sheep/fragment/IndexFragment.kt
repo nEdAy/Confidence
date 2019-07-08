@@ -4,15 +4,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import cn.neday.sheep.R
 import cn.neday.sheep.activity.LoginActivity
+import cn.neday.sheep.activity.SearchActivity
 import cn.neday.sheep.activity.SignInActivity
 import cn.neday.sheep.enum.RankType
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils
 import cn.neday.sheep.viewmodel.IndexViewModel
 import com.blankj.utilcode.util.ActivityUtils
+import com.wuhenzhizao.titlebar.widget.CommonTitleBar
 import kotlinx.android.synthetic.main.fragment_main_index.*
 import kotlinx.android.synthetic.main.include_main_index_header.*
 import kotlinx.android.synthetic.main.include_main_index_icon.*
+
 
 /**
  * 首页
@@ -36,26 +39,13 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
 
     private fun initHeader() {
         // Search
-        // ll_search.setOnClickListener { ActivityUtils.startActivity(SearchActivity::class.java) }
-        // btn_search.setOnClickListener { ActivityUtils.startActivity(SearchActivity::class.java) }
-
-        // Banner
-//        banner.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-//            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-//
-//            override fun onPageSelected(position: Int) {}
-//
-//            override fun onPageScrollStateChanged(state: Int) {
-//                enableDisableSwipeRefresh(state == ViewPager.SCROLL_STATE_IDLE)
-//            }
-//
-//            private fun enableDisableSwipeRefresh(b: Boolean) {
-//                if (mSwipeRefreshLayout != null) {
-//                    mSwipeRefreshLayout.setEnabled(b)
-//                }
-//            }
-//        })
-
+        titleBar_index.centerSearchEditText.hint = "请输入想搜索的商品关键词..."
+        titleBar_index.centerSearchEditText.setOnClickListener { ActivityUtils.startActivity(SearchActivity::class.java) }
+        titleBar_index.setListener { _, action, _ ->
+            if (action == CommonTitleBar.ACTION_SEARCH || action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
+                ActivityUtils.startActivity(SearchActivity::class.java)
+            }
+        }
         // Icon
         ll_sign.setOnClickListener { ActivityUtils.startActivity(SignInActivity::class.java) }
         // ll_shake.setOnClickListener { ActivityUtils.startActivity(ShakeActivity::class.java) }
@@ -69,6 +59,9 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
         mFragments.add(RankingListFragment(RankType.QUANTIANXIAOLIANGBANG))
         mFragments.add(RankingListFragment(RankType.RETUIBANG))
         stl_index.setViewPager(vp_index, resources.getStringArray(R.array.rank_type_array), activity, mFragments)
+        vp_index.offscreenPageLimit = 2
+        // https://blog.csdn.net/maosidiaoxian/article/details/78051601
+        vp_index.postDelayed({ vp_index.requestApplyInsets() }, 500)
     }
 
     override fun onStart() {

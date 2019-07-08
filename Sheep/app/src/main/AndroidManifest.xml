@@ -50,11 +50,15 @@
                   android:screenOrientation="portrait"
                   android:theme="@style/FullscreenTheme"/>
 
-        <activity android:name=".activity.SearchResultActivity"
+        <activity android:name=".activity.SearchActivity"
                   android:launchMode="singleTop"
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.GoodsDetailsActivity"
+                  android:launchMode="singleTop"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.RankGoodsDetailsActivity"
                   android:launchMode="singleTop"
                   android:screenOrientation="portrait"/>
 

@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="StickySwitch">
-        <attr name="ss_leftIcon" format="reference|integer"/>
-        <attr name="ss_leftText" format="reference|string"/>
-        <attr name="ss_rightIcon" format="reference|integer"/>
-        <attr name="ss_rightText" format="reference|string"/>
-        <attr name="ss_iconSize" format="reference|dimension"/>
-        <attr name="ss_iconPadding" format="reference|dimension"/>
-        <attr name="ss_textSize" format="reference|dimension"/>
-        <attr name="ss_selectedTextSize" format="reference|dimension"/>
-        <attr name="ss_switchColor" format="reference|color"/>
-        <attr name="ss_sliderBackgroundColor" format="reference|color"/>
-        <attr name="ss_textColor" format="reference|color"/>
-        <attr name="ss_animationDuration" format="reference|integer"/>
-
-        <attr name="ss_animationType" format="enum">
-            <enum name="line" value="0"/>
-            <enum name="curved" value="1"/>
+    <declare-styleable name="FlowLayout">
+        <attr name="flFlow" format="boolean"/>
+        <attr name="flChildSpacing" format="enum|dimension">
+            <enum name="auto" value="-65536"/>
         </attr>
-        <attr name="ss_textVisibility" format="enum">
-            <enum name="visible" value="0"/>
-            <enum name="invisible" value="1"/>
-            <enum name="gone" value="2"/>
+        <attr name="flMinChildSpacing" format="dimension"/>
+        <attr name="flChildSpacingForLastRow" format="enum|dimension">
+            <enum name="auto" value="-65536"/>
+            <enum name="align" value="-65537"/>
         </attr>
+        <attr name="flRowSpacing" format="enum|dimension">
+            <enum name="auto" value="-65536"/>
+        </attr>
+        <attr name="flRtl" format="boolean"/>
+        <attr name="flMaxRows" format="integer"/>
+        <attr name="flRowVerticalGravity" format="enum">
+            <enum name="auto" value="-65536"/>
+            <enum name="top" value="0x30"/>
+            <enum name="center" value="0x10"/>
+            <enum name="bottom" value="0x50"/>
+        </attr>
+        <attr name="android:gravity"/>
     </declare-styleable>
 </resources>

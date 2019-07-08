@@ -5,7 +5,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar
 import kotlinx.android.synthetic.main.activity_search.*
 
-class SearchResultActivity : BaseActivity() {
+class SearchActivity : BaseActivity() {
 
     override val layoutId = R.layout.activity_search
 
