@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
@@ -17,7 +18,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
-                android:text="月光宝盒Q100 10000毫安聚合物移动电源"
+                tools:text="月光宝盒Q100 10000毫安聚合物移动电源"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/global_big_text_size"/>
 

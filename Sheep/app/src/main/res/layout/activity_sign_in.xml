@@ -11,7 +11,6 @@
     <!--android:layout_height="wrap_content" />-->
 
     <RelativeLayout
-            android:id="@+id/relativeLayout6"
             android:layout_width="match_parent"
             android:layout_height="160dp">
 
@@ -63,17 +62,15 @@
                     android:text="@string/sign_in_out"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/global_big_text_size"/>
-
         </RelativeLayout>
     </RelativeLayout>
 
-    <View
-            android:id="@+id/view_top_line_0"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divide_line_height"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/lineColor"/>
+    <View android:id="@+id/view_top_line_0"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/divide_line_height"
+          android:layout_marginLeft="20dp"
+          android:layout_marginRight="20dp"
+          android:background="@color/lineColor"/>
 
     <RelativeLayout
             android:id="@+id/relativeLayout7"

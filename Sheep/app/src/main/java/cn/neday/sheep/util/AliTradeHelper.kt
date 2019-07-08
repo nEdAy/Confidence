@@ -2,12 +2,8 @@ package cn.neday.sheep.util
 
 import android.app.Activity
 import android.app.Application
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.text.TextUtils
 import cn.neday.sheep.BuildConfig
-import cn.neday.sheep.R
 import com.alibaba.baichuan.android.trade.AlibcTrade
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback
@@ -132,14 +128,14 @@ class AliTradeHelper(private val activity: Activity?) {
 
     companion object {
         // 淘客Pid
-        private const val DEFAULT_TAOKE_PID = "mm_108668197_20812100_70480816"
+        private const val DEFAULT_TAOKE_PID = "mm_108668197_20820254_70484723"
         // 页面打开方式，默认，H5，Native
-        private val alibcShowParams = AlibcShowParams(OpenType.Auto, false)
+        private val alibcShowParams = AlibcShowParams(OpenType.Native, false)
         // 淘宝客PID
         private val alibcTaokeParams = AlibcTaokeParams(DEFAULT_TAOKE_PID, "", "").apply {
-            adzoneid = "70480816"
+            adzoneid = "70484723"
             extraParams = HashMap()
-            extraParams["taokeAppkey"] = "27616029"
+            extraParams["taokeAppkey"] = "27697448"
         }
         private val alibcExParams = HashMap<String, String>().apply {
             put("isv_code", BuildConfig.VERSION_NAME)
