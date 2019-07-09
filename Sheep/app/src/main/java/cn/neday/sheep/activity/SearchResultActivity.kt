@@ -8,6 +8,7 @@ import cn.neday.sheep.model.Goods
 import cn.neday.sheep.network.NetworkState
 import cn.neday.sheep.viewmodel.SearchResultViewModel
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar
+import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.activity_search_result.*
 
 class SearchResultActivity : BaseVMActivity<SearchResultViewModel>() {
@@ -28,9 +29,9 @@ class SearchResultActivity : BaseVMActivity<SearchResultViewModel>() {
             titleBar_search_result.centerSearchEditText.setText(keyWord)
             mViewModel.getDtkSearchGoods(keyWord)
         }
-        titleBar_search_result.setListener { _, action, text ->
+        titleBar_search_result.setListener { _, action, _ ->
             if (action == CommonTitleBar.ACTION_SEARCH_SUBMIT || action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
-                mViewModel.getDtkSearchGoods(text)
+                mViewModel.getDtkSearchGoods(titleBar_search.searchKey)
             }
         }
     }

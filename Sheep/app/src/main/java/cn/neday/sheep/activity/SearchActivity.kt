@@ -24,10 +24,10 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
 
     override fun initView() {
         titleBar_search.centerSearchEditText.hint = getString(R.string.tx_search_hint)
-        titleBar_search.setListener { _, action, text ->
+        titleBar_search.setListener { _, action, _ ->
             if (action == CommonTitleBar.ACTION_SEARCH_SUBMIT || action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
                 val bundle = Bundle()
-                bundle.putString(SearchResultActivity.extra, text)
+                bundle.putString(SearchResultActivity.extra, titleBar_search.searchKey)
                 ActivityUtils.startActivity(bundle, SearchResultActivity::class.java)
             }
         }
