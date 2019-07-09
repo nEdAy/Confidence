@@ -1,19 +1,23 @@
 package cn.neday.sheep.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.viewModelScope
+import cn.neday.sheep.model.HistoryWords
+import cn.neday.sheep.model.database.AppDatabase
+import cn.neday.sheep.model.repository.HistoryWordsRepository
 import cn.neday.sheep.network.repository.GoodsRepository
+import com.blankj.utilcode.util.Utils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class SearchResultViewModel(application: Application) : BaseViewModel() {
+class SearchResultViewModel : BaseViewModel() {
 
     private val mRepository by lazy { GoodsRepository() }
 
-//    private val mHistoryWordsRepository: by lazy { HistoryWordsRepository() }
+    private val mHotWords = MutableLiveData<String>()
 
-    private val mKeyWords = MutableLiveData<String>()
-
-    private val mRepoResult = Transformations.map(mKeyWords) {
+    private val mRepoResult = Transformations.map(mHotWords) {
         mRepository.getDtkSearchGoods(it)
     }
 
@@ -21,10 +25,16 @@ class SearchResultViewModel(application: Application) : BaseViewModel() {
     val networkState = Transformations.switchMap(mRepoResult) { it.networkState }
     val refreshState = Transformations.switchMap(mRepoResult) { it.refreshState }
 
-//    init {
-//        val historyWordsDao = AppDatabase.getDatabase(application).historyWordsDao()
-//        repomHistoryWordsRepositorysitory = HistoryWordsRepository(historyWordsDao)
-//    }
+    private val mHistoryWordsRepository: HistoryWordsRepository
+
+    init {
+        val historyWordsDao = AppDatabase.getDatabase(Utils.getApp()).historyWordsDao()
+        mHistoryWordsRepository = HistoryWordsRepository(historyWordsDao)
+    }
+
+    fun insert(historyWords: HistoryWords) = viewModelScope.launch(Dispatchers.IO) {
+        mHistoryWordsRepository.insert(historyWords)
+    }
 
     fun refresh() {
         mRepoResult.value?.refresh?.invoke()
@@ -36,7 +46,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel() {
     }
 
     fun getDtkSearchGoods(keyWords: String) {
-        mKeyWords.value = keyWords
+        mHotWords.value = keyWords
     }
 
 //    /**
