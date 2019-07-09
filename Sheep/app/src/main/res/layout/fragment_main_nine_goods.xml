@@ -6,7 +6,7 @@
               android:orientation="vertical">
 
     <com.wuhenzhizao.titlebar.widget.CommonTitleBar
-            android:id="@+id/titleBar_goods_details"
+            android:id="@+id/titleBar_nine_goods"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:centerType="textView"
@@ -14,6 +14,7 @@
             app:fillStatusBar="false"
             app:statusBarColor="@color/colorPrimaryDark"
             app:statusBarMode="light"
+            app:showBottomLine="false"
             app:titleBarColor="@color/red"
             app:centerTextColor="@android:color/white"
             app:centerTextMarquee="true"/>

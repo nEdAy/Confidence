@@ -5,7 +5,7 @@
                 android:background="@android:color/white">
 
     <com.wuhenzhizao.titlebar.widget.CommonTitleBar
-            android:id="@+id/titleBar_goods_details"
+            android:id="@+id/titleBar_about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:centerType="textView"
@@ -148,7 +148,7 @@
             android:id="@+id/splash_logo"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_below="@+id/top_title_bar"
+            android:layout_below="@+id/titleBar_about"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="57dp"
             android:src="@mipmap/ic_launcher"
