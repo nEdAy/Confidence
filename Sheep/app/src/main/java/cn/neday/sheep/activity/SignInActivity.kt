@@ -100,8 +100,6 @@ class SignInActivity : BaseActivity() {
 //                )
 //                    .btnnum(1)
 //                    .btntext("朕已阅")
-//                    .showanim(bouncetopenter())
-//                    .dismissanim(slidebottomexit())
 //                    .show()
 //                dialog.setonbtnclickl(onbtnclickl { dialog.dismiss() } as onbtnclickl)
 //            },

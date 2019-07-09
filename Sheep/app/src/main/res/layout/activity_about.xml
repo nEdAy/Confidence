@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:background="@android:color/white">
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+            android:id="@+id/titleBar_goods_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:centerType="textView"
+            app:centerText="@string/tx_about"
+            app:fillStatusBar="true"
+            app:statusBarColor="@color/colorPrimaryDark"
+            app:statusBarMode="light"
+            app:titleBarColor="@color/red"
+            app:centerTextColor="@android:color/white"
+            app:centerTextMarquee="true"
+            app:leftType="imageButton"
+            app:leftImageResource="@drawable/ic_back_white_24dp"/>
 
     <TextView
             android:id="@+id/splash_app_name"

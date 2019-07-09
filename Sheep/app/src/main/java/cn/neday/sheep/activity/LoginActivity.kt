@@ -15,8 +15,6 @@ import cn.neday.sheep.viewmodel.LoginViewModel
 import cn.smssdk.EventHandler
 import cn.smssdk.SMSSDK
 import com.blankj.utilcode.util.*
-import com.flyco.animation.BounceEnter.BounceTopEnter
-import com.flyco.animation.SlideExit.SlideBottomExit
 import com.flyco.dialog.listener.OnBtnClickL
 import com.flyco.dialog.widget.NormalDialog
 import com.orhanobut.hawk.Hawk
@@ -60,19 +58,21 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
      * 用户back按键回馈
      */
     override fun onBackPressed() {
-        val dialog = NormalDialog(this)
-        dialog.content("验证码短信可能略有延迟，确定返回并重新开始？")
-            .style(NormalDialog.STYLE_TWO)
-            .titleTextSize(23f)
-            .showAnim(BounceTopEnter())
-            .dismissAnim(SlideBottomExit())
-            .show()
-        dialog.setOnBtnClickL(
-            OnBtnClickL { dialog.dismiss() },
-            OnBtnClickL {
-                dialog.superDismiss()
-                finish()
-            })
+        if (timeCount != null) {
+            val dialog = NormalDialog(this)
+            dialog.content("验证码短信可能略有延迟，确定返回并重新开始？")
+                .style(NormalDialog.STYLE_TWO)
+                .titleTextSize(23f)
+                .show()
+            dialog.setOnBtnClickL(
+                OnBtnClickL { dialog.dismiss() },
+                OnBtnClickL {
+                    dialog.superDismiss()
+                    ActivityUtils.finishActivity(this)
+                })
+        } else {
+            super.onBackPressed()
+        }
     }
 
     private fun initEditViewByLastUsername() {
@@ -146,8 +146,6 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
             dialog.content("确定后将致电您的手机号并语音播报验证码，如不希望被来点打扰请返回。")
                 .style(NormalDialog.STYLE_TWO)
                 .titleTextSize(23f)
-                .showAnim(BounceTopEnter())
-                .dismissAnim(SlideBottomExit())
                 .show()
             dialog.setOnBtnClickL(
                 OnBtnClickL { dialog.dismiss() },

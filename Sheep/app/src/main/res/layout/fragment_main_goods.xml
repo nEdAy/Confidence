@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:rv="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -12,6 +12,21 @@
             android:gravity="center"
             android:orientation="vertical"
             android:padding="10dp">
+
+        <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+                android:id="@+id/titleBar_goods_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:centerType="textView"
+                app:centerText="@string/tx_about"
+                app:fillStatusBar="true"
+                app:statusBarColor="@color/colorPrimaryDark"
+                app:statusBarMode="light"
+                app:titleBarColor="@color/red"
+                app:centerTextColor="@android:color/white"
+                app:centerTextMarquee="true"
+                app:leftType="imageButton"
+                app:leftImageResource="@drawable/ic_back_white_24dp"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -27,11 +42,11 @@
                     android:padding="10dp"
                     android:text="TextView Default"
                     android:textColor="#383838"
-                    rv:rv_backgroundColor="#ffffff"
-                    rv:rv_backgroundPressColor="#383838"
-                    rv:rv_strokeColor="#383838"
-                    rv:rv_strokeWidth="1dp"
-                    rv:rv_textPressColor="#ffffff"/>
+                    app:rv_backgroundColor="#ffffff"
+                    app:rv_backgroundPressColor="#383838"
+                    app:rv_strokeColor="#383838"
+                    app:rv_strokeWidth="1dp"
+                    app:rv_textPressColor="#ffffff"/>
 
             <com.flyco.roundview.RoundTextView
                     android:id="@+id/rtv_2"
@@ -45,14 +60,14 @@
                     android:paddingTop="10dp"
                     android:text="Radius Half Height"
                     android:textColor="#03A9F4"
-                    rv:rv_backgroundColor="#ffffff"
-                    rv:rv_backgroundPressColor="#03A9F4"
-                    rv:rv_isRadiusHalfHeight="true"
-                    rv:rv_isRippleEnable="false"
-                    rv:rv_strokeColor="#03A9F4"
-                    rv:rv_strokePressColor="#6D8FB0"
-                    rv:rv_strokeWidth="1dp"
-                    rv:rv_textPressColor="#ffffff"/>
+                    app:rv_backgroundColor="#ffffff"
+                    app:rv_backgroundPressColor="#03A9F4"
+                    app:rv_isRadiusHalfHeight="true"
+                    app:rv_isRippleEnable="false"
+                    app:rv_strokeColor="#03A9F4"
+                    app:rv_strokePressColor="#6D8FB0"
+                    app:rv_strokeWidth="1dp"
+                    app:rv_textPressColor="#ffffff"/>
         </LinearLayout>
 
 
@@ -70,8 +85,8 @@
                 android:singleLine="true"
                 android:text="TextView Radius 10dpTextView Radius 10dp"
                 android:textColor="#383838"
-                rv:rv_backgroundColor="#F6CE59"
-                rv:rv_cornerRadius="10dp"/>
+                app:rv_backgroundColor="#F6CE59"
+                app:rv_cornerRadius="10dp"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -90,8 +105,8 @@
                     android:padding="10dp"
                     android:text="Radius TopLeft"
                     android:textColor="#ffffff"
-                    rv:rv_backgroundColor="#DE88A5"
-                    rv:rv_cornerRadius_TL="10dp"/>
+                    app:rv_backgroundColor="#DE88A5"
+                    app:rv_cornerRadius_TL="10dp"/>
 
             <com.flyco.roundview.RoundTextView
                     android:layout_width="0dp"
@@ -102,8 +117,8 @@
                     android:padding="10dp"
                     android:text="Radius TopRight"
                     android:textColor="#ffffff"
-                    rv:rv_backgroundColor="#F08A5D"
-                    rv:rv_cornerRadius_TR="10dp"/>
+                    app:rv_backgroundColor="#F08A5D"
+                    app:rv_cornerRadius_TR="10dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -123,8 +138,8 @@
                     android:padding="10dp"
                     android:text="Radius BottomLeft"
                     android:textColor="#ffffff"
-                    rv:rv_backgroundColor="#4AA0D5"
-                    rv:rv_cornerRadius_BL="10dp"/>
+                    app:rv_backgroundColor="#4AA0D5"
+                    app:rv_cornerRadius_BL="10dp"/>
 
             <com.flyco.roundview.RoundTextView
                     android:layout_width="0dp"
@@ -135,8 +150,8 @@
                     android:padding="10dp"
                     android:text="Radius BottomRight"
                     android:textColor="#ffffff"
-                    rv:rv_backgroundColor="#7A9EAF"
-                    rv:rv_cornerRadius_BR="10dp"/>
+                    app:rv_backgroundColor="#7A9EAF"
+                    app:rv_cornerRadius_BR="10dp"/>
         </LinearLayout>
 
         <com.flyco.roundview.RoundFrameLayout
@@ -144,8 +159,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:padding="10dp"
-                rv:rv_backgroundColor="#009688"
-                rv:rv_cornerRadius="5dp">
+                app:rv_backgroundColor="#009688"
+                app:rv_cornerRadius="5dp">
 
             <TextView
                     android:layout_width="wrap_content"
@@ -166,8 +181,8 @@
                 android:paddingRight="18dp"
                 android:paddingTop="10dp"
                 android:textColor="#ffffff"
-                rv:rv_backgroundColor="#E45171"
-                rv:rv_cornerRadius="5dp">
+                app:rv_backgroundColor="#E45171"
+                app:rv_cornerRadius="5dp">
 
             <ImageView
                     android:layout_width="30dp"
@@ -192,8 +207,8 @@
                 android:paddingRight="18dp"
                 android:paddingTop="10dp"
                 android:textColor="#ffffff"
-                rv:rv_backgroundColor="#655989"
-                rv:rv_isRadiusHalfHeight="true">
+                app:rv_backgroundColor="#655989"
+                app:rv_isRadiusHalfHeight="true">
 
             <ImageView
                     android:id="@+id/iv_portrait"
@@ -226,9 +241,9 @@
                     android:orientation="vertical"
                     android:padding="10dp"
                     android:textColor="#ffffff"
-                    rv:rv_backgroundColor="#6D8FB0"
-                    rv:rv_cornerRadius="5dp"
-                    rv:rv_isWidthHeightEqual="true">
+                    app:rv_backgroundColor="#6D8FB0"
+                    app:rv_cornerRadius="5dp"
+                    app:rv_isWidthHeightEqual="true">
 
                 <ImageView
                         android:layout_width="40dp"
@@ -245,9 +260,9 @@
                     android:orientation="vertical"
                     android:padding="18dp"
                     android:textColor="#ffffff"
-                    rv:rv_backgroundColor="#393E46"
-                    rv:rv_isRadiusHalfHeight="true"
-                    rv:rv_isWidthHeightEqual="true">
+                    app:rv_backgroundColor="#393E46"
+                    app:rv_isRadiusHalfHeight="true"
+                    app:rv_isWidthHeightEqual="true">
 
                 <ImageView
                         android:layout_width="30dp"

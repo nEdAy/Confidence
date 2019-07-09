@@ -139,9 +139,6 @@ dependencies {
     // Title UI
     implementation 'com.wuhenzhizao:titlebar:1.1.4'
 
-    // State View
-    implementation 'com.github.nukc.stateview:library:1.5.4'
-
     // Utils
     implementation 'com.blankj:utilcodex:1.24.7'
 

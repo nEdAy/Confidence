@@ -16,9 +16,4 @@
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <com.github.nukc.stateview.StateView
-            android:id="@+id/stateView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 </FrameLayout>

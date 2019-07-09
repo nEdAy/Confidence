@@ -16,8 +16,6 @@ import cn.neday.sheep.view.ShareDialog
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
-import com.flyco.animation.BounceEnter.BounceTopEnter
-import com.flyco.animation.SlideExit.SlideBottomExit
 import com.flyco.dialog.listener.OnBtnClickL
 import com.flyco.dialog.widget.NormalDialog
 import com.orhanobut.hawk.Hawk
@@ -161,8 +159,6 @@ class MeFragment : BaseFragment() {
             .style(NormalDialog.STYLE_TWO)
             .btnNum(3)
             .btnText(getString(R.string.tx_cancel), getString(R.string.tx_determine), "跳转微信")
-            .showAnim(BounceTopEnter())
-            .dismissAnim(SlideBottomExit())
             .show()
         dialog.setOnBtnClickL(
             OnBtnClickL { dialog.dismiss() },
@@ -191,8 +187,6 @@ class MeFragment : BaseFragment() {
             .style(NormalDialog.STYLE_TWO)
             .btnNum(3)
             .btnText(getString(R.string.tx_cancel), getString(R.string.tx_determine), "跳转商店")
-            .showAnim(BounceTopEnter())
-            .dismissAnim(SlideBottomExit())
             .show()
         dialog.setOnBtnClickL(
             OnBtnClickL { dialog.dismiss() },

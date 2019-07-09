@@ -23,15 +23,9 @@ class RankingListFragment(private val rankType: RankType) : BaseVMFragment<Ranki
     override fun providerVMClass(): Class<RankingListViewModel>? = RankingListViewModel::class.java
 
     override fun initView() {
-        initStateView()
         initAdapter()
         initSwipeToRefresh()
         getRankingList()
-    }
-
-    private fun initStateView() {
-        stateView.showEmpty()
-        stateView.setOnRetryClickListener { getRankingList() }
     }
 
     private fun initAdapter() {
@@ -39,10 +33,8 @@ class RankingListFragment(private val rankType: RankType) : BaseVMFragment<Ranki
         mViewModel.mRankGoods.observe(this, Observer {
             mRankingListAdapter.submitList(it)
             srl_goods.isRefreshing = false
-            stateView.showContent()
         })
         mViewModel.mErrMsg.observe(this, Observer {
-            stateView.showRetry()
             ToastUtils.showShort(it)
         })
     }
@@ -53,7 +45,6 @@ class RankingListFragment(private val rankType: RankType) : BaseVMFragment<Ranki
     }
 
     private fun getRankingList() {
-        stateView.showLoading()
         mViewModel.getRankingList(rankType.index, "")
     }
 }

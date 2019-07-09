@@ -73,8 +73,6 @@ class GoodsDataSource(
         }
     }
 
-    private val initialPageId: String = "1"
-
     override fun loadInitial(
         params: LoadInitialParams<String>,
         callback: LoadInitialCallback<String, Goods>
@@ -86,7 +84,7 @@ class GoodsDataSource(
         GlobalScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    getNineOpGoodsList(params.requestedLoadSize, initialPageId, cid)
+                    getNineOpGoodsList(params.requestedLoadSize, INITIAL_PAGE_ID, cid)
                 }
                 executeResponse(response, {
                     val data = response.data
@@ -94,7 +92,8 @@ class GoodsDataSource(
                     retry = null
                     networkState.postValue(NetworkState.LOADED)
                     initialLoad.postValue(NetworkState.LOADED)
-                    callback.onResult(items, 0, data!!.totalNum, null, data.pageId)
+                    // callback.onResult(items, 0, data!!.totalNum, null, data.pageId)
+                    callback.onResult(items, null, data?.pageId)
                 }, {
                     retry = {
                         loadInitial(params, callback)
@@ -133,5 +132,9 @@ class GoodsDataSource(
                 successBlock()
             }
         }
+    }
+
+    companion object {
+        private const val INITIAL_PAGE_ID: String = "1"
     }
 }
