@@ -85,9 +85,11 @@ dependencies {
 
     // ViewModel & LiveData & Lifecycle
     def lifecycle_version = "2.2.0-alpha02"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
 
     // Bugly CrashReport & Upgrade
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.0'
