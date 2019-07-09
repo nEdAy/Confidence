@@ -10,23 +10,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
 
         <com.wuhenzhizao.titlebar.widget.CommonTitleBar
                 android:id="@+id/titleBar_goods_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:centerType="textView"
-                app:centerText="@string/tx_about"
+                app:centerText="优惠快爆"
                 app:fillStatusBar="true"
                 app:statusBarColor="@color/colorPrimaryDark"
                 app:statusBarMode="light"
                 app:titleBarColor="@color/red"
                 app:centerTextColor="@android:color/white"
-                app:centerTextMarquee="true"
-                app:leftType="imageButton"
-                app:leftImageResource="@drawable/ic_back_white_24dp"/>
+                app:centerTextMarquee="true"/>
 
         <LinearLayout
                 android:layout_width="match_parent"

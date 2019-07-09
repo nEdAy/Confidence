@@ -96,3 +96,26 @@ func ListSuperGoods(c *gin.Context) {
 			"sort":     listSuperGoods.Sort,
 		}})
 }
+
+type dtkSearchGoods struct {
+	PageSize string `form:"pageSize" binding:"required"`
+	PageId   string `form:"pageId" binding:"required"`
+	KeyWords string `form:"keyWords" binding:"required"`
+}
+
+func GetDtkSearchGoods(c *gin.Context) {
+	var dtkSearchGoods dtkSearchGoods
+	if err := c.ShouldBindQuery(&dtkSearchGoods); err != nil {
+		helper.ResponseErrorWithMsg(c, err.Error())
+		return
+	}
+	getFromDataoke(c, Dataoke{
+		c.Request.RequestURI,
+		2 * 60,
+		"https://openapi.dataoke.com/api/goods/get-dtk-search-goods",
+		map[string]string{
+			"pageSize": dtkSearchGoods.PageSize,
+			"pageId":   dtkSearchGoods.PageId,
+			"keyWords": dtkSearchGoods.KeyWords,
+		}})
+}

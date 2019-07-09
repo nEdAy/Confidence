@@ -10,15 +10,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:centerType="textView"
-            app:centerText="@string/tx_about"
-            app:fillStatusBar="true"
+            app:centerText="9.9精选"
+            app:fillStatusBar="false"
             app:statusBarColor="@color/colorPrimaryDark"
             app:statusBarMode="light"
             app:titleBarColor="@color/red"
             app:centerTextColor="@android:color/white"
-            app:centerTextMarquee="true"
-            app:leftType="imageButton"
-            app:leftImageResource="@drawable/ic_back_white_24dp"/>
+            app:centerTextMarquee="true"/>
 
     <com.flyco.tablayout.SlidingTabLayout
             android:id="@+id/stl_nine_goods"

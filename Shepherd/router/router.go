@@ -51,6 +51,10 @@ func Setup() {
 			goods.GET("/list-similer-goods-by-open", controller.ListSimilerGoodsByOpen)
 			// 获取超级搜索
 			goods.GET("/list-super-goods", controller.ListSuperGoods)
+			// 获取大淘客搜索
+			goods.GET("/get-dtk-search-goods", controller.GetDtkSearchGoods)
+
+
 		}
 		// 分类相关API
 		category := v1.Group("/category")
