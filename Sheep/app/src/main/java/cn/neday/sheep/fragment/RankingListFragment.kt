@@ -16,8 +16,6 @@ import kotlinx.android.synthetic.main.fragment_goods_list.*
  */
 class RankingListFragment(private val rankType: RankType) : BaseVMFragment<RankingListViewModel>() {
 
-    private val mRankingListAdapter: RankingListAdapter = RankingListAdapter()
-
     override val layoutId: Int = R.layout.fragment_goods_list
 
     override fun providerVMClass(): Class<RankingListViewModel>? = RankingListViewModel::class.java
@@ -29,9 +27,10 @@ class RankingListFragment(private val rankType: RankType) : BaseVMFragment<Ranki
     }
 
     private fun initAdapter() {
-        rv_goods.adapter = mRankingListAdapter
+        val rankingListAdapter = RankingListAdapter()
+        rv_goods.adapter = rankingListAdapter
         mViewModel.mRankGoods.observe(this, Observer {
-            mRankingListAdapter.submitList(it)
+            rankingListAdapter.submitList(it)
             srl_goods.isRefreshing = false
         })
         mViewModel.mErrMsg.observe(this, Observer {

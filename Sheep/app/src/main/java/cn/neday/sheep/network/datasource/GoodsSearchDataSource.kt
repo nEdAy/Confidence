@@ -11,7 +11,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class GoodsDataSource(private val cid: String) : BasePageKeyedDataSource<Goods>() {
+class GoodsSearchDataSource(private val keyWords: String) : BasePageKeyedDataSource<Goods>() {
 
     private val goodsApi: GoodsApi by lazy { RetrofitClient().getRetrofit(GoodsApi::class.java) }
 
@@ -20,7 +20,7 @@ class GoodsDataSource(private val cid: String) : BasePageKeyedDataSource<Goods>(
         GlobalScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    getNineOpGoodsList(params.requestedLoadSize, params.key, cid)
+                    getDtkSearchGoods(params.requestedLoadSize, params.key, keyWords)
                 }
                 executeResponse(response, {
                     val data = response.data
@@ -56,7 +56,7 @@ class GoodsDataSource(private val cid: String) : BasePageKeyedDataSource<Goods>(
         GlobalScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    getNineOpGoodsList(params.requestedLoadSize, INITIAL_PAGE_ID, cid)
+                    getDtkSearchGoods(params.requestedLoadSize, INITIAL_PAGE_ID, keyWords)
                 }
                 executeResponse(response, {
                     val data = response.data
@@ -85,7 +85,8 @@ class GoodsDataSource(private val cid: String) : BasePageKeyedDataSource<Goods>(
         }
     }
 
-    private suspend fun getNineOpGoodsList(pageSize: Int, pageId: String, cid: String): Response<Pages<Goods>> {
-        return apiCall { goodsApi.nineOpGoodsList(pageSize, pageId, cid) }
+
+    private suspend fun getDtkSearchGoods(pageSize: Int, pageId: String, keyWords: String): Response<Pages<Goods>> {
+        return apiCall { goodsApi.getDtkSearchGoods(pageSize, pageId, keyWords) }
     }
 }

@@ -19,7 +19,7 @@
             app:showBottomLine="false"
             app:centerSearchEditable="true"
             app:leftType="imageButton"
-            app:leftImageResource="@drawable/ic_subject_white_24dp"
+            app:leftImageResource="@drawable/ic_back_white_24dp"
             app:rightImageResource="@drawable/ic_search_white_24dp"
             app:rightType="imageButton"/>
 

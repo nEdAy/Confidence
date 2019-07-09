@@ -10,7 +10,9 @@ import cn.neday.sheep.model.RankGoods
 import cn.neday.sheep.model.Response
 import cn.neday.sheep.network.RetrofitClient
 import cn.neday.sheep.network.api.GoodsApi
+import cn.neday.sheep.network.datasource.BaseDataSourceFactory
 import cn.neday.sheep.network.datasource.GoodsDataSourceFactory
+import cn.neday.sheep.network.datasource.GoodsSearchDataSourceFactory
 
 /**
  * RankGoods Repository
@@ -38,7 +40,15 @@ class GoodsRepository : BaseRepository() {
 
     @MainThread
     fun getNineOpGoodsList(cid: String): Listing<Goods> {
-        val sourceFactory = GoodsDataSourceFactory(goodsApi, cid)
+        return makeListing(GoodsDataSourceFactory(cid))
+    }
+
+    @MainThread
+    fun getDtkSearchGoods(keyWords: String): Listing<Goods> {
+        return makeListing(GoodsSearchDataSourceFactory(keyWords))
+    }
+
+    private fun makeListing(sourceFactory: BaseDataSourceFactory<Goods>): Listing<Goods> {
         // We use toLiveData Kotlin extension function here, you could also use LivePagedListBuilder
         val livePagedList = sourceFactory.toLiveData(
             config = Config(

@@ -10,7 +10,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:centerType="textView"
-            app:centerText="9.9精选"
+            app:centerText="超值精选"
             app:fillStatusBar="false"
             app:statusBarColor="@color/colorPrimaryDark"
             app:statusBarMode="light"

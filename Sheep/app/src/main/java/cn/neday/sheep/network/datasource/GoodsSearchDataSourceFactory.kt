@@ -9,12 +9,12 @@ import cn.neday.sheep.model.Goods
  * This allows us to channel its network request status etc back to the UI. See the Listing creation
  * in the Repository class.
  */
-class GoodsDataSourceFactory(private val cid: String) : BaseDataSourceFactory<Goods>() {
+class GoodsSearchDataSourceFactory(private val keyWords: String) : BaseDataSourceFactory<Goods>() {
 
-    override val sourceLiveData = MutableLiveData<GoodsDataSource>()
+    override val sourceLiveData = MutableLiveData<GoodsSearchDataSource>()
 
     override fun create(): DataSource<String, Goods> {
-        val source = GoodsDataSource(cid)
+        val source = GoodsSearchDataSource(keyWords)
         sourceLiveData.postValue(source)
         return source
     }

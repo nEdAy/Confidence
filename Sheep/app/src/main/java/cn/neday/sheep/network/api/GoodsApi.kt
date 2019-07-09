@@ -60,4 +60,21 @@ interface GoodsApi {
         @Query("type") type: Int, @Query("keyWords") keyWords: String,
         @Query("tmall") tmall: Int, @Query("haitao") haitao: Int, @Query("sort") sort: String
     ): Response<List<Goods>>
+
+
+    /**
+     * 大淘客搜索
+     * 根据关键字、筛选条件，返回符合条件的大淘客平台的商品信息。
+     *
+     * @param pageSize 每页条数	是	Number	默认100 ，可选范围：10,50,100,200，如果小于10按10处理，大于200按照200处理，其它非范围内数字按100处理
+     * @param pageId 分页id	是	String	默认为1，支持传统的页码分页方式和scroll_id分页方式，根据用户自身需求传入值。示例1：商品入库，则首次传入1，后续传入接口返回的pageId，接口将持续返回符合条件的完整商品列表，该方式可以避免入口商品重复；示例2：根据pageSize和totalNum计算出总页数，按照需求返回指定页的商品（该方式可能在临近页取到重复商品）
+     * @param keyWords    关键词搜索	是	String
+     *
+     * @return 返回参数
+     */
+    @GET("goods/get-dtk-search-goods")
+    suspend fun getDtkSearchGoods(
+        @Query("pageSize") pageSize: Int, @Query("pageId") pageId: String, @Query("keyWords") keyWords: String
+    ): Response<Pages<Goods>>
+
 }
