@@ -153,11 +153,8 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                 OnBtnClickL { dialog.dismiss() },
                 OnBtnClickL {
                     dialog.dismiss()
-                        SMSSDK.getVoiceVerifyCode(COUNTRY_NUMBER, username)
-                        tx_hint_voice_verify_code.text = "我们正在致电语音播报验证码到您的手机号"
+                    SMSSDK.getVoiceVerifyCode(COUNTRY_NUMBER, username)
                 })
-        } else {
-                ToastUtils.showShort(R.string.network_tips)
         }
     }
 
@@ -227,6 +224,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                             }
                             SMSSDK.EVENT_GET_VOICE_VERIFICATION_CODE -> {
                                 // 请求发送语音验证码，无返回
+                                tx_hint_voice_verify_code.text = "我们正在致电语音播报验证码到您的手机号"
                                 tv_sms.text = " 致电中 "
                             }
                         }

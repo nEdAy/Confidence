@@ -5,6 +5,7 @@ import cn.neday.sheep.R
 import cn.neday.sheep.adapter.RankingListAdapter
 import cn.neday.sheep.enum.RankType
 import cn.neday.sheep.viewmodel.RankingListViewModel
+import com.blankj.utilcode.util.ToastUtils
 import kotlinx.android.synthetic.main.fragment_goods_list.*
 
 /**
@@ -22,17 +23,37 @@ class RankingListFragment(private val rankType: RankType) : BaseVMFragment<Ranki
     override fun providerVMClass(): Class<RankingListViewModel>? = RankingListViewModel::class.java
 
     override fun initView() {
-        srl_goods.setColorSchemeResources(R.color.red, R.color.orange, R.color.green, R.color.blue)
-        srl_goods.setOnRefreshListener { getRankingList() }
+        initStateView()
+        initAdapter()
+        initSwipeToRefresh()
+        getRankingList()
+    }
+
+    private fun initStateView() {
+        stateView.showEmpty()
+        stateView.setOnRetryClickListener { getRankingList() }
+    }
+
+    private fun initAdapter() {
         rv_goods.adapter = mRankingListAdapter
         mViewModel.mRankGoods.observe(this, Observer {
             mRankingListAdapter.submitList(it)
             srl_goods.isRefreshing = false
+            stateView.showContent()
         })
-        getRankingList()
+        mViewModel.mErrMsg.observe(this, Observer {
+            stateView.showRetry()
+            ToastUtils.showShort(it)
+        })
+    }
+
+    private fun initSwipeToRefresh() {
+        srl_goods.setColorSchemeResources(R.color.red, R.color.orange, R.color.green, R.color.blue)
+        srl_goods.setOnRefreshListener { getRankingList() }
     }
 
     private fun getRankingList() {
+        stateView.showLoading()
         mViewModel.getRankingList(rankType.index, "")
     }
 }
