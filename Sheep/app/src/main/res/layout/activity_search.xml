@@ -45,10 +45,12 @@
             <cn.neday.sheep.view.FlowLayout
                     android:id="@+id/fl_search_keyWords"
                     android:layout_width="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_height="wrap_content"
                     app:flChildSpacing="auto"
-                    app:flChildSpacingForLastRow="align"
-                    app:flRowSpacing="8dp"
+                    app:flChildSpacingForLastRow="auto"
+                    app:flRowSpacing="4dp"
                     app:flMaxRows="5"/>
 
             <TextView

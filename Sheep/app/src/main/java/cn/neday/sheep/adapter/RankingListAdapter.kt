@@ -13,9 +13,9 @@ import cn.neday.sheep.R
 import cn.neday.sheep.activity.RankGoodsDetailsActivity
 import cn.neday.sheep.model.RankGoods
 import cn.neday.sheep.util.AliTradeHelper
+import cn.neday.sheep.util.CommonUtils.convertPicUrlToUri
 import cn.neday.sheep.util.CommonUtils.getPrettyNumber
 import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.StringUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit
  *
  * @author nEdAy
  */
-class RankingListAdapter : ListAdapter<RankGoods, RankingListAdapter.ViewHolder>(RankDiffCallback()) {
+class RankingListAdapter : ListAdapter<RankGoods, RankingListAdapter.ViewHolder>(RANK_GOODS_DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_ranking, parent, false)
@@ -65,7 +65,7 @@ class RankingListAdapter : ListAdapter<RankGoods, RankingListAdapter.ViewHolder>
                     .load(convertPicUrlToUri(rankGoods.pic))
                     .thumbnail(
                         Glide.with(this)
-                            .load(Uri.parse(rankGoods.pic + "_100x100_jpg"))
+                            .load(Uri.parse(rankGoods.pic + "_100x100.jpg"))
                     )
                     .apply(
                         RequestOptions().transform(RoundedCorners(10))
@@ -111,26 +111,15 @@ class RankingListAdapter : ListAdapter<RankGoods, RankingListAdapter.ViewHolder>
                     view.setBackgroundResource(bg)
                 }
         }
+    }
 
-        companion object {
-            private fun convertPicUrlToUri(picUrl: String): Uri {
-                return if (NetworkUtils.is4G()) {
-                    Uri.parse(picUrl + StringUtils.getString(R.string._200x200_jpg))
-                } else {
-                    Uri.parse(picUrl + StringUtils.getString(R.string._300x300_jpg))
-                }
-            }
+    companion object {
+        val RANK_GOODS_DIFF_CALLBACK = object : DiffUtil.ItemCallback<RankGoods>() {
+            override fun areContentsTheSame(oldItem: RankGoods, newItem: RankGoods): Boolean =
+                oldItem == newItem
+
+            override fun areItemsTheSame(oldItem: RankGoods, newItem: RankGoods): Boolean =
+                oldItem.id == newItem.id
         }
-    }
-}
-
-private class RankDiffCallback : DiffUtil.ItemCallback<RankGoods>() {
-
-    override fun areItemsTheSame(oldItem: RankGoods, newItem: RankGoods): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: RankGoods, newItem: RankGoods): Boolean {
-        return oldItem == newItem
     }
 }

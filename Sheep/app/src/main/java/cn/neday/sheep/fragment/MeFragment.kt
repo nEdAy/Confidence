@@ -12,6 +12,7 @@ import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.AppStoreUtils
 import cn.neday.sheep.util.ClipboardUtils
 import cn.neday.sheep.util.CommonUtils
+import cn.neday.sheep.view.ShareDialog
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
@@ -43,14 +44,14 @@ class MeFragment : BaseFragment() {
         ll_feedback.setOnClickListener { CommonUtils.joinQQGroup(activity) }
         ll_attention.setOnClickListener { attentionWe() }
         ll_share.setOnClickListener {
-            //            ShareDialog(activity).builder(
-//                getString(R.string.app_name), "口袋快爆-每天千款优惠券秒杀，一折限时疯抢！",
-//                "http://app-10046956.cos.myqcloud.com/toAvatar.png",
-//                "http://a.app.qq.com/o/simple.jsp?pkgname=com.neday.bomb"
-//            ).show()
+            ShareDialog.newInstance(
+                getString(R.string.app_name), "口袋快爆-每天千款优惠券秒杀，一折限时疯抢！",
+                "http://app-10046956.cos.myqcloud.com/toAvatar.png",
+                "http://a.app.qq.com/o/simple.jsp?pkgname=com.neday.bomb"
+            ).show(childFragmentManager, "ShareDialog")
         }
         rl_credits.setOnClickListener {
-//            val intent = Intent()
+            //            val intent = Intent()
 //            intent.putExtra("userId", mCurrentUser.id)
 //            ActivityUtils.startActivity(CreditsHistoryActivity::class.java, intent)
         }

@@ -51,7 +51,7 @@ class GoodsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 .load(convertPicUrlToUri(goods.mainPic))
                 .thumbnail(
                     Glide.with(this)
-                        .load(Uri.parse(goods.mainPic + "_100x100_jpg"))
+                        .load(Uri.parse(goods.mainPic + "_100x100.jpg"))
                 )
                 .apply(
                     RequestOptions().transform(RoundedCorners(10))

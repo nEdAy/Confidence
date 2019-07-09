@@ -55,7 +55,7 @@ interface GoodsApi {
      *
      * @return 返回参数
      */
-    @GET("goods/listSuperGoods")
+    @GET("goods/list-super-goods")
     suspend fun listSuperGoods(
         @Query("type") type: Int, @Query("keyWords") keyWords: String,
         @Query("tmall") tmall: Int, @Query("haitao") haitao: Int, @Query("sort") sort: String

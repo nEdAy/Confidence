@@ -107,11 +107,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         val smsCode = et_sms.text.toString().trim()
         if (checkUserOk(username, password, smsCode)) {
             KeyboardUtils.hideSoftInput(this)
-            if (NetworkUtils.isAvailableByPing()) {
-                mViewModel.registerOrLogin(username, password, smsCode, "")
-            } else {
-                ToastUtils.showShort(R.string.network_tips)
-            }
+            mViewModel.registerOrLogin(username, password, smsCode, "")
         }
     }
 
@@ -157,19 +153,11 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                 OnBtnClickL { dialog.dismiss() },
                 OnBtnClickL {
                     dialog.dismiss()
-                    if (!NetworkUtils.isAvailableByPing()) {
-                        ToastUtils.showShort(R.string.network_tips)
-                    } else {
                         SMSSDK.getVoiceVerifyCode(COUNTRY_NUMBER, username)
                         tx_hint_voice_verify_code.text = "我们正在致电语音播报验证码到您的手机号"
-                    }
                 })
         } else {
-            if (!NetworkUtils.isAvailableByPing()) {
                 ToastUtils.showShort(R.string.network_tips)
-            } else {
-                SMSSDK.getVerificationCode(COUNTRY_NUMBER, username)
-            }
         }
     }
 

@@ -6,9 +6,7 @@ import android.net.Uri
 import android.view.View
 import android.view.animation.CycleInterpolator
 import android.view.animation.TranslateAnimation
-import cn.neday.sheep.R
 import com.blankj.utilcode.util.NetworkUtils
-import com.blankj.utilcode.util.StringUtils
 import java.math.BigDecimal
 
 /**
@@ -41,9 +39,9 @@ object CommonUtils {
 
     fun convertPicUrlToUri(picUrl: String): Uri {
         return if (NetworkUtils.is4G()) {
-            Uri.parse(picUrl + StringUtils.getString(R.string._200x200_jpg))
+            Uri.parse(picUrl + "_200x200.jpg")
         } else {
-            Uri.parse(picUrl + StringUtils.getString(R.string._300x300_jpg))
+            Uri.parse(picUrl + "_300x300.jpg")
         }
     }
 

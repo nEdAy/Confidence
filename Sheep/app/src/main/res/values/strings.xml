@@ -20,6 +20,8 @@
     <string name="tx_login_title_day">Good Morning</string>
     <string name="tx_login_title_night">Good Night</string>
 
+    <string name="tx_search_hint">请输入想搜索的商品关键词…</string>
+
     <string name="tx_retry">重试</string>
 
     <string name="tx_pressed_back_hint">再按一次退出程序</string>
@@ -154,9 +156,6 @@
     <!--<string name="exchange_failure">兑换失败：</string>-->
     <!--<string name="exchange_success">兑换成功：</string>-->
     <string name="tx_account">我的账户</string>
-    <string name="_120x120.jpg">_120x120.jpg</string>
-    <string name="_300x300.jpg">_300x300.jpg</string>
     <string name="tx_taobao">淘宝</string>
     <string name="tx_tianmao">天猫商城</string>
-    <string name="_200x200.jpg">_200x200.jpg</string>
 </resources>

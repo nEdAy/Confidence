@@ -54,6 +54,10 @@
                   android:launchMode="singleTop"
                   android:screenOrientation="portrait"/>
 
+        <activity android:name=".activity.SearchResultActivity"
+                  android:launchMode="singleTop"
+                  android:screenOrientation="portrait"/>
+
         <activity android:name=".activity.GoodsDetailsActivity"
                   android:launchMode="singleTop"
                   android:screenOrientation="portrait"/>

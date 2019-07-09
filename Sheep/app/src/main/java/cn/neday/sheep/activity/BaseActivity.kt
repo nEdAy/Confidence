@@ -1,5 +1,6 @@
 package cn.neday.sheep.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
@@ -21,12 +22,15 @@ abstract class BaseActivity : AppCompatActivity() {
 
     open val isCheckLogin = false
 
+    lateinit var mContext: Context
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (isCheckLogin && StringUtils.isTrimEmpty(Hawk.get(TOKEN))) {
             ActivityUtils.startActivity(LoginActivity::class.java)
             ActivityUtils.finishActivity(this)
         }
+        mContext = this
         layoutId?.let {
             setContentView(LayoutInflater.from(this).inflate(it, null))
         }

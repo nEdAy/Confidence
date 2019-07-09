@@ -4,7 +4,10 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cn.neday.sheep.R
 import cn.neday.sheep.model.Response
+import com.blankj.utilcode.util.NetworkUtils
+import com.blankj.utilcode.util.StringUtils.getString
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
@@ -12,12 +15,15 @@ import kotlinx.coroutines.launch
 
 open class BaseViewModel : ViewModel(), LifecycleObserver {
 
-    private val mException: MutableLiveData<Exception> = MutableLiveData()
     val mErrMsg: MutableLiveData<String> = MutableLiveData()
 
     fun launch(tryBlock: suspend CoroutineScope.() -> Unit) {
-        launchOnUI {
-            tryCatch(tryBlock, {}, {}, true)
+        if (NetworkUtils.isAvailableByPing()) {
+            launchOnUI {
+                tryCatch(tryBlock, {}, {}, true)
+            }
+        } else {
+            mErrMsg.value = getString(R.string.network_tips)
         }
     }
 
@@ -36,7 +42,6 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
                 tryBlock()
             } catch (e: Exception) {
                 if (e !is CancellationException || handleCancellationExceptionManually) {
-                    mException.value = e
                     catchBlock(e)
                 } else {
                     throw e

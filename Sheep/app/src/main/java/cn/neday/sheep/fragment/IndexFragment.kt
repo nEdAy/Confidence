@@ -39,7 +39,7 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
 
     private fun initHeader() {
         // Search
-        titleBar_index.centerSearchEditText.hint = "请输入想搜索的商品关键词..."
+        titleBar_index.centerSearchEditText.hint = getString(R.string.tx_search_hint)
         titleBar_index.centerSearchEditText.setOnClickListener { ActivityUtils.startActivity(SearchActivity::class.java) }
         titleBar_index.setListener { _, action, _ ->
             if (action == CommonTitleBar.ACTION_SEARCH || action == CommonTitleBar.ACTION_RIGHT_BUTTON) {

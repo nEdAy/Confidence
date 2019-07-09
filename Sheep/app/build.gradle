@@ -85,8 +85,8 @@ dependencies {
 
     // ViewModel & LiveData & Lifecycle
     def lifecycle_version = "2.2.0-alpha02"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
@@ -138,6 +138,9 @@ dependencies {
 
     // Title UI
     implementation 'com.wuhenzhizao:titlebar:1.1.4'
+
+    // State View
+    implementation 'com.github.nukc.stateview:library:1.5.4'
 
     // Utils
     implementation 'com.blankj:utilcodex:1.24.7'

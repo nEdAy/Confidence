@@ -1,6 +1,7 @@
 package cn.neday.sheep.activity
 
 import android.graphics.Color
+import android.os.Bundle
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -22,43 +23,56 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
     override fun providerVMClass(): Class<SearchViewModel>? = SearchViewModel::class.java
 
     override fun initView() {
-        titleBar_search.centerSearchEditText.hint = "请输入想搜索的商品关键词..."
-        titleBar_search.setListener { _, action, _ ->
+        titleBar_search.centerSearchEditText.hint = getString(R.string.tx_search_hint)
+        titleBar_search.setListener { _, action, text ->
             if (action == CommonTitleBar.ACTION_SEARCH_SUBMIT || action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
-                ActivityUtils.startActivity(SearchResultActivity::class.java)
+                val bundle = Bundle()
+                bundle.putString(SearchResultActivity.extra, text)
+                ActivityUtils.startActivity(bundle, SearchResultActivity::class.java)
             }
         }
-        val hotWords: List<String> = Hawk.get(HOTWORDS)
-        fillAutoSpacingLayout(hotWords)
+        val hotWords: List<String>? = Hawk.get(HOTWORDS)
+        fillHotWordAutoSpacingLayout(hotWords)
         mViewModel.getTop100()
         mViewModel.mHotWords.observe(this, Observer {
-            fillAutoSpacingLayout(hotWords)
+            fillHotWordAutoSpacingLayout(hotWords)
             Hawk.put(HOTWORDS, it.hotWords)
         })
     }
 
-    private fun fillAutoSpacingLayout(hotWords: List<String>) {
-        for (text in hotWords) {
-            val textView = buildLabel(text)
-            fl_search_keyWords.addView(textView)
+    private fun fillHotWordAutoSpacingLayout(hotWords: List<String>?) {
+        if (hotWords != null) {
+            for (text in hotWords) {
+                val textView = buildHotWordLabel(text)
+                fl_search_keyWords.addView(textView)
+            }
         }
     }
 
-    private fun buildLabel(text: String): TextView {
+    private fun buildHotWordLabel(text: String): TextView {
         val textView = RoundTextView(this)
-        textView.delegate.backgroundColor = Color.WHITE
-        textView.delegate.backgroundPressColor = ContextCompat.getColor(this, R.color.red_deep)
-        textView.delegate.cornerRadius = ConvertUtils.dp2px(10f)
+        textView.delegate.run {
+            backgroundColor = Color.WHITE
+            backgroundPressColor = ContextCompat.getColor(mContext, R.color.red)
+            cornerRadius = ConvertUtils.dp2px(4f)
+            strokeColor = Color.GRAY
+            strokePressColor = ContextCompat.getColor(mContext, R.color.red)
+            strokeWidth = ConvertUtils.dp2px(0.3f)
+            textPressColor = Color.WHITE
+        }
         textView.text = text
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+        textView.setTextColor(ContextCompat.getColor(this, R.color.textColor))
         textView.setPadding(
-            ConvertUtils.dp2px(16f),
             ConvertUtils.dp2px(8f),
-            ConvertUtils.dp2px(16f),
-            ConvertUtils.dp2px(8f)
+            ConvertUtils.dp2px(4f),
+            ConvertUtils.dp2px(8f),
+            ConvertUtils.dp2px(4f)
         )
         textView.setOnClickListener {
-            mViewModel.getListSuperGoods(0, text, 0, 0, "")
+            val bundle = Bundle()
+            bundle.putString(SearchResultActivity.extra, text)
+            ActivityUtils.startActivity(bundle, SearchResultActivity::class.java)
         }
         return textView
     }
