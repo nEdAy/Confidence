@@ -30,6 +30,7 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
         }
         val hotWords: List<String> = Hawk.get(HOTWORDS)
         fillAutoSpacingLayout(hotWords)
+        mViewModel.getTop100()
         mViewModel.mHotWords.observe(this, Observer {
             fillAutoSpacingLayout(hotWords)
             Hawk.put(HOTWORDS, it.hotWords)
@@ -56,6 +57,9 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
             ConvertUtils.dp2px(16f),
             ConvertUtils.dp2px(8f)
         )
+        textView.setOnClickListener {
+            mViewModel.getListSuperGoods(0, text, 0, 0, "")
+        }
         return textView
     }
 }
