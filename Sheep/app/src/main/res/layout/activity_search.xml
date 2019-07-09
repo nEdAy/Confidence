@@ -39,11 +39,31 @@
                     android:layout_margin="10dp"
                     android:background="@android:color/white"
                     android:gravity="start|center"
+                    android:text="历史搜索"
+                    android:textSize="@dimen/global_mid_text_size"/>
+
+            <cn.neday.sheep.view.FlowLayout
+                    android:id="@+id/fl_search_history_words"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="wrap_content"
+                    app:flChildSpacing="auto"
+                    app:flChildSpacingForLastRow="auto"
+                    app:flRowSpacing="4dp"
+                    app:flMaxRows="3"/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@android:color/white"
+                    android:gravity="start|center"
                     android:text="热门搜索"
                     android:textSize="@dimen/global_mid_text_size"/>
 
             <cn.neday.sheep.view.FlowLayout
-                    android:id="@+id/fl_search_keyWords"
+                    android:id="@+id/fl_search_hot_words"
                     android:layout_width="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"

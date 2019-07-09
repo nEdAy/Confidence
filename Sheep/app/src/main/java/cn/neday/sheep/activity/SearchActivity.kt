@@ -29,13 +29,15 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
                 val bundle = Bundle()
                 bundle.putString(SearchResultActivity.extra, titleBar_search.searchKey)
                 ActivityUtils.startActivity(bundle, SearchResultActivity::class.java)
+            } else if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+                ActivityUtils.finishActivity(this)
             }
         }
         val hotWords: List<String>? = Hawk.get(HOTWORDS)
         fillHotWordAutoSpacingLayout(hotWords)
         mViewModel.getTop100()
         mViewModel.mHotWords.observe(this, Observer {
-            fillHotWordAutoSpacingLayout(hotWords)
+            fillHotWordAutoSpacingLayout(it.hotWords)
             Hawk.put(HOTWORDS, it.hotWords)
         })
     }
@@ -44,7 +46,7 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
         if (hotWords != null) {
             for (text in hotWords) {
                 val textView = buildHotWordLabel(text)
-                fl_search_keyWords.addView(textView)
+                fl_search_hot_words.addView(textView)
             }
         }
     }

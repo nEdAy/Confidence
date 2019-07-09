@@ -7,6 +7,7 @@ import cn.neday.sheep.adapter.GoodsListAdapter
 import cn.neday.sheep.model.Goods
 import cn.neday.sheep.network.NetworkState
 import cn.neday.sheep.viewmodel.SearchResultViewModel
+import com.blankj.utilcode.util.ActivityUtils
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.activity_search_result.*
@@ -28,10 +29,15 @@ class SearchResultActivity : BaseVMActivity<SearchResultViewModel>() {
         keyWord?.let {
             titleBar_search_result.centerSearchEditText.setText(keyWord)
             mViewModel.getDtkSearchGoods(keyWord)
+            // Room
+            // val historyWords: LinkedList<String>? = Hawk.get(HISTORYWORDS)
+            // Hawk.put(HISTORYWORDS, historyWords)
         }
         titleBar_search_result.setListener { _, action, _ ->
             if (action == CommonTitleBar.ACTION_SEARCH_SUBMIT || action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
                 mViewModel.getDtkSearchGoods(titleBar_search.searchKey)
+            } else if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+                ActivityUtils.finishActivity(this)
             }
         }
     }

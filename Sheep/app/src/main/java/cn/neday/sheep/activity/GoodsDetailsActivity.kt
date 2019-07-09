@@ -5,6 +5,7 @@ import cn.neday.sheep.R
 import cn.neday.sheep.model.Goods
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils.convertPicUrlToUri
+import cn.neday.sheep.view.ShareDialog
 import com.blankj.utilcode.util.ActivityUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -24,7 +25,6 @@ class GoodsDetailsActivity : BaseActivity() {
     override val layoutId = R.layout.activity_goods_details
 
     override fun initView() {
-        // 获取商品信息
         val goods = intent.extras?.get(extra) as Goods?
         if (goods == null) {
             ActivityUtils.finishActivity(this)
@@ -32,16 +32,17 @@ class GoodsDetailsActivity : BaseActivity() {
         }
         titleBar_goods_details.centerTextView.text = goods.dtitle
         titleBar_goods_details.setListener { _, action, _ ->
-            if (action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
-//                ShareDialog(mContext).builder(
-                //                "口袋快爆",
-                //                "您的好友向您推荐了一款商品",
-                //                img_url,
-                //                cms_url
-                //            ).show()
+            if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+                ActivityUtils.finishActivity(this)
+            } else if (action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
+                ShareDialog.newInstance(
+                    "口袋快爆",
+                    "您的好友向您推荐了一款商品",
+                    goods.mainPic,
+                    "http://www.neday.cn/index_.php?r=p/d&id=" + goods.id
+                ).show(supportFragmentManager, "ShareDialog")
             }
         }
-        //注册点击事件监听
         ll_get.setOnClickListener {
             AliTradeHelper(this).showItemURLPage(goods.couponLink)
         }
@@ -49,18 +50,7 @@ class GoodsDetailsActivity : BaseActivity() {
             AliTradeHelper(this).showDetailPage(goods.goodsId)
         }
         ll_add.setOnClickListener { AliTradeHelper(this).showAddCartPage(goods.goodsId) }
-        //初始化标题栏
-//        val img_url = goods.getPic()
-//        val cms_url = "http://www.neday.cn/index_.php?r=p/d&id=" + goods.getID()
-//        initTopBarForBoth("精选详情", getString(R.string.tx_back), "分享") {
-//            ShareDialog(mContext).builder(
-//                "口袋快爆",
-//                "您的好友向您推荐了一款商品",
-//                img_url,
-//                cms_url
-//            ).show()
-//        }
-        //初始化商品主图
+        // 初始化商品主图
         Glide.with(this)
             .load(convertPicUrlToUri(goods.mainPic))
             .thumbnail(
@@ -86,7 +76,7 @@ class GoodsDetailsActivity : BaseActivity() {
         tv_introduce.text = goods.desc
         // 显示券详情信息
         tv_quan.text =
-            "（" + goods.originalPrice + "元在售，袋友们可领取" + goods.couponPrice + "元优惠券（剩余数量" + goods.couponReceiveNum + "/" + goods.couponTotalNum + "）" + "，实付" + goods.actualPrice + "元包邮到手，价格很不错，喜欢的袋友速速入手了！（有效期：" + goods.couponStartTime + " - " + goods.couponEndTime + "，使用条件：" + goods.couponConditions + "）"
+            "商品" + goods.originalPrice + "元在售，袋友们可领取" + goods.couponPrice + "元优惠券（剩余数量" + goods.couponReceiveNum + "/" + goods.couponTotalNum + "）" + "，实付" + goods.actualPrice + "元包邮到手，价格很不错，喜欢的袋友速速入手了！（有效期：" + goods.couponStartTime + " - " + goods.couponEndTime + "，使用条件：" + goods.couponConditions + "）"
     }
 
 

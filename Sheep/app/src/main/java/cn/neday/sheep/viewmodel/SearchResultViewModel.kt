@@ -1,12 +1,15 @@
 package cn.neday.sheep.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import cn.neday.sheep.network.repository.GoodsRepository
 
-class SearchResultViewModel : BaseViewModel() {
+class SearchResultViewModel(application: Application) : BaseViewModel() {
 
     private val mRepository by lazy { GoodsRepository() }
+
+//    private val mHistoryWordsRepository: by lazy { HistoryWordsRepository() }
 
     private val mKeyWords = MutableLiveData<String>()
 
@@ -17,6 +20,11 @@ class SearchResultViewModel : BaseViewModel() {
     val posts = Transformations.switchMap(mRepoResult) { it.pagedList }
     val networkState = Transformations.switchMap(mRepoResult) { it.networkState }
     val refreshState = Transformations.switchMap(mRepoResult) { it.refreshState }
+
+//    init {
+//        val historyWordsDao = AppDatabase.getDatabase(application).historyWordsDao()
+//        repomHistoryWordsRepositorysitory = HistoryWordsRepository(historyWordsDao)
+//    }
 
     fun refresh() {
         mRepoResult.value?.refresh?.invoke()

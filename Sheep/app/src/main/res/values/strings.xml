@@ -158,4 +158,5 @@
     <string name="tx_account">我的账户</string>
     <string name="tx_taobao">淘宝</string>
     <string name="tx_tianmao">天猫商城</string>
+    <string name="tx_get_sms_code">获取验证码</string>
 </resources>

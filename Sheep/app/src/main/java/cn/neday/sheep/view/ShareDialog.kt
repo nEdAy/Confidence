@@ -44,32 +44,32 @@ class ShareDialog : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
         val view = View.inflate(context, R.layout.include_pop_six_icon, null)
-        view.findViewById<View>(R.id.wechat).setOnClickListener {
+        view.findViewById<View>(R.id.ll_share_wechat).setOnClickListener {
             showShare(Wechat.NAME)
             mBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
-        view.findViewById<View>(R.id.wechatf).setOnClickListener {
+        view.findViewById<View>(R.id.ll_share_wechatMoments).setOnClickListener {
             showShare(WechatMoments.NAME)
             mBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
-        view.findViewById<View>(R.id.qq).setOnClickListener {
+        view.findViewById<View>(R.id.ll_share_qq).setOnClickListener {
             showShare(QQ.NAME)
             mBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
-        view.findViewById<View>(R.id.sms).setOnClickListener {
+        view.findViewById<View>(R.id.ll_share_shortMessage).setOnClickListener {
             showShare(ShortMessage.NAME)
             mBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
-        view.findViewById<View>(R.id.sina).setOnClickListener {
+        view.findViewById<View>(R.id.ll_share_sinaWeibo).setOnClickListener {
             showShare(SinaWeibo.NAME)
             mBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
-        view.findViewById<View>(R.id.qqzone).setOnClickListener {
+        view.findViewById<View>(R.id.ll_share_wechatFavorite).setOnClickListener {
             showShare(WechatFavorite.NAME)
             mBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
-        view.findViewById<View>(R.id.tv_cancel).setOnClickListener { dismiss() }
-        view.findViewById<View>(R.id.tv_copy).setOnClickListener {
+        view.findViewById<View>(R.id.tv_share_cancel).setOnClickListener { dismiss() }
+        view.findViewById<View>(R.id.tv_share_copy).setOnClickListener {
             ClipboardUtils.copyText(mClickUrl)
             ToastUtils.showShort("已复制内容到剪切板")
         }
