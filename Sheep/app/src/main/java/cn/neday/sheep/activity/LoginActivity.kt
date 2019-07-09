@@ -153,6 +153,8 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                     dialog.dismiss()
                     SMSSDK.getVoiceVerifyCode(COUNTRY_NUMBER, username)
                 })
+        } else {
+            SMSSDK.getVerificationCode(COUNTRY_NUMBER, username)
         }
     }
 
