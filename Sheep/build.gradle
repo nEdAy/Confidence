@@ -1,8 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.3.40'
-    ext.nav_version = '2.1.0-alpha06'
+    ext.kotlin_version = '1.3.41'
     repositories {
         google()
         jcenter()
@@ -11,7 +10,6 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.4.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.tencent.bugly:symtabfileuploader:2.2.1'
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
         classpath "com.mob.sdk:MobSDK:2018.0319.1724"
     }
 }

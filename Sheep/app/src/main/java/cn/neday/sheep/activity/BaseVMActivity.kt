@@ -1,7 +1,9 @@
 package cn.neday.sheep.activity
 
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import cn.neday.sheep.viewmodel.BaseViewModel
+import com.blankj.utilcode.util.ToastUtils
 
 /**
  * Activity基类 + ViewModel
@@ -22,6 +24,9 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity() {
             mViewModel = ViewModelProviders.of(this).get(it)
             lifecycle.addObserver(mViewModel)
         }
+        mViewModel.mErrMsg.observe(this, Observer {
+            ToastUtils.showShort(it)
+        })
     }
 
     abstract fun providerVMClass(): Class<VM>?

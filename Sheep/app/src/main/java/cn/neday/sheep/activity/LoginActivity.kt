@@ -54,9 +54,6 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
             Hawk.put(USERNAME, it.username)
             ActivityUtils.finishActivity(this)
         })
-        mViewModel.mErrMsg.observe(this, Observer {
-            ToastUtils.showShort(it)
-        })
     }
 
     /**
