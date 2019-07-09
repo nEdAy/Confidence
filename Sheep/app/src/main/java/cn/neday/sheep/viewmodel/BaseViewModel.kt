@@ -18,17 +18,19 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
     val mErrMsg: MutableLiveData<String> = MutableLiveData()
 
     fun launch(tryBlock: suspend CoroutineScope.() -> Unit) {
-        if (NetworkUtils.isAvailableByPing()) {
-            launchOnUI {
-                tryCatch(tryBlock, {}, {}, true)
-            }
-        } else {
-            mErrMsg.value = getString(R.string.network_tips)
+        launchOnUI {
+            tryCatch(tryBlock, {}, {}, true)
         }
     }
 
     private fun launchOnUI(block: suspend CoroutineScope.() -> Unit) {
-        viewModelScope.launch { block() }
+        viewModelScope.launch {
+            if (NetworkUtils.isAvailableByPing()) {
+                block()
+            } else {
+                mErrMsg.value = getString(R.string.network_tips)
+            }
+        }
     }
 
     private suspend fun tryCatch(
