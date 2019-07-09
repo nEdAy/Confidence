@@ -21,6 +21,7 @@ import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 
+
 /**
  * 登录页
  *
@@ -232,6 +233,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                         tv_sms.isEnabled = true
                         et_username.isEnabled = true
                         tv_sms.text = " 请重试 "
+                        (data as Throwable).printStackTrace()
                     }
                 }
             }
