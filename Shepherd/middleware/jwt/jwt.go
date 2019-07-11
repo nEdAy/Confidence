@@ -2,6 +2,7 @@ package jwt
 
 import (
 	"Shepherd/pkg/jwt"
+	"Shepherd/pkg/response"
 	"github.com/gin-gonic/gin"
 )
 
