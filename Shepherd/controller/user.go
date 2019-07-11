@@ -66,7 +66,7 @@ func RegisterOrLogin(c *gin.Context) {
 	} else {
 		// （已注册）进行登录流程
 		if len(param.Password) > 0 { // login via password
-			if user.Password != scrypt.GetScryptPasswordBase64(param.Password) {
+			if user.Password != scrypt.GetScryptPasswordBase64(param.Password, param.Username) {
 				response.ErrorWithMsg(c, "账户或密码错误")
 				return
 			}
