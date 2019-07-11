@@ -10,16 +10,16 @@
   "host": "{{.Host}}",
   "basePath": "{{.BasePath}}",
   "paths": {
-    "/v1/login/": {
+    "/v1/registerOrLogin/": {
       "post": {
-        "description": "login user by username,password",
+        "description": "register or login user by username,password,smsCode",
         "consumes": [
           "application/json"
         ],
         "produces": [
           "application/json"
         ],
-        "summary": "用户登录",
+        "summary": "用户注册 用户登录(密码) 用户登录（短信验证码）",
         "parameters": [
           {
             "type": "string",
@@ -33,46 +33,17 @@
             "description": "Password",
             "name": "password",
             "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "{\"time\": 1561513181, \"code\": 200, \"msg\": \"成功\", \"data\" : {}}",
-            "schema": {
-              "type": "string"
-            }
-          },
-          "400": {
-            "description": "{\"time\": 1561513181, \"code\": 400, \"msg\": \"msg\"}",
-            "schema": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "/v1/register/": {
-      "post": {
-        "description": "register user by username,password",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "summary": "添加用户",
-        "parameters": [
-          {
-            "type": "string",
-            "description": "Username",
-            "name": "username",
-            "in": "query",
-            "required": true
           },
           {
             "type": "string",
-            "description": "Password",
-            "name": "password",
+            "description": "SmsCode",
+            "name": "smsCode",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "InviteCode",
+            "name": "inviteCode",
             "in": "query"
           }
         ],
