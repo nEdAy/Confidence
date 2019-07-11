@@ -1,1 +1,0 @@
-Shepherd: git pull; make linux_build; supervisorctl reload

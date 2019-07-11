@@ -1,7 +1,7 @@
-package util
+package jwt
 
 import (
-	"Shepherd/config"
+	"Shepherd/pkg/config"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/pkg/errors"
 	"time"

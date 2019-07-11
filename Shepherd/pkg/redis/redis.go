@@ -1,7 +1,7 @@
 package redis
 
 import (
-	"Shepherd/config"
+	"Shepherd/pkg/config"
 	"bytes"
 	"encoding/json"
 	"fmt"

@@ -1,7 +1,7 @@
 package model
 
 import (
-	"Shepherd/config"
+	"Shepherd/pkg/config"
 	"fmt"
 	"time"
 

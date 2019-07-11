@@ -1,8 +1,8 @@
 package main
 
 import (
-	"Shepherd/config"
 	"Shepherd/model"
+	"Shepherd/pkg/config"
 	"Shepherd/pkg/logger"
 	"Shepherd/pkg/redis"
 	"Shepherd/router"

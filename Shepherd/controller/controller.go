@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"Shepherd/config"
-	"Shepherd/pkg/helper"
+	"Shepherd/pkg/config"
 	"Shepherd/pkg/redis"
+	"Shepherd/pkg/response"
 	"bytes"
 	"crypto/md5"
 	"errors"
@@ -24,7 +24,7 @@ type Dataoke struct {
 func getFromDataoke(c *gin.Context, dataoke Dataoke) {
 	data, err := getDataByCacheOrSource(dataoke)
 	if err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
+		response.ErrorWithMsg(c, err.Error())
 	} else {
 		c.String(http.StatusOK, data)
 	}

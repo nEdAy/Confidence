@@ -2,8 +2,10 @@ package controller
 
 import (
 	"Shepherd/model"
-	"Shepherd/pkg/helper"
-	"Shepherd/util"
+	"Shepherd/pkg/jwt"
+	"Shepherd/pkg/response"
+	"Shepherd/pkg/scrypt"
+	"Shepherd/pkg/sms"
 	"github.com/gin-gonic/gin"
 )
 
@@ -29,7 +31,7 @@ type register struct {
 func RegisterOrLogin(c *gin.Context) {
 	var param register
 	if err := c.ShouldBindJSON(&param); err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
+		response.ErrorWithMsg(c, err.Error())
 		return
 	}
 	user, err := model.GetUserByUsername(param.Username)
@@ -37,18 +39,18 @@ func RegisterOrLogin(c *gin.Context) {
 		// （未注册）进行注册流程
 		var scryptPassword string
 		if len(param.Password) > 0 { // 如果存在密码，则加密存储
-			scryptPassword = util.GetScryptPasswordBase64(param.Password)
+			scryptPassword = scrypt.GetScryptPasswordBase64(param.Password, param.Username)
 		}
 		// Verify SmsCode
-		err = util.VerifySMS(param.Username, param.SmsCode)
+		err = sms.VerifySMS(param.Username, param.SmsCode)
 		if err != nil {
-			helper.ResponseErrorWithMsg(c, err.Error())
+			response.ErrorWithMsg(c, err.Error())
 			return
 		}
 		// Create Token
-		token, err := util.CreateToken(param.Username)
+		token, err := jwt.CreateToken(param.Username)
 		if err != nil {
-			helper.ResponseErrorWithMsg(c, err.Error())
+			response.ErrorWithMsg(c, err.Error())
 			return
 		}
 		user := new(model.User)
@@ -57,41 +59,41 @@ func RegisterOrLogin(c *gin.Context) {
 		user.Token = token
 		// Creat User DB
 		if err := model.AddUser(user); err == nil {
-			helper.ResponseJsonWithData(c, user)
+			response.JsonWithData(c, user)
 		} else {
-			helper.ResponseErrorWithMsg(c, err.Error())
+			response.ErrorWithMsg(c, err.Error())
 		}
 	} else {
 		// （已注册）进行登录流程
 		if len(param.Password) > 0 { // login via password
-			if user.Password != util.GetScryptPasswordBase64(param.Password) {
-				helper.ResponseErrorWithMsg(c, "账户或密码错误")
+			if user.Password != scrypt.GetScryptPasswordBase64(param.Password) {
+				response.ErrorWithMsg(c, "账户或密码错误")
 				return
 			}
 			// Create Token
-			token, err := util.CreateToken(user.Username)
+			token, err := jwt.CreateToken(user.Username)
 			if err != nil {
-				helper.ResponseErrorWithMsg(c, err.Error())
+				response.ErrorWithMsg(c, err.Error())
 				return
 			}
 			user.Token = token
-			helper.ResponseJsonWithData(c, user)
+			response.JsonWithData(c, user)
 		} else if len(param.SmsCode) > 0 { // login via smsCode
-			err = util.VerifySMS(param.Username, param.SmsCode)
+			err = sms.VerifySMS(param.Username, param.SmsCode)
 			if err != nil {
-				helper.ResponseErrorWithMsg(c, err.Error())
+				response.ErrorWithMsg(c, err.Error())
 				return
 			}
 			// Create Token
-			token, err := util.CreateToken(user.Username)
+			token, err := jwt.CreateToken(user.Username)
 			if err != nil {
-				helper.ResponseErrorWithMsg(c, err.Error())
+				response.ErrorWithMsg(c, err.Error())
 				return
 			}
 			user.Token = token
-			helper.ResponseJsonWithData(c, user)
+			response.JsonWithData(c, user)
 		} else {
-			helper.ResponseErrorWithMsg(c, "参数缺少密码或短信验证码，无法登录")
+			response.ErrorWithMsg(c, "参数缺少密码或短信验证码，无法登录")
 		}
 	}
 }
@@ -102,12 +104,12 @@ func GetUser(c *gin.Context) {
 	if ok {
 		user, err := model.GetUserByUsername(username.(string))
 		if err != nil {
-			helper.ResponseErrorWithMsg(c, err.Error())
+			response.ErrorWithMsg(c, err.Error())
 		} else {
-			helper.ResponseJsonWithData(c, user)
+			response.JsonWithData(c, user)
 		}
 	} else {
-		helper.ResponseErrorWithMsg(c, "Token异常，用户名不存在")
+		response.ErrorWithMsg(c, "Token异常，用户名不存在")
 	}
 }
 
@@ -116,7 +118,7 @@ func GetUser(c *gin.Context) {
 //	list := make([]*model.User, 0)
 //	list, err := model.GetAllUser()
 //	if err != nil {
-//		helper.ResponseErrorWithMsg(c, err.Error())
+//		helper.ErrorWithMsg(c, err.Error())
 //		return
 //	}
 //	c.JSON(http.StatusOK, list)
@@ -127,12 +129,12 @@ func GetUser(c *gin.Context) {
 //	id := c.Param("id")
 //	intId, err := strconv.Atoi(id)
 //	if err != nil {
-//		helper.ResponseErrorWithMsg(c, "输入删除用户id非法")
+//		helper.ErrorWithMsg(c, "输入删除用户id非法")
 //		return
 //	}
 //	err = model.DeleteUser(intId)
 //	if err != nil {
-//		helper.ResponseErrorWithMsg(c, err.Error())
+//		helper.ErrorWithMsg(c, err.Error())
 //		return
 //	}
 //	c.JSON(http.StatusOK, "ok")

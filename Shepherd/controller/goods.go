@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"Shepherd/pkg/helper"
+	"Shepherd/pkg/response"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,7 +13,7 @@ type rankingList struct {
 func GetRankingList(c *gin.Context) {
 	var rankingList rankingList
 	if err := c.ShouldBindQuery(&rankingList); err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
+		response.ErrorWithMsg(c, err.Error())
 		return
 	}
 	getFromDataoke(c, Dataoke{
@@ -35,7 +35,7 @@ type nineOpGoodsList struct {
 func GetNineOpGoodsList(c *gin.Context) {
 	var nineOpGoodsList nineOpGoodsList
 	if err := c.ShouldBindQuery(&nineOpGoodsList); err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
+		response.ErrorWithMsg(c, err.Error())
 		return
 	}
 	getFromDataoke(c, Dataoke{
@@ -57,7 +57,7 @@ type listSimilerGoodsByOpen struct {
 func ListSimilerGoodsByOpen(c *gin.Context) {
 	var listSimilerGoodsByOpen listSimilerGoodsByOpen
 	if err := c.ShouldBindQuery(&listSimilerGoodsByOpen); err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
+		response.ErrorWithMsg(c, err.Error())
 		return
 	}
 	getFromDataoke(c, Dataoke{
@@ -81,7 +81,7 @@ type listSuperGoods struct {
 func ListSuperGoods(c *gin.Context) {
 	var listSuperGoods listSuperGoods
 	if err := c.ShouldBindQuery(&listSuperGoods); err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
+		response.ErrorWithMsg(c, err.Error())
 		return
 	}
 	getFromDataoke(c, Dataoke{
@@ -106,7 +106,7 @@ type dtkSearchGoods struct {
 func GetDtkSearchGoods(c *gin.Context) {
 	var dtkSearchGoods dtkSearchGoods
 	if err := c.ShouldBindQuery(&dtkSearchGoods); err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
+		response.ErrorWithMsg(c, err.Error())
 		return
 	}
 	getFromDataoke(c, Dataoke{

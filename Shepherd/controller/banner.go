@@ -2,7 +2,7 @@ package controller
 
 import (
 	"Shepherd/model"
-	"Shepherd/pkg/helper"
+	"Shepherd/pkg/response"
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,8 +10,8 @@ import (
 func GetBanners(c *gin.Context) {
 	banners, err := model.GetAllBanner()
 	if err != nil {
-		helper.ResponseErrorWithMsg(c, err.Error())
+		response.ErrorWithMsg(c, err.Error())
 	} else {
-		helper.ResponseJsonWithData(c, banners)
+		response.JsonWithData(c, banners)
 	}
 }
