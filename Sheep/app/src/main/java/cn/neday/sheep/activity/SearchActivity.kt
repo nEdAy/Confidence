@@ -7,7 +7,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import cn.neday.sheep.R
+import cn.neday.sheep.config.HawkConfig.HISTORYWORDS
 import cn.neday.sheep.config.HawkConfig.HOTWORDS
+import cn.neday.sheep.model.HistoryWords
+import cn.neday.sheep.view.FlowLayout
 import cn.neday.sheep.viewmodel.SearchViewModel
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ConvertUtils
@@ -15,6 +18,7 @@ import com.flyco.roundview.RoundTextView
 import com.orhanobut.hawk.Hawk
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar
 import kotlinx.android.synthetic.main.activity_search.*
+import java.util.*
 
 class SearchActivity : BaseVMActivity<SearchViewModel>() {
 
@@ -27,31 +31,35 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
         titleBar_search.setListener { _, action, _ ->
             if (action == CommonTitleBar.ACTION_SEARCH_SUBMIT || action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
                 val bundle = Bundle()
-                bundle.putString(SearchResultActivity.extra, titleBar_search.searchKey)
+                bundle.putString(SearchResultActivity.EXTRA, titleBar_search.searchKey)
                 ActivityUtils.startActivity(bundle, SearchResultActivity::class.java)
             } else if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
                 ActivityUtils.finishActivity(this)
             }
         }
+        // historyWords
+        val historyWords: TreeSet<HistoryWords>? = Hawk.get(HISTORYWORDS)
+        fillKeyWordsAutoSpacingLayout(fl_search_history_words, historyWords?.map { it -> it.keyWords })
+        // hotWords
         val hotWords: List<String>? = Hawk.get(HOTWORDS)
-        fillHotWordAutoSpacingLayout(hotWords)
+        fillKeyWordsAutoSpacingLayout(fl_search_hot_words, hotWords)
         mViewModel.getTop100()
         mViewModel.mHotWords.observe(this, Observer {
-            fillHotWordAutoSpacingLayout(it.hotWords)
+            fillKeyWordsAutoSpacingLayout(fl_search_hot_words, it.hotWords)
             Hawk.put(HOTWORDS, it.hotWords)
         })
     }
 
-    private fun fillHotWordAutoSpacingLayout(hotWords: List<String>?) {
-        if (hotWords != null) {
-            for (text in hotWords) {
-                val textView = buildHotWordLabel(text)
-                fl_search_hot_words.addView(textView)
+    private fun fillKeyWordsAutoSpacingLayout(flSearchKeyWords: FlowLayout, keyWords: List<String>?) {
+        if (keyWords != null) {
+            for (text in keyWords) {
+                val textView = buildKeyWordsLabel(text)
+                flSearchKeyWords.addView(textView)
             }
         }
     }
 
-    private fun buildHotWordLabel(text: String): TextView {
+    private fun buildKeyWordsLabel(text: String): TextView {
         val textView = RoundTextView(this)
         textView.delegate.run {
             backgroundColor = Color.WHITE
@@ -73,7 +81,7 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
         )
         textView.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString(SearchResultActivity.extra, text)
+            bundle.putString(SearchResultActivity.EXTRA, text)
             ActivityUtils.startActivity(bundle, SearchResultActivity::class.java)
         }
         return textView
