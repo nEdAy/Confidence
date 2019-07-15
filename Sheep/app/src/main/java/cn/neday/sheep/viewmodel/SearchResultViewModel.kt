@@ -2,14 +2,7 @@ package cn.neday.sheep.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import androidx.lifecycle.viewModelScope
-import cn.neday.sheep.model.HistoryWords
-import cn.neday.sheep.model.database.AppDatabase
-import cn.neday.sheep.model.repository.HistoryWordsRepository
 import cn.neday.sheep.network.repository.GoodsRepository
-import com.blankj.utilcode.util.Utils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class SearchResultViewModel : BaseViewModel() {
 
@@ -24,17 +17,6 @@ class SearchResultViewModel : BaseViewModel() {
     val posts = Transformations.switchMap(mRepoResult) { it.pagedList }
     val networkState = Transformations.switchMap(mRepoResult) { it.networkState }
     val refreshState = Transformations.switchMap(mRepoResult) { it.refreshState }
-
-    private val mHistoryWordsRepository: HistoryWordsRepository
-
-    init {
-        val historyWordsDao = AppDatabase.getDatabase(Utils.getApp()).historyWordsDao()
-        mHistoryWordsRepository = HistoryWordsRepository(historyWordsDao)
-    }
-
-    fun insert(historyWords: HistoryWords) = viewModelScope.launch(Dispatchers.IO) {
-        mHistoryWordsRepository.insert(historyWords)
-    }
 
     fun refresh() {
         mRepoResult.value?.refresh?.invoke()

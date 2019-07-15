@@ -33,25 +33,49 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:background="@android:color/white"
-                    android:gravity="start|center"
-                    android:text="历史搜索"
-                    android:textSize="@dimen/global_mid_text_size"/>
+                    android:orientation="horizontal">
 
-            <cn.neday.sheep.view.FlowLayout
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#767676"
+                        android:background="@android:color/white"
+                        android:text="历史搜索"
+                        android:textSize="@dimen/global_mid_text_size"/>
+
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                <TextView
+                        android:id="@+id/tv_search_history_clean"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:textColor="#767676"
+                        android:text="清除"
+                        android:textSize="14sp"/>
+            </LinearLayout>
+
+            <com.google.android.flexbox.FlexboxLayout
                     android:id="@+id/fl_search_history_words"
+                    android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_height="wrap_content"
-                    app:flChildSpacing="auto"
-                    app:flChildSpacingForLastRow="auto"
-                    app:flRowSpacing="4dp"
-                    app:flMaxRows="3"/>
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:padding="15dp"
+                    app:dividerDrawable="@drawable/shape_space_divider"
+                    app:flexDirection="row"
+                    app:flexWrap="wrap"
+                    app:showDivider="middle"/>
 
             <TextView
                     android:layout_width="match_parent"
@@ -62,16 +86,19 @@
                     android:text="热门搜索"
                     android:textSize="@dimen/global_mid_text_size"/>
 
-            <cn.neday.sheep.view.FlowLayout
+            <com.google.android.flexbox.FlexboxLayout
                     android:id="@+id/fl_search_hot_words"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_height="wrap_content"
-                    app:flChildSpacing="auto"
-                    app:flChildSpacingForLastRow="auto"
-                    app:flRowSpacing="4dp"
-                    app:flMaxRows="5"/>
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:padding="15dp"
+                    app:dividerDrawable="@drawable/shape_space_divider"
+                    app:flexDirection="row"
+                    app:flexWrap="wrap"
+                    app:showDivider="middle"/>
 
             <TextView
                     android:layout_width="match_parent"
@@ -100,7 +127,6 @@
                         android:padding="10dp">
 
                     <ImageView
-                            android:id="@+id/iv_index_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
@@ -230,7 +256,6 @@
                         android:padding="10dp">
 
                     <ImageView
-                            android:id="@+id/iv_index_5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
@@ -261,7 +286,6 @@
                         android:padding="10dp">
 
                     <ImageView
-                            android:id="@+id/iv_index_6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
@@ -292,7 +316,6 @@
                         android:padding="10dp">
 
                     <ImageView
-                            android:id="@+id/iv_index_7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
@@ -323,7 +346,6 @@
                         android:padding="10dp">
 
                     <ImageView
-                            android:id="@+id/iv_index_8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
@@ -343,10 +365,7 @@
                             android:textColor="@color/textColor"
                             android:textSize="@dimen/global_small_text_size"/>
                 </LinearLayout>
-
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

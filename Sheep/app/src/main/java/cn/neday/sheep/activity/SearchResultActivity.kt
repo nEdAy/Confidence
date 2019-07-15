@@ -6,11 +6,9 @@ import cn.neday.sheep.R
 import cn.neday.sheep.adapter.GoodsListAdapter
 import cn.neday.sheep.config.HawkConfig.HISTORYWORDS
 import cn.neday.sheep.model.Goods
-import cn.neday.sheep.model.HistoryWords
 import cn.neday.sheep.network.NetworkState
 import cn.neday.sheep.viewmodel.SearchResultViewModel
 import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.TimeUtils
 import com.orhanobut.hawk.Hawk
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar
 import kotlinx.android.synthetic.main.activity_search.*
@@ -34,19 +32,19 @@ class SearchResultActivity : BaseVMActivity<SearchResultViewModel>() {
         keyWord?.let {
             titleBar_search_result.centerSearchEditText.setText(keyWord)
             mViewModel.getDtkSearchGoods(keyWord)
-            var historyWords: TreeSet<HistoryWords>? = Hawk.get(HISTORYWORDS)
+            var historyWords: LinkedHashSet<String>? = Hawk.get(HISTORYWORDS)
             if (historyWords != null) {
                 // 如果存在keyword，先移除
-                historyWords.remove(HistoryWords(keyWord, 0))
+                historyWords.remove(keyWord)
                 // 如果historyWords大于10条, 移除最后一条直到小于10条
                 while (historyWords.size >= HISTORY_KEYWORD_MAX_SIZE) {
                     historyWords.remove(historyWords.last())
                 }
             } else {
-                historyWords = TreeSet()
+                historyWords = linkedSetOf()
             }
             // 加入新的keyword
-            historyWords.add(HistoryWords(keyWord, TimeUtils.getNowMills()))
+            historyWords.add(keyWord)
             Hawk.put(HISTORYWORDS, historyWords)
         }
         titleBar_search_result.setListener { _, action, _ ->

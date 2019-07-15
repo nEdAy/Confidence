@@ -9,12 +9,12 @@ import androidx.lifecycle.Observer
 import cn.neday.sheep.R
 import cn.neday.sheep.config.HawkConfig.HISTORYWORDS
 import cn.neday.sheep.config.HawkConfig.HOTWORDS
-import cn.neday.sheep.model.HistoryWords
-import cn.neday.sheep.view.FlowLayout
+import cn.neday.sheep.view.explosion_field.ExplosionField
 import cn.neday.sheep.viewmodel.SearchViewModel
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.flyco.roundview.RoundTextView
+import com.google.android.flexbox.FlexboxLayout
 import com.orhanobut.hawk.Hawk
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar
 import kotlinx.android.synthetic.main.activity_search.*
@@ -26,7 +26,20 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
 
     override fun providerVMClass(): Class<SearchViewModel>? = SearchViewModel::class.java
 
+    private lateinit var mExplosionField: ExplosionField
+
     override fun initView() {
+        initSearch()
+        initHistoryWords()
+        initHotWords()
+        mViewModel.getTop100()
+        mViewModel.mHotWords.observe(this, Observer {
+            fillKeyWordsAutoSpacingLayout(fl_search_hot_words, it.hotWords)
+            Hawk.put(HOTWORDS, it.hotWords)
+        })
+    }
+
+    private fun initSearch() {
         titleBar_search.centerSearchEditText.hint = getString(R.string.tx_search_hint)
         titleBar_search.setListener { _, action, _ ->
             if (action == CommonTitleBar.ACTION_SEARCH_SUBMIT || action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
@@ -37,25 +50,37 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
                 ActivityUtils.finishActivity(this)
             }
         }
-        // historyWords
-        val historyWords: TreeSet<HistoryWords>? = Hawk.get(HISTORYWORDS)
-        fillKeyWordsAutoSpacingLayout(fl_search_history_words, historyWords?.map { it -> it.keyWords })
-        // hotWords
-        val hotWords: List<String>? = Hawk.get(HOTWORDS)
-        fillKeyWordsAutoSpacingLayout(fl_search_hot_words, hotWords)
-        mViewModel.getTop100()
-        mViewModel.mHotWords.observe(this, Observer {
-            fillKeyWordsAutoSpacingLayout(fl_search_hot_words, it.hotWords)
-            Hawk.put(HOTWORDS, it.hotWords)
-        })
     }
 
-    private fun fillKeyWordsAutoSpacingLayout(flSearchKeyWords: FlowLayout, keyWords: List<String>?) {
+    private fun initHistoryWords() {
+        mExplosionField = ExplosionField.attach2Window(this)
+//        val historyWords: LiveData<TreeSet<HistoryWords>> = Hawk.get(HISTORYWORDS)
+//        historyWords.observe(this, Observer {
+//            fillKeyWordsAutoSpacingLayout(fl_search_history_words, it?.map { historyWords -> historyWords.keyWords })
+//        })
+
+        val historyWords: LinkedHashSet<String>? = Hawk.get(HISTORYWORDS)
+        fillKeyWordsAutoSpacingLayout(fl_search_history_words, historyWords)
+        tv_search_history_clean.setOnClickListener {
+            mExplosionField.explode(fl_search_history_words, true)
+            historyWords?.clear()
+            Hawk.delete(HISTORYWORDS)
+        }
+    }
+
+    private fun initHotWords() {
+        val hotWords: List<String>? = Hawk.get(HOTWORDS)
+        fillKeyWordsAutoSpacingLayout(fl_search_hot_words, hotWords)
+    }
+
+    private fun fillKeyWordsAutoSpacingLayout(flSearchKeyWords: FlexboxLayout, keyWords: Collection<String>?) {
         if (keyWords != null) {
             for (text in keyWords) {
                 val textView = buildKeyWordsLabel(text)
                 flSearchKeyWords.addView(textView)
             }
+        } else {
+            flSearchKeyWords.removeAllViews()
         }
     }
 
@@ -83,7 +108,13 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
             val bundle = Bundle()
             bundle.putString(SearchResultActivity.EXTRA, text)
             ActivityUtils.startActivity(bundle, SearchResultActivity::class.java)
+            mExplosionField.explode(it)
         }
         return textView
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mExplosionField.clear()
     }
 }
