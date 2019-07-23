@@ -16,16 +16,16 @@ var (
 )
 
 type CustomClaims struct {
-	Username string `json:"username"`
+	Mobile string `json:"mobile"`
 	jwt.StandardClaims
 }
 
 // creating, signing, and encoding a JWT token using the HMAC signing
-func CreateToken(username string) (string, error) {
+func CreateToken(mobile string) (string, error) {
 	// Create a new token object, specifying signing method and the claims
 	// you would like it to contain.
 	claims := CustomClaims{
-		username,
+		mobile,
 		jwt.StandardClaims{
 			// 过期时间.通常与Unix UTC时间做对比过期后token无效
 			ExpiresAt: time.Now().Add(3 * time.Hour).Unix(),

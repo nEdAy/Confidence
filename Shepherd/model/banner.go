@@ -7,9 +7,9 @@ import (
 // Banner表
 type Banner struct {
 	Model
-	Title    string `gorm:"column:title" json:"title"`
-	PicURL   string `gorm:"column:picURL" json:"picURL"`
-	ClickURL string `gorm:"column:clickURL" json:"clickURL"`
+	Title   string `gorm:"column:title" json:"title"`
+	Picture string `gorm:"column:picture" json:"picture"`
+	Url     string `gorm:"column:url" json:"url"`
 }
 
 // TableName 返回banner表名称

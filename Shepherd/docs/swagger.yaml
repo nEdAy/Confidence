@@ -11,11 +11,11 @@ paths:
     post:
       consumes:
         - application/json
-      description: register or login user by username,password,smsCode
+      description: register or login user by mobile,password,smsCode
       parameters:
-        - description: Username
+        - description: Mobile
           in: query
-          name: username
+          name: mobile
           required: true
           type: string
         - description: Password

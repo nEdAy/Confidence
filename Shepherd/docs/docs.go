@@ -25,7 +25,7 @@ var doc = `{
     "paths": {
         "/v1/registerOrLogin/": {
             "post": {
-                "description": "register or login user by username,password,smsCode",
+                "description": "register or login user by mobile,password,smsCode",
                 "consumes": [
                     "application/json"
                 ],
@@ -36,8 +36,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Username",
-                        "name": "username",
+                        "description": "Mobile",
+                        "name": "mobile",
                         "in": "query",
                         "required": true
                     },

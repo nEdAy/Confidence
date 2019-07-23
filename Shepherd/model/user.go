@@ -7,7 +7,7 @@ import (
 // User 用户表
 type User struct {
 	Model
-	Username string `gorm:"column:username" json:"username"`
+	Mobile   string `gorm:"column:mobile" json:"mobile"`
 	Password string `gorm:"column:password" json:"-"`
 	Token    string `gorm:"-" json:"token"`
 }
@@ -32,10 +32,10 @@ func GetUserById(id int) (user *User, err error) {
 	return nil, err
 }
 
-// GetUserByUsername retrieves User by username. Returns error if Id doesn't exist
-func GetUserByUsername(username string) (user *User, err error) {
+// GetUserByMobile retrieves User by mobile. Returns error if Id doesn't exist
+func GetUserByMobile(mobile string) (user *User, err error) {
 	user = new(User)
-	if err = DB.Where("username = ?", username).Find(&user).Error; err == nil {
+	if err = DB.Where("mobile = ?", mobile).Find(&user).Error; err == nil {
 		return user, nil
 	}
 	return nil, err
@@ -43,7 +43,7 @@ func GetUserByUsername(username string) (user *User, err error) {
 
 // GetAllUser retrieves all User matches certain condition. Returns empty list if no records exist
 func GetAllUser() (users []*User, err error) {
-	if err = DB.Order("id desc").Select("id,username,nickname").Find(&users).Error; err == nil {
+	if err = DB.Order("id desc").Select("id,mobile,nickname").Find(&users).Error; err == nil {
 		return users, nil
 	}
 	return nil, err
@@ -68,9 +68,9 @@ func DeleteUser(id int) (err error) {
 	return err
 }
 
-func IsUserExist(username string) (exist bool, err error) {
+func IsUserExist(mobile string) (exist bool, err error) {
 	var count int
-	if err = DB.Model(&User{}).Where("username = ?", username).Count(&count).Error; err == nil {
+	if err = DB.Model(&User{}).Where("mobile = ?", mobile).Count(&count).Error; err == nil {
 		return count > 0, nil
 	}
 	return false, err
