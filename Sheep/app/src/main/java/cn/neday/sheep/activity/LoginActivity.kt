@@ -5,8 +5,8 @@ import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.Observer
 import cn.neday.sheep.R
+import cn.neday.sheep.config.HawkConfig.MOBILE
 import cn.neday.sheep.config.HawkConfig.TOKEN
-import cn.neday.sheep.config.HawkConfig.USERNAME
 import cn.neday.sheep.config.UrlConfig
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils
@@ -40,7 +40,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
     override fun initView() {
         registerSMSSDK()
         initTitleAndBackgroundByTime()
-        initEditViewByLastUsername()
+        initEditViewByLastMobile()
         iv_login_bg.setOnClickListener { KeyboardUtils.hideSoftInput(this) }
         btn_login.setOnClickListener { registerOrLogin() }
         tv_change_login_way.setOnClickListener { changeLoginWay() }
@@ -50,7 +50,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         tv_agreement.setOnClickListener { AliTradeHelper(this).showItemURLPage(UrlConfig.KZ_YHSYXY) }
         mViewModel.mUser.observe(this, Observer {
             Hawk.put(TOKEN, it.token)
-            Hawk.put(USERNAME, it.username)
+            Hawk.put(MOBILE, it.mobile)
             ActivityUtils.finishActivity(this)
         })
     }
@@ -76,10 +76,10 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         }
     }
 
-    private fun initEditViewByLastUsername() {
-        val username = Hawk.get<String>(USERNAME)
-        if (!StringUtils.isTrimEmpty(username)) {
-            et_username.setText(username)
+    private fun initEditViewByLastMobile() {
+        val mobile = Hawk.get<String>(MOBILE)
+        if (!StringUtils.isTrimEmpty(mobile)) {
+            et_mobile.setText(mobile)
             et_password.isFocusable = true
             et_password.isFocusableInTouchMode = true
             et_password.requestFocus()
@@ -103,12 +103,12 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
             ToastUtils.showShort("您尚未同意《用户使用协议》")
             return
         }
-        val username = et_username.text.toString().trim { it <= ' ' }.replace(" ", "")
+        val mobile = et_mobile.text.toString().trim { it <= ' ' }.replace(" ", "")
         val password = et_password.text.toString().trim()
         val smsCode = et_sms.text.toString().trim()
-        if (checkUserOk(username, password, smsCode)) {
+        if (checkUserOk(mobile, password, smsCode)) {
             KeyboardUtils.hideSoftInput(this)
-            mViewModel.registerOrLogin(username, password, smsCode, "")
+            mViewModel.registerOrLogin(mobile, password, smsCode, "")
         }
     }
 
@@ -132,13 +132,13 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
      * 重新请求短信验证码
      */
     private fun requestVerificationCode() {
-        val username = et_username.text.toString().trim { it <= ' ' }.replace(" ", "")
-        if (TextUtils.isEmpty(username)) {
-            shakeAnimationAndFocusUi(et_username, R.string.toast_error_phone_null)
+        val mobile = et_mobile.text.toString().trim { it <= ' ' }.replace(" ", "")
+        if (TextUtils.isEmpty(mobile)) {
+            shakeAnimationAndFocusUi(et_mobile, R.string.toast_error_phone_null)
             return
         }
-        if (!RegexUtils.isMobileExact(username)) {
-            shakeAnimationAndFocusUi(et_username, R.string.toast_error_phone_error)
+        if (!RegexUtils.isMobileExact(mobile)) {
+            shakeAnimationAndFocusUi(et_mobile, R.string.toast_error_phone_error)
             return
         }
         // 先短信验证码，闲置30s后切换语音验证码
@@ -152,20 +152,20 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                 OnBtnClickL { dialog.dismiss() },
                 OnBtnClickL {
                     dialog.dismiss()
-                    SMSSDK.getVoiceVerifyCode(COUNTRY_NUMBER, username)
+                    SMSSDK.getVoiceVerifyCode(COUNTRY_NUMBER, mobile)
                 })
         } else {
-            SMSSDK.getVerificationCode(COUNTRY_NUMBER, username)
+            SMSSDK.getVerificationCode(COUNTRY_NUMBER, mobile)
         }
     }
 
-    private fun checkUserOk(username: String, password: String, smsCode: String): Boolean {
-        if (TextUtils.isEmpty(username)) {
-            shakeAnimationAndFocusUi(et_username, R.string.toast_error_phone_null)
+    private fun checkUserOk(mobile: String, password: String, smsCode: String): Boolean {
+        if (TextUtils.isEmpty(mobile)) {
+            shakeAnimationAndFocusUi(et_mobile, R.string.toast_error_phone_null)
             return false
         }
-        if (!RegexUtils.isMobileExact(username)) {
-            shakeAnimationAndFocusUi(et_username, R.string.toast_error_phone_error)
+        if (!RegexUtils.isMobileExact(mobile)) {
+            shakeAnimationAndFocusUi(et_mobile, R.string.toast_error_phone_error)
             return false
         }
         if (til_password.visibility == View.VISIBLE && TextUtils.isEmpty(password)) {
@@ -208,7 +208,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                     if (result == SMSSDK.RESULT_COMPLETE) {
                         // 禁止点击获取验证码按钮和修改手机号
                         tv_sms.isClickable = false
-                        et_username.isEnabled = false
+                        et_mobile.isEnabled = false
                         when (event) {
                             SMSSDK.EVENT_GET_VERIFICATION_CODE -> {
                                 // 获取验证码成功
@@ -231,7 +231,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                         }
                     } else {
                         tv_sms.isEnabled = true
-                        et_username.isEnabled = true
+                        et_mobile.isEnabled = true
                         tv_sms.text = " 请重试 "
                         (data as Throwable).printStackTrace()
                     }

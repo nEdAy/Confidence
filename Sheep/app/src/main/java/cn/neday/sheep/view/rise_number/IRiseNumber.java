@@ -1,4 +1,4 @@
-package cn.neday.sheep.view;
+package cn.neday.sheep.view.rise_number;
 
 /**
  * 动画增长的数字

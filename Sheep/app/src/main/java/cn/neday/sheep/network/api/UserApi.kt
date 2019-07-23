@@ -50,7 +50,7 @@ interface UserApi {
     suspend fun getUser(@Path("objectId") objectId: String, @Query("include") include: String): Response<User>
 
     /**
-     * 更新用户 需要Session-Token  username和password可以更改，但是新的username不能重复
+     * 更新用户 需要Session-Token mobile和password可以更改，但是新的mobile不能重复
      *
      * @param objectId 用户ID
      * @param user     需要更新的用户信息
@@ -62,14 +62,14 @@ interface UserApi {
     /**
      * 忘记密码
      *
-     * @param username 用户名
+     * @param mobile   手机号
      * @param password 新密码
      * @param code     验证码
      * @return 回调信息
      */
     @PUT("user")
     suspend fun resetUserPassword(
-        @Query("username") username: String,
+        @Query("mobile") mobile: String,
         @Query("password") password: String, @Query("code") code: String
     ): Response<User>
 

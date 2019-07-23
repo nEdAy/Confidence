@@ -110,7 +110,7 @@ class MeFragment : BaseFragment() {
      * @param user 用户信息
      */
     private fun refreshUser(user: User) {
-        refreshAvatar(user.avatarURL)
+        refreshAvatar(user.avatar)
         val nickname = user.nickname
         if (TextUtils.isEmpty(nickname) || nickname == getString(R.string.default_nickname)) {
 //            mNickname.text = getString(R.string.default_nickname)

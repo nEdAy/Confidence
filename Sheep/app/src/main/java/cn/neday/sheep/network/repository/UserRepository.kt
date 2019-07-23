@@ -14,10 +14,10 @@ class UserRepository : BaseRepository() {
 
     private val userApi: UserApi by lazy { RetrofitClient().getRetrofit(UserApi::class.java) }
 
-    suspend fun registerOrLogin(username: String, passwordMD5: String, smsCode: String, inviteCode: String)
+    suspend fun registerOrLogin(mobile: String, passwordMD5: String, smsCode: String, inviteCode: String)
             : Response<User> {
         val map = HashMap<String, String>()
-        map["username"] = username
+        map["mobile"] = mobile
         map["password"] = passwordMD5
         map["smsCode"] = smsCode
         map["inviteCode"] = inviteCode

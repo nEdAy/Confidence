@@ -32,7 +32,7 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
         mViewModel.mBanners.observe(this, Observer {
             banner.setSource(it).startScroll()
             banner.setOnItemClickL { position ->
-                AliTradeHelper(activity).showItemURLPage(it[position].clickURL)
+                AliTradeHelper(activity).showItemURLPage(it[position].url)
             }
         })
     }

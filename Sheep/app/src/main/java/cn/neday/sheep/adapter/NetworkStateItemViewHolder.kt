@@ -28,7 +28,7 @@ import cn.neday.sheep.network.NetworkState
 import cn.neday.sheep.network.Status
 
 /**
- * A View Holder that can display a loading or have click action.
+ * A View Holder that can display a loading or have url action.
  * It is used to show the network state of paging.
  */
 class NetworkStateItemViewHolder(

@@ -50,14 +50,14 @@
             android:paddingRight="32dp">
 
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_username"
+                android:id="@+id/til_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="#96ffffff"
                 android:theme="@style/EditScreenTextInputLayoutStyle">
 
             <cn.neday.sheep.view.ClearEditText
-                    android:id="@+id/et_username"
+                    android:id="@+id/et_mobile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_phone_white_24dp"
