@@ -155,7 +155,9 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                     SMSSDK.getVoiceVerifyCode(COUNTRY_NUMBER, mobile)
                 })
         } else {
-            SMSSDK.getVerificationCode(COUNTRY_NUMBER, mobile)
+            SMSSDK.getVerificationCode(
+                COUNTRY_NUMBER, mobile, "10085157"
+            ) { _, _ -> true }
         }
     }
 

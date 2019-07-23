@@ -4,8 +4,6 @@ package cn.neday.sheep.model
  * 广告
  */
 data class Banner(
-    // ID 主键
-    val id: Int?,
     // 标题
     val title: String?,
     // 点击链接
@@ -14,4 +12,4 @@ data class Banner(
     var picture: String?,
     // 状态
     var state: Boolean?
-)
+) : BaseModel()

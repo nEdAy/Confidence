@@ -14,7 +14,7 @@ import (
 var DB *gorm.DB
 
 type Model struct {
-	Id         int   `gorm:"column:id;primary_key" json:"id"`
+	Id         uint  `gorm:"column:id;primary_key" json:"id"`
 	CreateTime int64 `gorm:"column:create_time" json:"create_time,omitempty"`
 	ModifyTime int64 `gorm:"column:modify_time" json:"modify_time,omitempty"`
 	DeleteTime int64 `gorm:"column:delete_time" json:"delete_time,omitempty"`
@@ -46,9 +46,9 @@ func Setup() {
 		// debug 模式
 		DB = DB.Debug()
 	}
-	DB.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
-	DB.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
-	DB.Callback().Delete().Replace("gorm:delete", deleteCallback)
+	// DB.Callback().Create().Replace("gorm:create_time", updateTimeStampForCreateCallback)
+	// DB.Callback().Update().Replace("gorm:modify_time", updateTimeStampForUpdateCallback)
+	// DB.Callback().Delete().Replace("gorm:delete_time", deleteCallback)
 	// 连接池最大连接数
 	DB.DB().SetMaxIdleConns(config.Database.MaxIdleConns)
 	// 默认打开连接数
@@ -75,7 +75,6 @@ func Close() {
 	}
 }
 
-// updateTimeStampForCreateCallback will set `create_time`, `modify_time` when creating
 func updateTimeStampForCreateCallback(scope *gorm.Scope) {
 	if !scope.HasError() {
 		nowTime := time.Now().Unix()
@@ -93,7 +92,6 @@ func updateTimeStampForCreateCallback(scope *gorm.Scope) {
 	}
 }
 
-// updateTimeStampForUpdateCallback will set `ModifiedOn` when updating
 func updateTimeStampForUpdateCallback(scope *gorm.Scope) {
 	if _, ok := scope.Get("gorm:modify_time"); !ok {
 		_ = scope.SetColumn("modify_time", time.Now().Unix())
@@ -102,13 +100,7 @@ func updateTimeStampForUpdateCallback(scope *gorm.Scope) {
 
 func deleteCallback(scope *gorm.Scope) {
 	if !scope.HasError() {
-		var extraOption string
-		if str, ok := scope.Get("gorm:delete_option"); ok {
-			extraOption = fmt.Sprint(str)
-		}
-
 		deletedOnField, hasDeletedOnField := scope.FieldByName("delete_time")
-
 		if !scope.Search.Unscoped && hasDeletedOnField {
 			scope.Raw(fmt.Sprintf(
 				"UPDATE %v SET %v=%v%v%v",
@@ -116,14 +108,12 @@ func deleteCallback(scope *gorm.Scope) {
 				scope.Quote(deletedOnField.DBName),
 				scope.AddToVars(time.Now().Unix()),
 				addExtraSpaceIfExist(scope.CombinedConditionSql()),
-				addExtraSpaceIfExist(extraOption),
 			)).Exec()
 		} else {
 			scope.Raw(fmt.Sprintf(
 				"DELETE FROM %v%v%v",
 				scope.QuotedTableName(),
 				addExtraSpaceIfExist(scope.CombinedConditionSql()),
-				addExtraSpaceIfExist(extraOption),
 			)).Exec()
 		}
 	}

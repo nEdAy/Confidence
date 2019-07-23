@@ -9,6 +9,9 @@ type User struct {
 	Model
 	Mobile   string `gorm:"column:mobile" json:"mobile"`
 	Password string `gorm:"column:password" json:"-"`
+	Nickname string `gorm:"column:nickname" json:"nickname"`
+	Avatar   string `gorm:"column:avatar" json:"avatar"`
+	Credit   uint   `gorm:"column:credit" json:"credit"`
 	Token    string `gorm:"-" json:"token"`
 }
 
