@@ -47,6 +47,15 @@ class SearchViewModel : BaseViewModel() {
         mHistoryWords.value = Gson().fromJson(historyWordsJson, object : TypeToken<LinkedHashSet<String>>() {}.type)
     }
 
+    fun removeHistoryWords(keyWords: String) {
+        val historyWordsJson: String? = Hawk.get(HawkConfig.HISTORY_WORDS)
+        val historyWords: LinkedHashSet<String> =
+            Gson().fromJson(historyWordsJson, object : TypeToken<LinkedHashSet<String>>() {}.type)
+        historyWords.remove(keyWords)
+        Hawk.put(HawkConfig.HISTORY_WORDS, Gson().toJson(historyWords))
+        mHistoryWords.value = historyWords
+    }
+
     fun cleanHistoryWords() {
         mHistoryWords.value = null
         Hawk.delete(HawkConfig.HISTORY_WORDS)

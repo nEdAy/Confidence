@@ -119,7 +119,7 @@ dependencies {
     implementation "com.orhanobut:hawk:2.0.1"
 
     // BRVAH
-    // implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47-androidx'
 
     def paging_version = "2.1.0"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
@@ -138,6 +138,9 @@ dependencies {
     implementation 'com.flyco.labelview:FlycoLabelView_Lib:1.0.2@aar'
     implementation 'com.flyco.dialog:FlycoDialog_Lib:1.3.2@aar'
     implementation 'com.flyco.roundview:FlycoRoundView_Lib:1.1.4@aar'
+
+    // Particle Smasher
+    implementation 'com.ifadai:particlesmasher:1.0.1'
 
     // Title UI
     implementation 'com.wuhenzhizao:titlebar:1.1.4'
