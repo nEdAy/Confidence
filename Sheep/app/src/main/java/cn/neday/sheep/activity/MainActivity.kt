@@ -24,8 +24,8 @@ import java.util.*
 class MainActivity : BaseActivity() {
 
     private lateinit var mTabLayout: CommonTabLayout
-    private val mFragments = ArrayList<Fragment>()
-    private val mTabEntities = ArrayList<CustomTabEntity>()
+    private val fragments = ArrayList<Fragment>()
+    private val tabEntities = ArrayList<CustomTabEntity>()
     // 连续触发两次返回键则退出标记位
     private var mPressedBackTime: Long = 0
     // 记录当前Fragment的位置
@@ -35,20 +35,20 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
         // 精选首页
-        mFragments.add(IndexFragment())
+        fragments.add(IndexFragment())
         // 优惠快爆
-        mFragments.add(GoodsFragment())
+        fragments.add(GoodsFragment())
         // 好货专题
-        mFragments.add(NineGoodsFragment())
+        fragments.add(NineGoodsFragment())
         // 我的页面
-        mFragments.add(MeFragment())
+        fragments.add(MeFragment())
         val tabEntitiesArray = resources.getStringArray(R.array.tab_entities_array)
         val tabEntitiesLength = tabEntitiesArray.size
         for (index in 0 until tabEntitiesLength) {
-            mTabEntities.add(TabEntity(tabEntitiesArray[index], iconSelectResIDs[index], iconUnSelectResIDs[index]))
+            tabEntities.add(TabEntity(tabEntitiesArray[index], iconSelectResIDs[index], iconUnSelectResIDs[index]))
         }
         mTabLayout = findViewById(R.id.tl_main_tab)
-        mTabLayout.setTabData(mTabEntities, this, R.id.fl_main_content, mFragments)
+        mTabLayout.setTabData(tabEntities, this, R.id.fl_main_content, fragments)
         // 恢复显示Fragment呈现位置
         setCurrentTab(mCurrentTabIndex)
     }

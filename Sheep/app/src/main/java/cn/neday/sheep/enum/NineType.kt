@@ -15,15 +15,15 @@ package cn.neday.sheep.enum
  * 10 -文娱车品
  */
 enum class NineType(val index: Int) {
-    JINGXUAN(-1),
-    JUJUABAIHUO(1),
-    MEISHI(2),
-    FUSHI(3),
-    PEISHI(4),
-    MEIZHUANG(5),
-    NEIYI(6),
-    MUYING(7),
-    XIANGBAO(8),
-    SHUMAPEIJIAN(9),
-    WENYUCHEPIN(10)
+    JING_XUAN(-1),
+    JU_JUA_BAI_HUO(1),
+    MEI_SHI(2),
+    FU_SHI(3),
+    PEI_SHI(4),
+    MEI_ZHUANG(5),
+    NEI_YI(6),
+    MU_YING(7),
+    XIANG_BAO(8),
+    SHU_MA_PEI_JIAN(9),
+    WEN_YU_CHE_PIN(10)
 }

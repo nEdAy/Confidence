@@ -1,12 +1,23 @@
 package cn.neday.sheep.adapter
 
-import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import android.net.Uri
+import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import cn.neday.sheep.R
+import cn.neday.sheep.activity.GoodsDetailsActivity
 import cn.neday.sheep.model.Goods
-import cn.neday.sheep.network.NetworkState
+import cn.neday.sheep.util.AliTradeHelper
+import cn.neday.sheep.util.CommonUtils
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.StringUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
+import kotlinx.android.synthetic.main.list_item_ranking.view.*
 
 
 /**
@@ -14,65 +25,40 @@ import cn.neday.sheep.network.NetworkState
  *
  * @author nEdAy
  */
-class GoodsListAdapter(private val retryCallback: () -> Unit) :
-    PagedListAdapter<Goods, RecyclerView.ViewHolder>(GOODS_DIFF_CALLBACK) {
+class GoodsListAdapter : BaseQuickAdapter<Goods, BaseViewHolder>(R.layout.list_item_goods, null) {
 
-    private var networkState: NetworkState? = null
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (getItemViewType(position)) {
-            R.layout.list_item_goods -> (holder as GoodsViewHolder).bind(getItem(position))
-            R.layout.list_item_network_state -> (holder as NetworkStateItemViewHolder).bindTo(
-                networkState
+    override fun convert(helper: BaseViewHolder, goods: Goods) {
+        helper.setText(R.id.tv_title, goods.dtitle)
+            .setText(R.id.tv_money, goods.actualPrice.toString())
+            .setText(R.id.tv_sales_num, StringUtils.getString(R.string.tx_goods_monthSales, goods.monthSales))
+            .setText(
+                R.id.tx_get_value,
+                StringUtils.getString(R.string.tx_goods_couponPrice, CommonUtils.getPrettyNumber(goods.couponPrice))
             )
-        }
-    }
+            .setText(
+                R.id.tv_mall_name, StringUtils.getString(
+                    if (goods.shopType == 1) {
+                        R.string.tx_tianmao
+                    } else {
+                        R.string.tx_taobao
+                    }
+                )
+            )
+            .setGone(R.id.lv_text, goods.monthSales >= 10000)
+            .addOnClickListener(R.id.ll_get, R.id.tx_buy_url)
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
-        if (payloads.isNotEmpty()) {
-            // val item = getItem(position)
-            // (holder as GoodsViewHolder).update(item)
-        } else {
-            onBindViewHolder(holder, position)
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            R.layout.list_item_goods -> GoodsViewHolder.create(parent)
-            R.layout.list_item_network_state -> NetworkStateItemViewHolder.create(parent, retryCallback)
-            else -> throw IllegalArgumentException("unknown view type $viewType")
-        }
-    }
-
-    private fun hasExtraRow() = networkState != null && networkState != NetworkState.LOADED
-
-    override fun getItemViewType(position: Int): Int {
-        return if (hasExtraRow() && position == itemCount - 1) {
-            R.layout.list_item_network_state
-        } else {
-            R.layout.list_item_goods
-        }
-    }
-
-    override fun getItemCount(): Int {
-        return super.getItemCount() + if (hasExtraRow()) 1 else 0
-    }
-
-    fun setNetworkState(newNetworkState: NetworkState?) {
-        val previousState = this.networkState
-        val hadExtraRow = hasExtraRow()
-        this.networkState = newNetworkState
-        val hasExtraRow = hasExtraRow()
-        if (hadExtraRow != hasExtraRow) {
-            if (hadExtraRow) {
-                notifyItemRemoved(super.getItemCount())
-            } else {
-                notifyItemInserted(super.getItemCount())
-            }
-        } else if (hasExtraRow && previousState != newNetworkState) {
-            notifyItemChanged(itemCount - 1)
-        }
+        Glide.with(mContext)
+            .load(CommonUtils.convertPicUrlToUri(goods.mainPic))
+            .thumbnail(
+                Glide.with(mContext)
+                    .load(Uri.parse(goods.mainPic + "_100x100.jpg"))
+            )
+            .apply(
+                RequestOptions().transform(RoundedCorners(10))
+                    .placeholder(R.drawable.icon_stub)
+                    .error(R.drawable.icon_error)
+            )
+            .into(helper.getView(R.id.iv_img_shower))
     }
 
     companion object {

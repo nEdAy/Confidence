@@ -29,7 +29,7 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
     override fun initView() {
         initHeader()
         initViewPager()
-        mViewModel.mBanners.observe(this, Observer {
+        mViewModel.banners.observe(this, Observer {
             banner.setSource(it).startScroll()
             banner.setOnItemClickL { position ->
                 AliTradeHelper(activity).showItemURLPage(it[position].url)
@@ -55,9 +55,9 @@ class IndexFragment : BaseVMFragment<IndexViewModel>() {
 
     private fun initViewPager() {
         val mFragments = ArrayList<Fragment>()
-        mFragments.add(RankingListFragment(RankType.SHISHIXIAOXIANGBANG))
-        mFragments.add(RankingListFragment(RankType.QUANTIANXIAOLIANGBANG))
-        mFragments.add(RankingListFragment(RankType.RETUIBANG))
+        mFragments.add(RankingListFragment(RankType.SHI_SHI_XIAO_XIANG_BANG))
+        mFragments.add(RankingListFragment(RankType.QUAN_TIAN_XIAO_LIANG_BANG))
+        mFragments.add(RankingListFragment(RankType.RE_TUI_BANG))
         stl_index.setViewPager(vp_index, resources.getStringArray(R.array.rank_type_array), activity, mFragments)
         vp_index.offscreenPageLimit = 2
         // https://blog.csdn.net/maosidiaoxian/article/details/78051601

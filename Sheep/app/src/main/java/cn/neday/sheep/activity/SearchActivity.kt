@@ -62,7 +62,7 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
         rv_search_history_words.adapter = historyWordsListAdapter
         rv_search_history_words.layoutManager = getFlexboxLayoutManager()
 
-        mViewModel.mHistoryWords.observe(this, Observer {
+        mViewModel.historyWords.observe(this, Observer {
             historyWordsListAdapter.setNewData(it?.reversed())
         })
         tv_search_history_clean.setOnClickListener {
@@ -86,7 +86,7 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
         addOnItemClickListener(hotWordsListAdapter)
         rv_search_hot_words.adapter = hotWordsListAdapter
         rv_search_hot_words.layoutManager = getFlexboxLayoutManager()
-        mViewModel.mHotWords.observe(this, Observer {
+        mViewModel.hotWords.observe(this, Observer {
             hotWordsListAdapter.setNewData(it?.hotWords?.reversed())
         })
     }

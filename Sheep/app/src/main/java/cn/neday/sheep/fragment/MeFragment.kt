@@ -7,6 +7,7 @@ import cn.neday.sheep.R
 import cn.neday.sheep.activity.AboutActivity
 import cn.neday.sheep.activity.LoginActivity
 import cn.neday.sheep.config.HawkConfig.TOKEN
+import cn.neday.sheep.enum.OrderType
 import cn.neday.sheep.model.User
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.AppStoreUtils
@@ -48,17 +49,40 @@ class MeFragment : BaseFragment() {
                 "http://a.app.qq.com/o/simple.jsp?pkgname=com.neday.bomb"
             ).show(childFragmentManager, "ShareDialog")
         }
+
         rl_credits.setOnClickListener {
             //            val intent = Intent()
 //            intent.putExtra("userId", mCurrentUser.id)
 //            ActivityUtils.startActivity(CreditsHistoryActivity::class.java, intent)
         }
+
         tv_login.setOnClickListener { ActivityUtils.startActivity(LoginActivity::class.java) }
-        rl_0.setOnClickListener { AliTradeHelper(activity).showMyCartsPage() }
-        rl_1.setOnClickListener { AliTradeHelper(activity).showMyOrdersPage(1, true) }
-        rl_2.setOnClickListener { AliTradeHelper(activity).showMyOrdersPage(2, true) }
-        rl_3.setOnClickListener { AliTradeHelper(activity).showMyOrdersPage(3, true) }
-        rl_4.setOnClickListener { AliTradeHelper(activity).showMyOrdersPage(4, true) }
+
+        rl_showMyCartsPage.setOnClickListener { AliTradeHelper(activity).showMyCartsPage() }
+        rl_showMyOrdersPage_1.setOnClickListener {
+            AliTradeHelper(activity).showMyOrdersPage(
+                OrderType.DAT_FU_KUAN.index,
+                true
+            )
+        }
+        rl_showMyOrdersPage_2.setOnClickListener {
+            AliTradeHelper(activity).showMyOrdersPage(
+                OrderType.DAT_FA_HUO.index,
+                true
+            )
+        }
+        rl_showMyOrdersPage_3.setOnClickListener {
+            AliTradeHelper(activity).showMyOrdersPage(
+                OrderType.DAT_SHOU_HUO.index,
+                true
+            )
+        }
+        rl_showMyOrdersPage_4.setOnClickListener {
+            AliTradeHelper(activity).showMyOrdersPage(
+                OrderType.DAY_PING_JIA.index,
+                true
+            )
+        }
     }
 
 

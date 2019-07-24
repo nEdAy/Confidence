@@ -24,7 +24,7 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity() {
             mViewModel = ViewModelProviders.of(this).get(it)
             lifecycle.addObserver(mViewModel)
         }
-        mViewModel.mErrMsg.observe(this, Observer {
+        mViewModel.errMsg.observe(this, Observer {
             ToastUtils.showShort(it)
         })
     }

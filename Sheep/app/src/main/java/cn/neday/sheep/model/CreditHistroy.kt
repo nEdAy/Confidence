@@ -4,5 +4,5 @@ data class CreditHistroy(
     // 增减数值
     val value: Int?,
     // 增减原因
-    var message: String?
+    val message: String?
 ) : BaseModel()

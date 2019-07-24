@@ -4,10 +4,7 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.Transformations
 import androidx.paging.Config
 import androidx.paging.toLiveData
-import cn.neday.sheep.model.Goods
-import cn.neday.sheep.model.Listing
-import cn.neday.sheep.model.RankGoods
-import cn.neday.sheep.model.Response
+import cn.neday.sheep.model.*
 import cn.neday.sheep.network.RetrofitClient
 import cn.neday.sheep.network.api.GoodsApi
 import cn.neday.sheep.network.datasource.BaseDataSourceFactory
@@ -27,6 +24,14 @@ class GoodsRepository : BaseRepository() {
         return apiCall { goodsApi.rankingList(rankType, cid) }
     }
 
+    suspend fun getNineOpGoodsList(pageSize: Int, pageId: String, cid: String): Response<Pages<Goods>> {
+        return apiCall { goodsApi.nineOpGoodsList(pageSize, pageId, cid) }
+    }
+
+    suspend fun getDtkSearchGoods(pageSize: Int, pageId: String, keyWords: String): Response<Pages<Goods>> {
+        return apiCall { goodsApi.getDtkSearchGoods(pageSize, pageId, keyWords) }
+    }
+
     suspend fun getListSimilerGoodsByOpen(id: Int, size: Int): Response<List<Goods>> {
         return apiCall { goodsApi.listSimilerGoodsByOpen(id, size) }
     }
@@ -38,48 +43,10 @@ class GoodsRepository : BaseRepository() {
         return apiCall { goodsApi.listSuperGoods(type, keyWords, tmall, haitao, sort) }
     }
 
-    @MainThread
-    fun getNineOpGoodsList(cid: String): Listing<Goods> {
-        return makeListing(GoodsDataSourceFactory(cid))
-    }
-
-    @MainThread
-    fun getDtkSearchGoods(keyWords: String): Listing<Goods> {
-        return makeListing(GoodsSearchDataSourceFactory(keyWords))
-    }
-
-    private fun makeListing(sourceFactory: BaseDataSourceFactory<Goods>): Listing<Goods> {
-        // We use toLiveData Kotlin extension function here, you could also use LivePagedListBuilder
-        val livePagedList = sourceFactory.toLiveData(
-            config = Config(
-                pageSize = PAGE_SIZE,
-                prefetchDistance = PREFETCH_DISTANCE,
-                enablePlaceholders = true,
-                initialLoadSizeHint = PAGE_SIZE * INITIAL_PAGE_MULTIPLIER
-            )
-        )
-        val refreshState = Transformations.switchMap(sourceFactory.sourceLiveData) {
-            it.initialLoad
-        }
-        return Listing(
-            pagedList = livePagedList,
-            networkState = Transformations.switchMap(sourceFactory.sourceLiveData) {
-                it.networkState
-            },
-            retry = {
-                sourceFactory.sourceLiveData.value?.retryAllFailed()
-            },
-            refresh = {
-                sourceFactory.sourceLiveData.value?.invalidate()
-            },
-            refreshState = refreshState
-        )
-    }
-
     companion object {
         // 默认100 ，可选范围：10,50,100,200，如果小于10按10处理，大于200按照200处理，其它非范围内数字按100处理
-        private const val PAGE_SIZE = 50
-        private const val PREFETCH_DISTANCE = 20
-        private const val INITIAL_PAGE_MULTIPLIER = 1
+        const val PAGE_SIZE = 50
+        const val PREFETCH_DISTANCE = 20
+        const val INITIAL_PAGE_MULTIPLIER = "1"
     }
 }

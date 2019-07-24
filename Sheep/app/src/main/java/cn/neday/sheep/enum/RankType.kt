@@ -7,7 +7,7 @@ package cn.neday.sheep.enum
  * 3.热推榜
  */
 enum class RankType(val index: Int) {
-    SHISHIXIAOXIANGBANG(1),
-    QUANTIANXIAOLIANGBANG(2),
-    RETUIBANG(3),
+    SHI_SHI_XIAO_XIANG_BANG(1),
+    QUAN_TIAN_XIAO_LIANG_BANG(2),
+    RE_TUI_BANG(3)
 }

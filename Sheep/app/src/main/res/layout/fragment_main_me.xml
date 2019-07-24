@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cn.neday.sheep.view.DampView xmlns:android="http://schemas.android.com/apk/res/android"
-                              xmlns:tools="http://schemas.android.com/tools" android:id="@+id/dampView"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              android:id="@+id/dampView"
                               android:layout_width="match_parent"
                               android:layout_height="match_parent"
                               android:background="@color/backgroundColor"
@@ -143,146 +144,126 @@
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
-            <RelativeLayout
-                    android:id="@+id/rl_0"
+            <LinearLayout
+                    android:id="@+id/rl_showMyCartsPage"
                     android:layout_width="0.0dp"
                     android:layout_height="80.0dp"
+                    android:orientation="vertical"
                     android:layout_weight="1.0"
                     android:background="@drawable/global_click_selector"
                     android:gravity="center">
 
                 <ImageView
-                        android:id="@+id/iv_0"
                         android:layout_width="30.0dp"
                         android:layout_height="20.0dp"
-                        android:layout_centerHorizontal="true"
                         android:src="@drawable/ic_cart"/>
 
                 <TextView
-                        android:id="@+id/tv_0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/iv_0"
-                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5.0dp"
                         android:text="购物车"
                         android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
-                    android:id="@+id/rl_1"
+            <LinearLayout
+                    android:id="@+id/rl_showMyOrdersPage_1"
                     android:layout_width="0.0dp"
                     android:layout_height="80.0dp"
                     android:layout_weight="1.0"
+                    android:orientation="vertical"
                     android:background="@drawable/global_click_selector"
                     android:gravity="center">
 
                 <ImageView
-                        android:id="@+id/iv_1"
                         android:layout_width="30.0dp"
                         android:layout_height="20.0dp"
-                        android:layout_centerHorizontal="true"
                         android:src="@drawable/ic_order_1"
                         tools:ignore="ContentDescription"/>
 
                 <TextView
-                        android:id="@+id/tv_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/iv_1"
-                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5.0dp"
                         android:text="待付款"
                         android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
-                    android:id="@+id/rl_2"
+            <LinearLayout
+                    android:id="@+id/rl_showMyOrdersPage_2"
                     android:layout_width="0.0dp"
                     android:layout_height="80.0dp"
+                    android:orientation="vertical"
                     android:layout_weight="1.0"
                     android:background="@drawable/global_click_selector"
                     android:gravity="center">
 
                 <ImageView
-                        android:id="@+id/iv_2"
                         android:layout_width="30.0dp"
                         android:layout_height="20.0dp"
-                        android:layout_centerHorizontal="true"
                         android:src="@drawable/ic_order_2"
                         tools:ignore="ContentDescription"/>
 
                 <TextView
-                        android:id="@+id/tv_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/iv_2"
-                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5.0dp"
                         android:src="@drawable/ic_order_2"
                         android:text="待发货"
                         android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
-                    android:id="@+id/rl_3"
+            <LinearLayout
+                    android:id="@+id/rl_showMyOrdersPage_3"
                     android:layout_width="0.0dp"
                     android:layout_height="80.0dp"
+                    android:orientation="vertical"
                     android:layout_weight="1.0"
                     android:background="@drawable/global_click_selector"
                     android:gravity="center">
 
                 <ImageView
-                        android:id="@+id/iv_3"
                         android:layout_width="30.0dp"
                         android:layout_height="20.0dp"
-                        android:layout_centerHorizontal="true"
                         android:src="@drawable/ic_order_3"
                         tools:ignore="ContentDescription"/>
 
                 <TextView
-                        android:id="@+id/tv_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/iv_3"
-                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5.0dp"
                         android:text="待收货"
                         android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
-                    android:id="@+id/rl_4"
+            <LinearLayout
+                    android:id="@+id/rl_showMyOrdersPage_4"
                     android:layout_width="0.0dp"
                     android:layout_height="80.0dp"
+                    android:orientation="vertical"
                     android:layout_weight="1.0"
                     android:background="@drawable/global_click_selector"
                     android:gravity="center">
 
                 <ImageView
-                        android:id="@+id/iv_4"
                         android:layout_width="30.0dp"
                         android:layout_height="20.0dp"
-                        android:layout_centerHorizontal="true"
                         android:src="@drawable/ic_order_4"
                         tools:ignore="ContentDescription"/>
 
                 <TextView
-                        android:id="@+id/tv_4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/iv_4"
-                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5.0dp"
                         android:text="待评价"
                         android:textColor="@color/textColor"
                         android:textSize="@dimen/global_small_text_size"/>
-
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout

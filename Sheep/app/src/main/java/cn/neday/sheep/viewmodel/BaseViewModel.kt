@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 open class BaseViewModel : ViewModel(), LifecycleObserver {
 
-    val mErrMsg: MutableLiveData<String> = MutableLiveData()
+    val errMsg: MutableLiveData<String> = MutableLiveData()
 
     fun launch(tryBlock: suspend CoroutineScope.() -> Unit) {
         launchOnUI {
@@ -28,7 +28,7 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
             if (NetworkUtils.isAvailableByPing()) {
                 block()
             } else {
-                mErrMsg.value = getString(R.string.network_tips)
+                errMsg.value = getString(R.string.network_tips)
             }
         }
     }

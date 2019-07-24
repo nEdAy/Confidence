@@ -29,9 +29,9 @@ import java.util.*
  */
 class LoginActivity : BaseVMActivity<LoginViewModel>() {
 
-    private var timeCount: TimeCount? = null
-    private var isVoiceVerifyCode = false
-    private var isAgreeAgreement = true
+    private var mTimeCount: TimeCount? = null
+    private var mIsVoiceVerifyCode = false
+    private var mIsAgreeAgreement = true
 
     override val layoutId = R.layout.activity_login
 
@@ -48,7 +48,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         tv_sms.setOnClickListener { requestVerificationCode() }
         iv_agreement.setOnClickListener { changeAgreementIv() }
         tv_agreement.setOnClickListener { AliTradeHelper(this).showItemURLPage(UrlConfig.KZ_YHSYXY) }
-        mViewModel.mUser.observe(this, Observer {
+        mViewModel.user.observe(this, Observer {
             Hawk.put(TOKEN, it.token)
             Hawk.put(MOBILE, it.mobile)
             ActivityUtils.finishActivity(this)
@@ -59,7 +59,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
      * 用户back按键回馈
      */
     override fun onBackPressed() {
-        if (timeCount != null) {
+        if (mTimeCount != null) {
             val dialog = NormalDialog(this)
             dialog.content("验证码短信可能略有延迟，确定返回并重新开始？")
                 .style(NormalDialog.STYLE_TWO)
@@ -99,7 +99,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
     }
 
     private fun registerOrLogin() {
-        if (!isAgreeAgreement) {
+        if (!mIsAgreeAgreement) {
             ToastUtils.showShort("您尚未同意《用户使用协议》")
             return
         }
@@ -142,7 +142,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
             return
         }
         // 先短信验证码，闲置30s后切换语音验证码
-        if (isVoiceVerifyCode) {
+        if (mIsVoiceVerifyCode) {
             val dialog = NormalDialog(this)
             dialog.content("确定后将致电您的手机号并语音播报验证码，如不希望被来点打扰请返回。")
                 .style(NormalDialog.STYLE_TWO)
@@ -199,8 +199,8 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
      * 改变同意合同样式
      */
     private fun changeAgreementIv() {
-        isAgreeAgreement = !isAgreeAgreement
-        iv_agreement.setImageResource(if (isAgreeAgreement) R.drawable.check_normal else R.drawable.check_pressed)
+        mIsAgreeAgreement = !mIsAgreeAgreement
+        iv_agreement.setImageResource(if (mIsAgreeAgreement) R.drawable.check_normal else R.drawable.check_pressed)
     }
 
     private fun registerSMSSDK() {
@@ -220,8 +220,8 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                                 // mViewModel.registerOrLogin("", "", "", "")
                                 //} else {
                                 // 依然走短信验证 30s 倒计时
-                                timeCount = TimeCount(30000, 1000)
-                                timeCount?.start()
+                                mTimeCount = TimeCount(30000, 1000)
+                                mTimeCount?.start()
                                 tx_hint_voice_verify_code.text = "我们已发送验证码短信到您的手机号"
                                 //}
                             }
@@ -245,7 +245,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
     override fun onDestroy() {
         super.onDestroy()
         SMSSDK.unregisterAllEventHandler()
-        timeCount?.cancel()
+        mTimeCount?.cancel()
     }
 
     internal inner class TimeCount(millisInFuture: Long, countDownInterval: Long) :
@@ -257,7 +257,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
 
         override fun onFinish() {
             tv_sms.isClickable = true
-            isVoiceVerifyCode = true
+            mIsVoiceVerifyCode = true
             tv_sms.text = " 发送语音验证 "
         }
     }

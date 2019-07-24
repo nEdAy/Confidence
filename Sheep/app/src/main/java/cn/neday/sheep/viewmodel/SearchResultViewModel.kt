@@ -1,7 +1,6 @@
 package cn.neday.sheep.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import cn.neday.sheep.config.HawkConfig
 import cn.neday.sheep.network.repository.GoodsRepository
 import com.google.gson.Gson
@@ -11,30 +10,13 @@ import java.util.*
 
 class SearchResultViewModel : BaseViewModel() {
 
-    private val mRepository by lazy { GoodsRepository() }
+    private val repository by lazy { GoodsRepository() }
 
-    private val mKeyWords = MutableLiveData<String>()
-
-    private val mRepoResult = Transformations.map(mKeyWords) {
-        mRepository.getDtkSearchGoods(it)
-    }
-
-    val posts = Transformations.switchMap(mRepoResult) { it.pagedList }
-    val networkState = Transformations.switchMap(mRepoResult) { it.networkState }
-    val refreshState = Transformations.switchMap(mRepoResult) { it.refreshState }
-
-    fun refresh() {
-        mRepoResult.value?.refresh?.invoke()
-    }
-
-    fun retry() {
-        val listing = mRepoResult.value
-        listing?.retry?.invoke()
-    }
+    private val keyWords = MutableLiveData<String>()
 
     fun getDtkSearchGoods(keyWords: String) {
         addHistoryWords(keyWords)
-        mKeyWords.value = keyWords
+        this.keyWords.value = keyWords
     }
 
     private fun addHistoryWords(keyWord: String) {
@@ -68,11 +50,11 @@ class SearchResultViewModel : BaseViewModel() {
 //        launch {
 //            try {
 //                val response = withContext(Dispatchers.IO) {
-//                    mRepository.getListSuperGoods(type, keyWords, tmall, haitao, sort)
+//                    repository.getListSuperGoods(type, keyWords, tmall, haitao, sort)
 //                }
 //                executeResponse(response, {
 //                    mGoods.value = response.data
-//                }, { mErrMsg.value = response.msg })
+//                }, { errMsg.value = response.msg })
 //            } catch (t: Throwable) {
 //                t.printStackTrace()
 //            }

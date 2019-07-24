@@ -22,8 +22,6 @@
 
     <string name="tx_search_hint">请输入想搜索的商品关键词…</string>
 
-    <string name="tx_retry">重试</string>
-
     <string name="tx_pressed_back_hint">再按一次退出程序</string>
     <string name="tx_not_found_app_market">找不到您的应用商店</string>
     <string name="tx_exit_guide">立即体验</string>
@@ -164,4 +162,5 @@
     <string name="tx_hot_search">热门搜索</string>
     <string name="tx_hot_type">热门类目</string>
     <string name="tx_clean">清除</string>
+    <string name="tx_add_cart">加购物车</string>
 </resources>

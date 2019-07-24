@@ -8,10 +8,5 @@ class KeyWordsListAdapter : BaseQuickAdapter<String, BaseViewHolder>(R.layout.li
 
     override fun convert(helper: BaseViewHolder, keyWords: String) {
         helper.setText(R.id.rtv_keyWords, keyWords)
-
-//        }
-//        itemView.setOnLongClickListener {
-//            true
-//        }
     }
 }

@@ -5,7 +5,7 @@
     android:background="@android:color/white">
 
     <TextView
-        android:id="@+id/rl_0"
+        android:id="@+id/rl_showMyCartsPage"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignEnd="@+id/ll_right"
@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/rl_0"
+        android:layout_below="@+id/rl_showMyCartsPage"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -159,7 +159,7 @@
         android:layout_width="120dip"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/rl_0"
+        android:layout_below="@+id/rl_showMyCartsPage"
         android:layout_toEndOf="@+id/ll_left"
         android:layout_toRightOf="@+id/ll_left"
         android:gravity="center"

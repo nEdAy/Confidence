@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 
 class IndexViewModel : BaseViewModel() {
 
-    val mBanners: MutableLiveData<List<Banner>> = MutableLiveData()
+    val banners: MutableLiveData<List<Banner>> = MutableLiveData()
 
     private val repository by lazy { BannerRepository() }
 
@@ -16,7 +16,7 @@ class IndexViewModel : BaseViewModel() {
         launch {
             try {
                 val response = withContext(Dispatchers.IO) { repository.getBannerList() }
-                executeResponse(response, { mBanners.value = response.data }, { mErrMsg.value = response.msg })
+                executeResponse(response, { banners.value = response.data }, { errMsg.value = response.msg })
             } catch (t: Throwable) {
                 t.printStackTrace()
             }

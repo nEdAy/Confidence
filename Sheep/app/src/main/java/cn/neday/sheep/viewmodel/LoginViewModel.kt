@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 
 class LoginViewModel : BaseViewModel() {
 
-    val mUser: MutableLiveData<User> = MutableLiveData()
+    val user: MutableLiveData<User> = MutableLiveData()
 
     private val repository by lazy { UserRepository() }
 
@@ -29,8 +29,8 @@ class LoginViewModel : BaseViewModel() {
                     repository.registerOrLogin(mobile, passwordMD5, smsCode, inviteCode)
                 }
                 executeResponse(response, {
-                    mUser.value = response.data
-                }, { mErrMsg.value = response.msg })
+                    user.value = response.data
+                }, { errMsg.value = response.msg })
             } catch (t: Throwable) {
                 t.printStackTrace()
             }

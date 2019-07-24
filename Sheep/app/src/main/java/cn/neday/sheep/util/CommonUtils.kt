@@ -1,5 +1,6 @@
 package cn.neday.sheep.util
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -7,7 +8,10 @@ import android.view.View
 import android.view.animation.CycleInterpolator
 import android.view.animation.TranslateAnimation
 import com.blankj.utilcode.util.NetworkUtils
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import java.math.BigDecimal
+import java.util.concurrent.TimeUnit
 
 /**
  * 常用工具
@@ -55,6 +59,25 @@ object CommonUtils {
         translateAnimation.interpolator = CycleInterpolator(5f)//抖5下
         translateAnimation.duration = 1000
         view.startAnimation(translateAnimation)
+    }
+
+    /**
+     * 点击时修改子控件背景样式并在0.5s后恢复
+     *
+     * @param view       要修改的子控件
+     * @param bg         要恢复的背景
+     * @param bgPressed 要变化的背景
+     */
+    @SuppressLint("CheckResult")
+    fun changePressedViewBg(view: View, bg: Int, bgPressed: Int) {
+        view.isPressed = true
+        view.setBackgroundResource(bgPressed)
+        Observable.timer(500, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view.isPressed = false
+                view.setBackgroundResource(bg)
+            }
     }
 
     /**

@@ -29,11 +29,11 @@ class RankingListFragment(private val rankType: RankType) : BaseVMFragment<Ranki
     private fun initAdapter() {
         val rankingListAdapter = RankingListAdapter()
         rv_goods.adapter = rankingListAdapter
-        mViewModel.mRankGoods.observe(this, Observer {
+        mViewModel.rankGoods.observe(this, Observer {
             rankingListAdapter.submitList(it)
             srl_goods.isRefreshing = false
         })
-        mViewModel.mErrMsg.observe(this, Observer {
+        mViewModel.errMsg.observe(this, Observer {
             ToastUtils.showShort(it)
         })
     }

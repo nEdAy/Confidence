@@ -1,33 +1,32 @@
 package cn.neday.sheep.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import cn.neday.sheep.model.Goods
+import cn.neday.sheep.model.Pages
 import cn.neday.sheep.network.repository.GoodsRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class NineGoodsListViewModel : BaseViewModel() {
 
-    private val mRepository by lazy { GoodsRepository() }
+    private val repository by lazy { GoodsRepository() }
 
-    private val mCid = MutableLiveData<String>()
+    val pageGoods: MutableLiveData<Pages<Goods>> = MutableLiveData()
 
-    private val mRepoResult = Transformations.map(mCid) {
-        mRepository.getNineOpGoodsList(it)
+    var mCurrentPageId: String = LOAD_INITIAL_PAGE_ID
+
+    fun getNineOpGoodsList(cid: String, pageId: String = LOAD_INITIAL_PAGE_ID) {
+        mCurrentPageId = pageId
+        launch {
+            val response = withContext(Dispatchers.IO) { repository.getNineOpGoodsList(PAGE_SIZE, pageId, cid) }
+            executeResponse(response, { pageGoods.value = response.data }, { errMsg.value = response.msg })
+        }
     }
 
-    val posts = Transformations.switchMap(mRepoResult) { it.pagedList }
-    val networkState = Transformations.switchMap(mRepoResult) { it.networkState }
-    val refreshState = Transformations.switchMap(mRepoResult) { it.refreshState }
+    companion object {
 
-    fun refresh() {
-        mRepoResult.value?.refresh?.invoke()
-    }
-
-    fun retry() {
-        val listing = mRepoResult.value
-        listing?.retry?.invoke()
-    }
-
-    fun showNineOpGoodsList(cid: String) {
-        mCid.value = cid
+        const val LOAD_INITIAL_PAGE_ID = "1"
+        const val PAGE_SIZE = 50
+        const val PREFETCH_DISTANCE = 20
     }
 }

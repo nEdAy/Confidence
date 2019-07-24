@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="cn.neday.sheep">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -22,10 +23,11 @@
             tools:replace="android:allowBackup, android:name"
             tools:targetApi="m">
 
-        <activity android:name=".activity.SplashActivity"
-                  android:launchMode="singleTask"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/SplashTheme">
+        <activity
+                android:name=".activity.SplashActivity"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait"
+                android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -36,42 +38,61 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.GuideActivity"
-                  android:screenOrientation="portrait"
-                  android:launchMode="singleTask"
-                  android:theme="@style/FullscreenTheme"/>
+        <activity
+                android:name=".activity.GuideActivity"
+                android:screenOrientation="portrait"
+                android:launchMode="singleTask"
+                android:theme="@style/FullscreenTheme"/>
 
-        <activity android:name=".activity.MainActivity"
-                  android:launchMode="singleTask"
-                  android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.MainActivity"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait"/>
 
-        <activity android:name=".activity.LoginActivity"
-                  android:launchMode="singleTop"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/FullscreenTheme"/>
+        <activity
+                android:name=".activity.LoginActivity"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"
+                android:theme="@style/FullscreenTheme"/>
 
-        <activity android:name=".activity.SearchActivity"
-                  android:launchMode="singleTop"
-                  android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.SearchActivity"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"/>
 
-        <activity android:name=".activity.SearchResultActivity"
-                  android:launchMode="singleTop"
-                  android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.SearchResultActivity"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"/>
 
-        <activity android:name=".activity.GoodsDetailsActivity"
-                  android:launchMode="singleTop"
-                  android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.GoodsDetailsActivity"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"/>
 
-        <activity android:name=".activity.RankGoodsDetailsActivity"
-                  android:launchMode="singleTop"
-                  android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.RankGoodsDetailsActivity"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"/>
 
-        <activity android:name=".activity.SignInActivity"
-                  android:launchMode="singleTop"
-                  android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.SignInActivity"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"/>
 
-        <activity android:name=".activity.AboutActivity"
-                  android:launchMode="singleTop"
-                  android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.ShakeActivity"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"/>
+
+        <activity
+                android:name=".activity.CreditHistoryActivity"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"/>
+
+        <activity
+                android:name=".activity.AboutActivity"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"/>
     </application>
 </manifest>

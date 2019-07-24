@@ -41,15 +41,10 @@ class SearchResultActivity : BaseVMActivity<SearchResultViewModel>() {
     }
 
     private fun initAdapter() {
-        val goodsListAdapter = GoodsListAdapter {
-            mViewModel.retry()
-        }
+        val goodsListAdapter = GoodsListAdapter()
         rv_goods.adapter = goodsListAdapter
         mViewModel.posts.observe(this, Observer<PagedList<Goods>> {
-            goodsListAdapter.submitList(it)
-        })
-        mViewModel.networkState.observe(this, Observer {
-            goodsListAdapter.setNetworkState(it)
+//            goodsListAdapter.submitList(it)
         })
     }
 

@@ -7,7 +7,7 @@
               android:orientation="vertical">
 
     <com.wuhenzhizao.titlebar.widget.CommonTitleBar
-            android:id="@+id/titleBar_search_result"
+            android:id="@+id/titleBar_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:centerType="searchView"
@@ -23,13 +23,15 @@
             app:rightImageResource="@drawable/ic_search_white_24dp"
             app:rightType="imageButton"/>
 
+    <include layout="@layout/include_credit_history_header"/>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srl_goods"
+            android:id="@+id/srl_credit_history"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_goods"
+                android:id="@+id/rv_credit_history"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="none"

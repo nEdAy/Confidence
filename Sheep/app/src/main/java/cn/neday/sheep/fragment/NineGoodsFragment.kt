@@ -19,17 +19,17 @@ class NineGoodsFragment : BaseFragment() {
 
     private fun initViewPager() {
         val mFragments = ArrayList<Fragment>()
-        mFragments.add(NineGoodsListFragment(NineType.JINGXUAN))
-        mFragments.add(NineGoodsListFragment(NineType.JUJUABAIHUO))
-        mFragments.add(NineGoodsListFragment(NineType.MEISHI))
-        mFragments.add(NineGoodsListFragment(NineType.FUSHI))
-        mFragments.add(NineGoodsListFragment(NineType.PEISHI))
-        mFragments.add(NineGoodsListFragment(NineType.MEIZHUANG))
-        mFragments.add(NineGoodsListFragment(NineType.NEIYI))
-        mFragments.add(NineGoodsListFragment(NineType.MUYING))
-        mFragments.add(NineGoodsListFragment(NineType.XIANGBAO))
-        mFragments.add(NineGoodsListFragment(NineType.SHUMAPEIJIAN))
-        mFragments.add(NineGoodsListFragment(NineType.WENYUCHEPIN))
+        mFragments.add(NineGoodsListFragment(NineType.JING_XUAN))
+        mFragments.add(NineGoodsListFragment(NineType.JU_JUA_BAI_HUO))
+        mFragments.add(NineGoodsListFragment(NineType.MEI_SHI))
+        mFragments.add(NineGoodsListFragment(NineType.FU_SHI))
+        mFragments.add(NineGoodsListFragment(NineType.PEI_SHI))
+        mFragments.add(NineGoodsListFragment(NineType.MEI_ZHUANG))
+        mFragments.add(NineGoodsListFragment(NineType.NEI_YI))
+        mFragments.add(NineGoodsListFragment(NineType.MU_YING))
+        mFragments.add(NineGoodsListFragment(NineType.XIANG_BAO))
+        mFragments.add(NineGoodsListFragment(NineType.SHU_MA_PEI_JIAN))
+        mFragments.add(NineGoodsListFragment(NineType.WEN_YU_CHE_PIN))
         stl_nine_goods.setViewPager(
             vp_nine_goods,
             resources.getStringArray(R.array.nine_type_array),
