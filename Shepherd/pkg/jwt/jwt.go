@@ -18,7 +18,7 @@ var (
 const KeyUserId = "USER_ID"
 
 type CustomClaims struct {
-	UserId uint `json:"mobile"`
+	UserId uint
 	jwt.StandardClaims
 }
 

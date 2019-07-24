@@ -4,5 +4,5 @@ object HawkConfig {
     const val TOKEN = "Token"
     const val MOBILE = "Mobile"
     const val HOTWORDS = "HotWords"
-    const val HISTORYWORDS = "HistoryWords"
+    const val HISTORY_WORDS = "HistoryWords"
 }

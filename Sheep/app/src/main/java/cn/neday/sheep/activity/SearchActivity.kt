@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import cn.neday.sheep.R
-import cn.neday.sheep.config.HawkConfig.HISTORYWORDS
 import cn.neday.sheep.config.HawkConfig.HOTWORDS
 import cn.neday.sheep.view.explosion_field.ExplosionField
 import cn.neday.sheep.viewmodel.SearchViewModel
@@ -18,7 +17,6 @@ import com.google.android.flexbox.FlexboxLayout
 import com.orhanobut.hawk.Hawk
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar
 import kotlinx.android.synthetic.main.activity_search.*
-import java.util.*
 
 class SearchActivity : BaseVMActivity<SearchViewModel>() {
 
@@ -32,11 +30,12 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
         initSearch()
         initHistoryWords()
         initHotWords()
-        mViewModel.getTop100()
-        mViewModel.mHotWords.observe(this, Observer {
-            fillKeyWordsAutoSpacingLayout(fl_search_hot_words, it.hotWords)
-            Hawk.put(HOTWORDS, it.hotWords)
-        })
+        mViewModel.getHotWords()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mViewModel.getHistoryWords()
     }
 
     private fun initSearch() {
@@ -54,33 +53,29 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
 
     private fun initHistoryWords() {
         mExplosionField = ExplosionField.attach2Window(this)
-//        val historyWords: LiveData<TreeSet<HistoryWords>> = Hawk.get(HISTORYWORDS)
-//        historyWords.observe(this, Observer {
-//            fillKeyWordsAutoSpacingLayout(fl_search_history_words, it?.map { historyWords -> historyWords.keyWords })
-//        })
-
-        val historyWords: LinkedHashSet<String>? = Hawk.get(HISTORYWORDS)
-        fillKeyWordsAutoSpacingLayout(fl_search_history_words, historyWords)
+        mViewModel.mHistoryWords.observe(this, Observer {
+            fillKeyWordsAutoSpacingLayout(fl_search_history_words, it)
+        })
         tv_search_history_clean.setOnClickListener {
             mExplosionField.explode(fl_search_history_words, true)
-            historyWords?.clear()
-            Hawk.delete(HISTORYWORDS)
+            mViewModel.cleanHistoryWords()
         }
     }
 
     private fun initHotWords() {
-        val hotWords: List<String>? = Hawk.get(HOTWORDS)
-        fillKeyWordsAutoSpacingLayout(fl_search_hot_words, hotWords)
+        mViewModel.mHotWords.observe(this, Observer {
+            fillKeyWordsAutoSpacingLayout(fl_search_hot_words, it?.hotWords)
+            Hawk.put(HOTWORDS, it.hotWords)
+        })
     }
 
     private fun fillKeyWordsAutoSpacingLayout(flSearchKeyWords: FlexboxLayout, keyWords: Collection<String>?) {
+        flSearchKeyWords.removeAllViews()
         if (keyWords != null) {
-            for (text in keyWords) {
+            for (text in keyWords.reversed()) {
                 val textView = buildKeyWordsLabel(text)
                 flSearchKeyWords.addView(textView)
             }
-        } else {
-            flSearchKeyWords.removeAllViews()
         }
     }
 
@@ -108,7 +103,7 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
             val bundle = Bundle()
             bundle.putString(SearchResultActivity.EXTRA, text)
             ActivityUtils.startActivity(bundle, SearchResultActivity::class.java)
-            mExplosionField.explode(it)
+            // mExplosionField.explode(it)
         }
         return textView
     }

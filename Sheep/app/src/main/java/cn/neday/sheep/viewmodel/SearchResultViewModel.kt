@@ -2,15 +2,21 @@ package cn.neday.sheep.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import cn.neday.sheep.activity.SearchResultActivity
+import cn.neday.sheep.config.HawkConfig
 import cn.neday.sheep.network.repository.GoodsRepository
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.orhanobut.hawk.Hawk
+import java.util.*
 
 class SearchResultViewModel : BaseViewModel() {
 
     private val mRepository by lazy { GoodsRepository() }
 
-    private val mHotWords = MutableLiveData<String>()
+    private val mKeyWords = MutableLiveData<String>()
 
-    private val mRepoResult = Transformations.map(mHotWords) {
+    private val mRepoResult = Transformations.map(mKeyWords) {
         mRepository.getDtkSearchGoods(it)
     }
 
@@ -28,7 +34,25 @@ class SearchResultViewModel : BaseViewModel() {
     }
 
     fun getDtkSearchGoods(keyWords: String) {
-        mHotWords.value = keyWords
+        addHistoryWords(keyWords)
+        mKeyWords.value = keyWords
+    }
+
+    private fun addHistoryWords(keyWord: String) {
+        val historyWordsString: String? = Hawk.get(HawkConfig.HISTORY_WORDS)
+        var historyWords: LinkedHashSet<String> = linkedSetOf()
+        if (historyWordsString != null) {
+            historyWords = Gson().fromJson(historyWordsString, object : TypeToken<LinkedHashSet<String>>() {}.type)
+            // 如果存在keyword，先移除
+            historyWords.remove(keyWord)
+            // 如果历史记录大于10条, 移除最初的历史记录直到小于10条
+            while (historyWords.size >= SearchResultActivity.HISTORY_KEYWORD_MAX_SIZE) {
+                historyWords.remove(historyWords.first())
+            }
+        }
+        // 加入新的keyword
+        historyWords.add(keyWord)
+        Hawk.put(HawkConfig.HISTORY_WORDS, Gson().toJson(historyWords))
     }
 
 //    /**
