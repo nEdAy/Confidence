@@ -34,11 +34,13 @@ func RegisterOrLogin(c *gin.Context) {
 		response.ErrorWithMsg(c, err.Error())
 		return
 	}
+	// 查询该手机号是否已经注册
 	user, err := model.GetUserByMobile(param.Mobile)
 	if err != nil {
-		// （未注册）进行注册流程
+		// 进行注册
 		var scryptPassword string
-		if len(param.Password) > 0 { // 如果存在密码，则加密存储
+		if len(param.Password) > 0 {
+			// 如果存在密码，则加密存储
 			scryptPassword = scrypt.GetScryptPasswordBase64(param.Password, param.Mobile)
 		}
 		// Verify SmsCode
@@ -47,69 +49,59 @@ func RegisterOrLogin(c *gin.Context) {
 			response.ErrorWithMsg(c, err.Error())
 			return
 		}
-		// Create Token
-		token, err := jwt.CreateToken(param.Mobile)
-		if err != nil {
-			response.ErrorWithMsg(c, err.Error())
-			return
-		}
+		// Creat User DB
 		user := new(model.User)
 		user.Mobile = param.Mobile
 		user.Password = scryptPassword
-		user.Token = token
-		// Creat User DB
 		if err := model.AddUser(user); err == nil {
-			response.JsonWithData(c, user)
+			responseUserWithToken(c, user)
 		} else {
 			response.ErrorWithMsg(c, err.Error())
 		}
 	} else {
-		// （已注册）进行登录流程
-		if len(param.Password) > 0 { // login via password
+		// 进行登录
+		if len(param.Password) > 0 {
+			// login via password
 			if user.Password != scrypt.GetScryptPasswordBase64(param.Password, param.Mobile) {
 				response.ErrorWithMsg(c, "账户或密码错误")
 				return
 			}
-			// Create Token
-			token, err := jwt.CreateToken(user.Mobile)
-			if err != nil {
-				response.ErrorWithMsg(c, err.Error())
-				return
-			}
-			user.Token = token
-			response.JsonWithData(c, user)
+			responseUserWithToken(c, user)
 		} else if len(param.SmsCode) > 0 { // login via smsCode
 			err = sms.VerifySMS(param.Mobile, param.SmsCode)
 			if err != nil {
 				response.ErrorWithMsg(c, err.Error())
 				return
 			}
-			// Create Token
-			token, err := jwt.CreateToken(user.Mobile)
-			if err != nil {
-				response.ErrorWithMsg(c, err.Error())
-				return
-			}
-			user.Token = token
-			response.JsonWithData(c, user)
+			responseUserWithToken(c, user)
 		} else {
 			response.ErrorWithMsg(c, "参数缺少密码或短信验证码，无法登录")
 		}
 	}
 }
 
+func responseUserWithToken(c *gin.Context, user *model.User) {
+	token, err := jwt.CreateToken(user.Id)
+	if err != nil {
+		response.ErrorWithMsg(c, err.Error())
+		return
+	}
+	user.Token = token
+	response.JsonWithData(c, user)
+}
+
 // @Summary 获取用户
 func GetUser(c *gin.Context) {
-	mobile, ok := c.Get("mobile")
+	userId, ok := c.Get(jwt.KeyUserId)
 	if ok {
-		user, err := model.GetUserByMobile(mobile.(string))
+		user, err := model.GetUserById(userId.(uint))
 		if err != nil {
 			response.ErrorWithMsg(c, err.Error())
 		} else {
 			response.JsonWithData(c, user)
 		}
 	} else {
-		response.ErrorWithMsg(c, "Token异常，用户名不存在")
+		response.ErrorWithMsg(c, "Token异常，用户不存在")
 	}
 }
 

@@ -1,4 +1,4 @@
-package jwt
+package middleware
 
 import (
 	"Shepherd/pkg/jwt"
@@ -20,7 +20,7 @@ func JWT() gin.HandlerFunc {
 				c.Abort()
 				return
 			} else {
-				c.Set("mobile", claims.Mobile)
+				c.Set(jwt.KeyUserId, claims.UserId)
 				c.Next()
 			}
 		}

@@ -21,15 +21,15 @@ func (User) TableName() string {
 }
 
 // AddUser insert a new User into database and returns last inserted Id on success.
-func AddUser(m *User) (err error) {
-	err = DB.Create(m).Error
+func AddUser(user *User) (err error) {
+	err = DB.Create(&user).Error
 	return err
 }
 
 // GetUserById retrieves User by Id. Returns error if Id doesn't exist
-func GetUserById(id int) (user *User, err error) {
+func GetUserById(id uint) (user *User, err error) {
 	user = new(User)
-	if err = DB.First(&user, 10).Error; err == nil {
+	if err = DB.First(&user, id).Error; err == nil {
 		return user, nil
 	}
 	return nil, err

@@ -3,7 +3,7 @@ package router
 import (
 	"Shepherd/controller"
 	_ "Shepherd/docs"
-	"Shepherd/middleware/jwt"
+	"Shepherd/middleware"
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
@@ -27,7 +27,7 @@ func Setup() {
 		// 注册用户 / 用户登录(密码) / 用户登录（短信验证码）
 		v1.POST("/registerOrLogin", controller.RegisterOrLogin)
 		// 用户相关API
-		user := v1.Group("/user", jwt.JWT())
+		user := v1.Group("/user", middleware.JWT())
 		{
 			// 获取用户
 			user.GET("/", controller.GetUser)
@@ -53,7 +53,6 @@ func Setup() {
 			goods.GET("/list-super-goods", controller.ListSuperGoods)
 			// 获取大淘客搜索
 			goods.GET("/get-dtk-search-goods", controller.GetDtkSearchGoods)
-
 
 		}
 		// 分类相关API

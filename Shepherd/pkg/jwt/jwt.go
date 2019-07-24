@@ -15,17 +15,19 @@ var (
 	TokenInvalid     = errors.New("Couldn't handle this token")
 )
 
+const KeyUserId = "USER_ID"
+
 type CustomClaims struct {
-	Mobile string `json:"mobile"`
+	UserId uint `json:"mobile"`
 	jwt.StandardClaims
 }
 
 // creating, signing, and encoding a JWT token using the HMAC signing
-func CreateToken(mobile string) (string, error) {
+func CreateToken(userId uint) (string, error) {
 	// Create a new token object, specifying signing method and the claims
 	// you would like it to contain.
 	claims := CustomClaims{
-		mobile,
+		userId,
 		jwt.StandardClaims{
 			// 过期时间.通常与Unix UTC时间做对比过期后token无效
 			ExpiresAt: time.Now().Add(3 * time.Hour).Unix(),
