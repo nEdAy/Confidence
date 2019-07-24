@@ -64,6 +64,5 @@ class SearchResultActivity : BaseVMActivity<SearchResultViewModel>() {
     companion object {
 
         const val EXTRA = "keyWord"
-        const val HISTORY_KEYWORD_MAX_SIZE = 10
     }
 }

@@ -24,7 +24,6 @@
             app:rightType="imageButton"/>
 
     <ScrollView
-            android:id="@+id/sv_load"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -42,9 +41,8 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#767676"
-                        android:background="@android:color/white"
-                        android:text="历史搜索"
+                        android:gravity="start|center"
+                        android:text="@string/tx_history_search"
                         android:textSize="@dimen/global_mid_text_size"/>
 
                 <View
@@ -56,61 +54,44 @@
                         android:id="@+id/tv_search_history_clean"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:textColor="#767676"
-                        android:text="清除"
-                        android:textSize="14sp"/>
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:gravity="end|center"
+                        android:text="@string/tx_clean"
+                        android:textSize="@dimen/global_mid_text_size"/>
             </LinearLayout>
 
-            <com.google.android.flexbox.FlexboxLayout
-                    android:id="@+id/fl_search_history_words"
-                    android:layout_height="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_search_history_words"
                     android:layout_width="match_parent"
+                    android:layout_height="120dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:clipToPadding="false"
-                    android:overScrollMode="never"
-                    android:padding="15dp"
-                    app:dividerDrawable="@drawable/shape_space_divider"
-                    app:flexDirection="row"
-                    app:flexWrap="wrap"
-                    app:showDivider="middle"/>
+                    android:layout_marginRight="20dp"/>
 
             <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:background="@android:color/white"
                     android:gravity="start|center"
-                    android:text="热门搜索"
+                    android:text="@string/tx_hot_search"
                     android:textSize="@dimen/global_mid_text_size"/>
 
-            <com.google.android.flexbox.FlexboxLayout
-                    android:id="@+id/fl_search_hot_words"
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_search_hot_words"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="150dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:clipToPadding="false"
-                    android:overScrollMode="never"
-                    android:padding="15dp"
-                    app:dividerDrawable="@drawable/shape_space_divider"
-                    app:flexDirection="row"
-                    app:flexWrap="wrap"
-                    app:showDivider="middle"/>
+                    android:layout_marginRight="20dp"/>
 
             <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:background="@android:color/white"
                     android:gravity="start|center"
-                    android:text="热门类目"
+                    android:text="@string/tx_hot_type"
                     android:textSize="@dimen/global_mid_text_size"/>
 
             <LinearLayout
-                    android:id="@+id/ll_left"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:baselineAligned="false"
@@ -239,7 +220,6 @@
             </LinearLayout>
 
             <LinearLayout
-                    android:id="@+id/ll_mid"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:baselineAligned="false"

@@ -159,4 +159,9 @@
     <string name="tx_taobao">淘宝</string>
     <string name="tx_tianmao">天猫商城</string>
     <string name="tx_get_sms_code">获取验证码</string>
+
+    <string name="tx_history_search">历史搜索</string>
+    <string name="tx_hot_search">热门搜索</string>
+    <string name="tx_hot_type">热门类目</string>
+    <string name="tx_clean">清除</string>
 </resources>

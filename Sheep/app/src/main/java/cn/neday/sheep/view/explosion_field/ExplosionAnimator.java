@@ -37,7 +37,7 @@ public class ExplosionAnimator extends ValueAnimator {
     private Rect mBound;
     private View mContainer;
 
-    public ExplosionAnimator(View container, Bitmap bitmap, Rect bound) {
+    ExplosionAnimator(View container, Bitmap bitmap, Rect bound) {
         mPaint = new Paint();
         mBound = new Rect(bound);
         int partLen = 15;
@@ -85,7 +85,7 @@ public class ExplosionAnimator extends ValueAnimator {
         return particle;
     }
 
-    public boolean draw(Canvas canvas) {
+    boolean draw(Canvas canvas) {
         if (!isStarted()) {
             return false;
         }
@@ -123,8 +123,7 @@ public class ExplosionAnimator extends ValueAnimator {
         float life;
         float overflow;
 
-
-        public void advance(float factor) {
+        void advance(float factor) {
             float f = 0f;
             float normalization = factor / END_VALUE;
             if (normalization < life || normalization > 1f - overflow) {

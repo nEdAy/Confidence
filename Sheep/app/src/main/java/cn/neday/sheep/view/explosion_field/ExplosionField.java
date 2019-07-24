@@ -86,7 +86,6 @@ public class ExplosionField extends View {
         this.mZAnimatorListener = ievents;
     }
 
-
     public void expandExplosionBound(int dx, int dy) {
         mExpandInset[0] = dx;
         mExpandInset[1] = dy;
@@ -108,7 +107,6 @@ public class ExplosionField extends View {
                     view.setScaleY(1);
                     view.setAlpha(1);
                     view.setOnClickListener(mOnClickListener);//set event
-
                 }
             }
         });
@@ -123,7 +121,6 @@ public class ExplosionField extends View {
     }
 
     public void explode(final View view, Boolean restartState) {
-
         Rect r = new Rect();
         view.getGlobalVisibleRect(r);
         int[] location = new int[2];
@@ -176,7 +173,6 @@ public class ExplosionField extends View {
             explode(Utils.createBitmapFromView(view), r, startDelay, view);
         else
             explode(Utils.createBitmapFromView(view), r, startDelay);
-
     }
 
     public void clear() {
@@ -195,6 +191,4 @@ public class ExplosionField extends View {
     public void setOnClickListener(OnClickListener mOnClickListener) {
         this.mOnClickListener = mOnClickListener;
     }
-
-
 }

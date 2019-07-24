@@ -2,7 +2,6 @@ package cn.neday.sheep.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import cn.neday.sheep.activity.SearchResultActivity
 import cn.neday.sheep.config.HawkConfig
 import cn.neday.sheep.network.repository.GoodsRepository
 import com.google.gson.Gson
@@ -45,8 +44,8 @@ class SearchResultViewModel : BaseViewModel() {
             historyWords = Gson().fromJson(historyWordsString, object : TypeToken<LinkedHashSet<String>>() {}.type)
             // 如果存在keyword，先移除
             historyWords.remove(keyWord)
-            // 如果历史记录大于10条, 移除最初的历史记录直到小于10条
-            while (historyWords.size >= SearchResultActivity.HISTORY_KEYWORD_MAX_SIZE) {
+            // 如果历史记录大于MAX_SIZE条, 移除最初的历史记录直到小于MAX_SIZE条
+            while (historyWords.size >= HISTORY_KEYWORD_MAX_SIZE) {
                 historyWords.remove(historyWords.first())
             }
         }
@@ -79,4 +78,9 @@ class SearchResultViewModel : BaseViewModel() {
 //            }
 //        }
 //    }
+
+    companion object {
+
+        const val HISTORY_KEYWORD_MAX_SIZE = 20
+    }
 }
