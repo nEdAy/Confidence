@@ -1,11 +1,7 @@
 package cn.neday.sheep.activity
 
-import androidx.lifecycle.Observer
-import androidx.paging.PagedList
 import cn.neday.sheep.R
 import cn.neday.sheep.adapter.GoodsListAdapter
-import cn.neday.sheep.model.Goods
-import cn.neday.sheep.network.NetworkState
 import cn.neday.sheep.viewmodel.SearchResultViewModel
 import com.blankj.utilcode.util.ActivityUtils
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar
@@ -43,17 +39,17 @@ class SearchResultActivity : BaseVMActivity<SearchResultViewModel>() {
     private fun initAdapter() {
         val goodsListAdapter = GoodsListAdapter()
         rv_goods.adapter = goodsListAdapter
-        mViewModel.posts.observe(this, Observer<PagedList<Goods>> {
-//            goodsListAdapter.submitList(it)
-        })
+//        mViewModel.posts.observe(this, Observer<PagedList<Goods>> {
+////            goodsListAdapter.submitList(it)
+//        })
     }
 
     private fun initSwipeToRefresh() {
-        mViewModel.refreshState.observe(this, Observer {
-            srl_goods.isRefreshing = it == NetworkState.LOADING
-        })
+//        mViewModel.refreshState.observe(this, Observer {
+//            srl_goods.isRefreshing = it == NetworkState.LOADING
+//        })
         srl_goods.setColorSchemeResources(R.color.red, R.color.orange, R.color.green, R.color.blue)
-        srl_goods.setOnRefreshListener { mViewModel.refresh() }
+//        srl_goods.setOnRefreshListener { mViewModel.refresh() }
     }
 
     companion object {
