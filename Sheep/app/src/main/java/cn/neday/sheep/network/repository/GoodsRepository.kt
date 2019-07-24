@@ -1,15 +1,11 @@
 package cn.neday.sheep.network.repository
 
-import androidx.annotation.MainThread
-import androidx.lifecycle.Transformations
-import androidx.paging.Config
-import androidx.paging.toLiveData
-import cn.neday.sheep.model.*
+import cn.neday.sheep.model.Goods
+import cn.neday.sheep.model.Pages
+import cn.neday.sheep.model.RankGoods
+import cn.neday.sheep.model.Response
 import cn.neday.sheep.network.RetrofitClient
 import cn.neday.sheep.network.api.GoodsApi
-import cn.neday.sheep.network.datasource.BaseDataSourceFactory
-import cn.neday.sheep.network.datasource.GoodsDataSourceFactory
-import cn.neday.sheep.network.datasource.GoodsSearchDataSourceFactory
 
 /**
  * RankGoods Repository
