@@ -152,7 +152,7 @@
                     android:drawablePadding="8.0dp"
                     android:hint="@string/tx_hint_sms"
                     android:inputType="number"
-                    android:maxLength="6"
+                    android:maxLength="4"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
                     android:textColorHint="@color/textHintColor"
@@ -177,7 +177,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-
                     android:textStyle="bold"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"

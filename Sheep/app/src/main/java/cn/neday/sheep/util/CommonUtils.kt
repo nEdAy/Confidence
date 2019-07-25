@@ -54,11 +54,13 @@ object CommonUtils {
      *
      * @param view 指定的View
      */
-    fun setShakeAnimation(view: View) {
+    fun setShakeAnimation(vararg view: View) {
         val translateAnimation = TranslateAnimation(0f, 10f, 0f, 10f)
         translateAnimation.interpolator = CycleInterpolator(5f)//抖5下
         translateAnimation.duration = 1000
-        view.startAnimation(translateAnimation)
+        for (it in view) {
+            it.startAnimation(translateAnimation)
+        }
     }
 
     /**
