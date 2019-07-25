@@ -10,7 +10,6 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.StringUtils
 import com.orhanobut.hawk.Hawk
 import com.umeng.analytics.MobclickAgent
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 
 /**
@@ -27,7 +26,7 @@ abstract class BaseActivity : AppCompatActivity() {
     lateinit var mContext: Context
 
     override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

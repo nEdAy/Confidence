@@ -2,8 +2,8 @@ package cn.neday.sheep
 
 import android.app.Application
 import cn.neday.sheep.config.BuglyConfig
-import cn.neday.sheep.config.CalligraphyConfig
 import cn.neday.sheep.config.UmengConfig
+import cn.neday.sheep.config.ViewPumpConfig
 import cn.neday.sheep.util.AliTradeHelper
 import com.blankj.utilcode.util.ProcessUtils
 import com.didichuxing.doraemonkit.DoraemonKit
@@ -42,7 +42,7 @@ class ThisApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        CalligraphyConfig.init()
+        ViewPumpConfig.init()
         UmengConfig.init(instance)
         if (!ProcessUtils.isMainProcess()) {
             return
