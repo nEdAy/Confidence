@@ -1,6 +1,7 @@
 package cn.neday.sheep.activity
 
 import android.os.CountDownTimer
+import android.text.InputType
 import android.text.TextUtils
 import android.view.View
 import android.widget.EditText
@@ -48,6 +49,16 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         tv_sms.setOnClickListener { requestVerificationCode() }
         iv_agreement.setOnClickListener { changeAgreementIv() }
         tv_agreement.setOnClickListener { AliTradeHelper(this).showItemURLPage(UrlConfig.KZ_YHSYXY) }
+        iv_password_see.setOnClickListener {
+            if (et_password.inputType == InputType.TYPE_TEXT_VARIATION_PASSWORD) {
+                iv_password_see.setImageResource(R.drawable.ic_visibility_white_24dp)
+                et_password.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            } else {
+                iv_password_see.setImageResource(R.drawable.ic_visibility_off_white_24dp)
+                et_password.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+            et_password.setSelection(et_password.text?.length ?: 0)
+        }
         mViewModel.user.observe(this, Observer {
             Hawk.put(TOKEN, it.token)
             Hawk.put(MOBILE, it.mobile)
