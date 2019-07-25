@@ -34,10 +34,11 @@
             android:layout_marginTop="4dp"
             android:fontFamily="@font/calibri"
             android:gravity="center"
-            android:text="We pursue a relaxed gaming experience"
+            android:text="口袋快爆 有你更精彩"
             android:textColor="#9affffff"
-            android:textSize="10sp"
-            android:textAlignment="center"/>
+            android:textSize="12sp"
+            android:textAlignment="center"
+            tools:ignore="SmallSp"/>
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -45,17 +46,20 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="120dp"
             android:orientation="vertical"
             android:paddingLeft="32dp"
             android:paddingRight="32dp">
 
-        <cn.neday.sheep.view.ClearEditText
+        <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_mobile"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_phone_white_24dp"
-                android:drawablePadding="16dp"
+                android:layout_height="50.0dp"
+                android:background="@drawable/bg_edit_text"
+                android:drawableLeft="@drawable/ic_phone_white_24dp"
+                android:paddingStart="8.0dp"
+                android:paddingEnd="8.0dp"
+                android:drawablePadding="8.0dp"
                 android:fontFamily="@font/calibri"
                 android:inputType="phone"
                 android:maxLength="11"
@@ -63,15 +67,19 @@
                 android:textColor="@android:color/white"
                 android:hint="@string/tx_hint_phone"
                 android:textColorHint="@color/textHintColor"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                tools:ignore="RtlHardcoded"/>
 
-        <cn.neday.sheep.view.ClearEditText
+        <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50.0dp"
+                android:background="@drawable/bg_edit_text"
                 android:visibility="gone"
-                android:drawableStart="@drawable/ic_lock_white_24dp"
-                android:drawablePadding="16dp"
+                android:drawableLeft="@drawable/ic_lock_white_24dp"
+                android:paddingStart="8.0dp"
+                android:paddingEnd="8.0dp"
+                android:drawablePadding="8.0dp"
                 android:fontFamily="@font/calibri"
                 android:hint="@string/tx_hint_password"
                 android:inputType="textPassword"
@@ -79,7 +87,8 @@
                 android:maxLines="1"
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/textHintColor"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                tools:ignore="RtlHardcoded"/>
 
         <LinearLayout
                 android:id="@+id/rl_sms"
@@ -87,13 +96,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-            <cn.neday.sheep.view.ClearEditText
+            <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/et_sms"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50.0dp"
+                    android:background="@drawable/bg_edit_text"
                     android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_sms_white_24dp"
-                    android:drawablePadding="16dp"
+                    android:drawableLeft="@drawable/ic_sms_white_24dp"
+                    android:paddingStart="8.0dp"
+                    android:paddingEnd="8.0dp"
+                    android:drawablePadding="8.0dp"
                     android:fontFamily="@font/calibri"
                     android:hint="@string/tx_hint_sms"
                     android:inputType="number"
@@ -101,14 +113,15 @@
                     android:maxLines="1"
                     android:textColor="@android:color/white"
                     android:textColorHint="@color/textHintColor"
-                    android:textSize="16sp"/>
-
+                    android:textSize="16sp"
+                    tools:ignore="RtlHardcoded"/>
 
             <Button
                     android:id="@+id/tv_sms"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginStart="10dp"
                     android:gravity="center"
                     android:background="@drawable/button_shape_white_bg"
                     android:fontFamily="@font/calibri"
@@ -187,7 +200,8 @@
                     android:layout_height="18.0dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/check_pressed"/>
+                    android:src="@drawable/check_pressed"
+                    tools:ignore="ContentDescription"/>
 
             <TextView
                     android:id="@+id/tv_agreement"
@@ -197,7 +211,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/iv_agreement"
                     android:gravity="center"
-                    android:text="我同意《用户使用协议》"
+                    android:text="@string/tx_agreement"
                     android:textColor="#96ffffff"/>
         </RelativeLayout>
 

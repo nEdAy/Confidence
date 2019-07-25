@@ -3,6 +3,7 @@ package cn.neday.sheep.activity
 import android.os.CountDownTimer
 import android.text.TextUtils
 import android.view.View
+import android.widget.EditText
 import androidx.lifecycle.Observer
 import cn.neday.sheep.R
 import cn.neday.sheep.config.HawkConfig.MOBILE
@@ -10,7 +11,6 @@ import cn.neday.sheep.config.HawkConfig.TOKEN
 import cn.neday.sheep.config.UrlConfig
 import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils
-import cn.neday.sheep.view.ClearEditText
 import cn.neday.sheep.viewmodel.LoginViewModel
 import cn.smssdk.EventHandler
 import cn.smssdk.SMSSDK
@@ -115,12 +115,12 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
     private fun changeLoginWay() {
         if (tv_change_login_way.text == getString(R.string.tx_change_login_via_password)) {
             tv_change_login_way.text = getString(R.string.tx_change_login_via_sms_code)
-            rl_sms.visibility = View.VISIBLE
-            et_password.visibility = View.GONE
+            rl_sms.visibility = View.GONE
+            et_password.visibility = View.VISIBLE
         } else {
             tv_change_login_way.text = getString(R.string.tx_change_login_via_password)
-            et_password.visibility = View.VISIBLE
-            rl_sms.visibility = View.GONE
+            et_password.visibility = View.GONE
+            rl_sms.visibility = View.VISIBLE
         }
     }
 
@@ -186,7 +186,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         return true
     }
 
-    private fun shakeAnimationAndFocusUi(editTextView: ClearEditText, toastErrorMsgRes: Int) {
+    private fun shakeAnimationAndFocusUi(editTextView: EditText, toastErrorMsgRes: Int) {
         ToastUtils.showShort(toastErrorMsgRes)
         editTextView.requestFocus()
         CommonUtils.setShakeAnimation(editTextView)

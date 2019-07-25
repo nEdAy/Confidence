@@ -163,4 +163,5 @@
     <string name="tx_hot_type">热门类目</string>
     <string name="tx_clean">清除</string>
     <string name="tx_add_cart">加购物车</string>
+    <string name="tx_agreement">我同意《用户使用协议》</string>
 </resources>
