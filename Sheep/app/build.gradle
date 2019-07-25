@@ -140,6 +140,9 @@ dependencies {
     // Title UI
     implementation 'com.wuhenzhizao:titlebar:1.1.4'
 
+    // Calligraphy
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+
     // Utils
     implementation 'com.blankj:utilcodex:1.24.7'
 

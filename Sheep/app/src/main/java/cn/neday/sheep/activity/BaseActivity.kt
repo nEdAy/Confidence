@@ -10,6 +10,8 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.StringUtils
 import com.orhanobut.hawk.Hawk
 import com.umeng.analytics.MobclickAgent
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+
 
 /**
  * Activity基类
@@ -23,6 +25,10 @@ abstract class BaseActivity : AppCompatActivity() {
     open val isCheckLogin = false
 
     lateinit var mContext: Context
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

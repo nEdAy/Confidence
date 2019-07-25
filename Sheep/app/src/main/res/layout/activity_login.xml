@@ -33,7 +33,6 @@
             android:layout_below="@+id/tv_login_title"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/calibri"
             android:gravity="center"
             android:text="口袋快爆 有你更精彩"
             android:textColor="#9affffff"
@@ -61,7 +60,6 @@
                 android:paddingStart="8.0dp"
                 android:paddingEnd="8.0dp"
                 android:drawablePadding="8.0dp"
-                android:fontFamily="@font/calibri"
                 android:inputType="phone"
                 android:maxLength="11"
                 android:maxLines="1"
@@ -75,24 +73,23 @@
                 android:id="@+id/rl_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="50.0dp"
-                android:layout_marginTop="10.0dp">
+                android:layout_marginTop="10.0dp"
+                android:visibility="gone"
+                tools:visibility="visible">
 
             <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/bg_edit_text"
-                    android:visibility="gone"
                     android:drawableLeft="@drawable/ic_lock_white_24dp"
                     android:paddingStart="8.0dp"
                     android:paddingEnd="8.0dp"
                     android:drawablePadding="8.0dp"
-                    android:fontFamily="@font/calibri"
                     android:hint="@string/tx_hint_password"
                     android:inputType="textPassword"
                     android:maxLength="16"
                     android:maxLines="1"
-                    tools:visibility="visible"
                     android:textColor="@android:color/white"
                     android:textColorHint="@color/textHintColor"
                     android:textSize="16sp"
@@ -126,7 +123,6 @@
                     android:id="@+id/tv_lostPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/calibri"
                     android:gravity="center"
                     android:text="@string/tx_lost_password"
                     android:textAlignment="center"
@@ -154,7 +150,6 @@
                     android:paddingStart="8.0dp"
                     android:paddingEnd="8.0dp"
                     android:drawablePadding="8.0dp"
-                    android:fontFamily="@font/calibri"
                     android:hint="@string/tx_hint_sms"
                     android:inputType="number"
                     android:maxLength="6"
@@ -182,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:fontFamily="@font/calibri"
+
                     android:textStyle="bold"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
@@ -200,7 +195,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:fontFamily="@font/calibri"
                 android:gravity="center"
                 android:textColor="#9affffff"
                 android:textSize="12sp"
@@ -208,7 +202,7 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50.0dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
@@ -217,28 +211,29 @@
             <TextView
                     android:id="@+id/tv_change_login_way"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/calibri"
+                    android:layout_height="match_parent"
                     android:text="@string/tx_change_login_via_password"
                     android:padding="16dp"
                     android:textAlignment="textStart"
                     android:textColor="#96ffffff"
                     android:textSize="16sp"/>
 
-            <Button
+            <com.flyco.roundview.RoundTextView
                     android:id="@+id/btn_login"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
                     android:paddingStart="50dp"
                     android:paddingEnd="50dp"
-                    android:background="@drawable/button_shape_white_bg"
-                    android:fontFamily="@font/calibri"
                     android:text="@string/tx_login"
                     android:textAllCaps="false"
+                    android:gravity="center"
                     android:textColor="#96ffffff"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    app:rv_strokeColor="@color/gray"
+                    app:rv_cornerRadius="6dp"
+                    app:rv_strokeWidth="0.5dp"/>
         </LinearLayout>
 
         <RelativeLayout
