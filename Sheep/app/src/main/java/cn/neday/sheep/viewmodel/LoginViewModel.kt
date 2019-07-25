@@ -24,16 +24,12 @@ class LoginViewModel : BaseViewModel() {
     fun registerOrLogin(mobile: String, password: String, smsCode: String, inviteCode: String) {
         val passwordMD5 = EncryptUtils.encryptMD5ToString(password).toUpperCase()
         launch {
-            try {
-                val response = withContext(Dispatchers.IO) {
-                    repository.registerOrLogin(mobile, passwordMD5, smsCode, inviteCode)
-                }
-                executeResponse(response, {
-                    user.value = response.data
-                }, { errMsg.value = response.msg })
-            } catch (t: Throwable) {
-                t.printStackTrace()
+            val response = withContext(Dispatchers.IO) {
+                repository.registerOrLogin(mobile, passwordMD5, smsCode, inviteCode)
             }
+            executeResponse(response, {
+                user.value = response.data
+            }, { errMsg.value = response.msg })
         }
     }
 }

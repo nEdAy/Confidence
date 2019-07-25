@@ -58,16 +58,12 @@ class SearchResultViewModel : BaseViewModel() {
 //     */
 //    fun getListSuperGoods(type: Int, keyWords: String, tmall: Int, haitao: Int, sort: String) {
 //        launch {
-//            try {
 //                val response = withContext(Dispatchers.IO) {
 //                    repository.getListSuperGoods(type, keyWords, tmall, haitao, sort)
 //                }
 //                executeResponse(response, {
 //                    mGoods.value = response.data
 //                }, { errMsg.value = response.msg })
-//            } catch (t: Throwable) {
-//                t.printStackTrace()
-//            }
 //        }
 //    }
 

@@ -42,11 +42,11 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         coroutineScope {
             try {
                 tryBlock()
-            } catch (e: Exception) {
-                if (e !is CancellationException || handleCancellationExceptionManually) {
-                    catchBlock(e)
+            } catch (exception: Exception) {
+                if (exception !is CancellationException || handleCancellationExceptionManually) {
+                    catchBlock(exception)
                 } else {
-                    throw e
+                    throw exception
                 }
             } finally {
                 finallyBlock()

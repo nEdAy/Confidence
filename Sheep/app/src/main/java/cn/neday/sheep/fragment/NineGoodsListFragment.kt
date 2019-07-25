@@ -15,7 +15,6 @@ import cn.neday.sheep.viewmodel.NineGoodsListViewModel
 import com.blankj.utilcode.util.ActivityUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import kotlinx.android.synthetic.main.fragment_goods_list.*
-import kotlinx.android.synthetic.main.include_no_data.view.*
 
 /**
  * 9.9精选
@@ -29,15 +28,14 @@ class NineGoodsListFragment(private val nineType: NineType) : BaseVMFragment<Nin
     override fun initView() {
         initAdapter()
         initSwipeToRefresh()
+        loadInitial(nineType)
     }
 
     private fun initAdapter() {
         val goodsListAdapter = GoodsListAdapter()
         goodsListAdapter.bindToRecyclerView(rv_goods)
         val emptyView = layoutInflater.inflate(R.layout.include_no_data, rv_goods.parent as ViewGroup, false)
-        emptyView.tv_noData.setOnClickListener {
-            mViewModel.getNineOpGoodsList(nineType.index.toString())
-        }
+        emptyView.setOnClickListener { loadInitial(nineType) }
         goodsListAdapter.emptyView = emptyView
         goodsListAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val goods = adapter.getItem(position) as Goods
@@ -89,6 +87,7 @@ class NineGoodsListFragment(private val nineType: NineType) : BaseVMFragment<Nin
         if (mViewModel.mCurrentPageId == NineGoodsListViewModel.LOAD_INITIAL_PAGE_ID) {
             srl_goods.isRefreshing = false
             adapter.setNewData(data.list)
+            adapter.disableLoadMoreIfNotFullPage()
         } else {
             adapter.addData(data.list)
         }
@@ -96,9 +95,11 @@ class NineGoodsListFragment(private val nineType: NineType) : BaseVMFragment<Nin
 
     private fun initSwipeToRefresh() {
         srl_goods.setColorSchemeResources(R.color.red, R.color.orange, R.color.green, R.color.blue)
-        srl_goods.setOnRefreshListener {
-            mViewModel.getNineOpGoodsList(nineType.index.toString())
-        }
+        srl_goods.setOnRefreshListener { loadInitial(nineType) }
+    }
+
+    private fun loadInitial(nineType: NineType) {
+        mViewModel.getNineOpGoodsList(nineType.index.toString())
     }
 
     companion object {

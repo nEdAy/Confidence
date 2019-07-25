@@ -26,17 +26,13 @@ class CreditHistoryViewModel : BaseViewModel() {
             this.hotWords.value = hotWords
         }
         launch {
-            try {
-                val response = withContext(Dispatchers.IO) {
-                    repository.getTop100()
-                }
-                executeResponse(response, {
-                    this@CreditHistoryViewModel.hotWords.value = response.data
-                    Hawk.put(HawkConfig.HOTWORDS, response.data)
-                }, { errMsg.value = response.msg })
-            } catch (t: Throwable) {
-                t.printStackTrace()
+            val response = withContext(Dispatchers.IO) {
+                repository.getTop100()
             }
+            executeResponse(response, {
+                this@CreditHistoryViewModel.hotWords.value = response.data
+                Hawk.put(HawkConfig.HOTWORDS, response.data)
+            }, { errMsg.value = response.msg })
         }
     }
 }

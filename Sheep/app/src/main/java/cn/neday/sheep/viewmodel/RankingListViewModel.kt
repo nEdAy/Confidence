@@ -14,12 +14,8 @@ class RankingListViewModel : BaseViewModel() {
 
     fun getRankingList(rankType: Int, cid: String) {
         launch {
-            try {
-                val response = withContext(Dispatchers.IO) { repository.getRankingList(rankType, cid) }
-                executeResponse(response, { rankGoods.value = response.data }, { errMsg.value = response.msg })
-            } catch (t: Throwable) {
-                t.printStackTrace()
-            }
+            val response = withContext(Dispatchers.IO) { repository.getRankingList(rankType, cid) }
+            executeResponse(response, { rankGoods.value = response.data }, { errMsg.value = response.msg })
         }
     }
 }

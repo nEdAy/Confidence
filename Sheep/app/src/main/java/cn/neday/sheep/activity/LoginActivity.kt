@@ -53,11 +53,11 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
             Hawk.put(MOBILE, it.mobile)
             ActivityUtils.finishActivity(this)
         })
+        mViewModel.errMsg.observe(this, Observer {
+            ToastUtils.showShort(it)
+        })
     }
 
-    /**
-     * 用户back按键回馈
-     */
     override fun onBackPressed() {
         if (mTimeCount != null) {
             val dialog = NormalDialog(this)
@@ -128,9 +128,6 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
 
     }
 
-    /**
-     * 重新请求短信验证码
-     */
     private fun requestVerificationCode() {
         val mobile = et_mobile.text.toString().trim { it <= ' ' }.replace(" ", "")
         if (TextUtils.isEmpty(mobile)) {
@@ -195,9 +192,6 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         CommonUtils.setShakeAnimation(editTextView)
     }
 
-    /**
-     * 改变同意合同样式
-     */
     private fun changeAgreementIv() {
         mIsAgreeAgreement = !mIsAgreeAgreement
         iv_agreement.setImageResource(if (mIsAgreeAgreement) R.drawable.check_normal else R.drawable.check_pressed)
@@ -213,17 +207,10 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                         et_mobile.isEnabled = false
                         when (event) {
                             SMSSDK.EVENT_GET_VERIFICATION_CODE -> {
-                                // 获取验证码成功
-                                //val smart = data as Boolean
-                                //if (smart) {
-                                // 通过Mob云验证
-                                // mViewModel.registerOrLogin("", "", "", "")
-                                //} else {
-                                // 依然走短信验证 30s 倒计时
+                                // 短信验证 30s 倒计时
                                 mTimeCount = TimeCount(30000, 1000)
                                 mTimeCount?.start()
                                 tx_hint_voice_verify_code.text = "我们已发送验证码短信到您的手机号"
-                                //}
                             }
                             SMSSDK.EVENT_GET_VOICE_VERIFICATION_CODE -> {
                                 // 请求发送语音验证码，无返回

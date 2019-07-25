@@ -13,9 +13,7 @@ import cn.neday.sheep.viewmodel.SearchResultViewModel
 import com.blankj.utilcode.util.ActivityUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar
-import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.activity_search_result.*
-import kotlinx.android.synthetic.main.include_no_data.view.*
 
 
 class SearchResultActivity : BaseVMActivity<SearchResultViewModel>() {
@@ -30,6 +28,7 @@ class SearchResultActivity : BaseVMActivity<SearchResultViewModel>() {
             initSearchBar(keyWord)
             initAdapter(keyWord)
             initSwipeToRefresh(keyWord)
+            loadInitial(keyWord)
         } ?: ActivityUtils.finishActivity(this)
     }
 
@@ -37,7 +36,7 @@ class SearchResultActivity : BaseVMActivity<SearchResultViewModel>() {
         titleBar_search_result.centerSearchEditText.setText(keyWord)
         titleBar_search_result.setListener { _, action, _ ->
             if (action == CommonTitleBar.ACTION_SEARCH_SUBMIT || action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
-                mViewModel.getDtkSearchGoods(titleBar_search.searchKey)
+                mViewModel.getDtkSearchGoods(titleBar_search_result.searchKey)
             } else if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
                 ActivityUtils.finishActivity(this)
             }
@@ -49,9 +48,7 @@ class SearchResultActivity : BaseVMActivity<SearchResultViewModel>() {
         rv_goods.adapter = goodsListAdapter
         goodsListAdapter.bindToRecyclerView(rv_goods)
         val emptyView = layoutInflater.inflate(R.layout.include_no_data, rv_goods.parent as ViewGroup, false)
-        emptyView.tv_noData.setOnClickListener {
-            mViewModel.getDtkSearchGoods(keyWord)
-        }
+        emptyView.setOnClickListener { loadInitial(keyWord) }
         goodsListAdapter.emptyView = emptyView
         goodsListAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val goods = adapter.getItem(position) as Goods
@@ -103,6 +100,7 @@ class SearchResultActivity : BaseVMActivity<SearchResultViewModel>() {
         if (mViewModel.mCurrentPageId == SearchResultViewModel.LOAD_INITIAL_PAGE_ID) {
             srl_goods.isRefreshing = false
             adapter.setNewData(data.list)
+            adapter.disableLoadMoreIfNotFullPage()
         } else {
             adapter.addData(data.list)
         }
@@ -110,9 +108,11 @@ class SearchResultActivity : BaseVMActivity<SearchResultViewModel>() {
 
     private fun initSwipeToRefresh(keyWord: String) {
         srl_goods.setColorSchemeResources(R.color.red, R.color.orange, R.color.green, R.color.blue)
-        srl_goods.setOnRefreshListener {
-            mViewModel.getDtkSearchGoods(keyWord)
-        }
+        srl_goods.setOnRefreshListener { loadInitial(keyWord) }
+    }
+
+    private fun loadInitial(keyWord: String) {
+        mViewModel.getDtkSearchGoods(keyWord)
     }
 
     companion object {

@@ -14,12 +14,8 @@ class IndexViewModel : BaseViewModel() {
 
     fun getBannerList() {
         launch {
-            try {
-                val response = withContext(Dispatchers.IO) { repository.getBannerList() }
-                executeResponse(response, { banners.value = response.data }, { errMsg.value = response.msg })
-            } catch (t: Throwable) {
-                t.printStackTrace()
-            }
+            val response = withContext(Dispatchers.IO) { repository.getBannerList() }
+            executeResponse(response, { banners.value = response.data }, { errMsg.value = response.msg })
         }
     }
 }

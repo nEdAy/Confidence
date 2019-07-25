@@ -3,7 +3,7 @@ package cn.neday.sheep.fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import cn.neday.sheep.viewmodel.BaseViewModel
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.LogUtils
 
 /**
  * Fragment基类 + ViewModel
@@ -25,7 +25,7 @@ abstract class BaseVMFragment<VM : BaseViewModel> : BaseFragment() {
             lifecycle.addObserver(mViewModel)
         }
         mViewModel.errMsg.observe(this, Observer {
-            ToastUtils.showShort(it)
+            LogUtils.e(it)
         })
     }
 
