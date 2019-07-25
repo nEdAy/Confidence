@@ -15,8 +15,6 @@
         <item>我的</item>
     </string-array>
 
-    <string name="behavior_view_pager">cn.neday.sheep.view.ViewPagerBehavior</string>
-
     <string name="tx_login_title_day">Good Morning</string>
     <string name="tx_login_title_night">Good Night</string>
 
@@ -33,26 +31,13 @@
     <string name="tx_encourage_us">给我鼓励</string>
     <string name="tx_attention_us">关注我们</string>
     <string name="tx_clear">清理缓存</string>
-    <string name="tx_login">登录</string>
     <string name="tx_logout">退出登录</string>
     <string name="tx_back">返回</string>
+    <string name="tx_determine">确定</string>
     <string name="tx_cancel">取 消</string>
-    <string name="tx_change_login_via_password">帐号密码登录</string>
-    <string name="tx_change_login_via_sms_code">短信验证登录</string>
-    <string name="tx_lost_password">忘记密码</string>
-    <string name="tx_hint_password">请输入登录密码</string>
-    <string name="toast_error_password_verify_error">两次新密码输入不相同</string>
-    <string name="tx_hint_phone">请输入手机号码</string>
-    <string name="tx_hint_invite_phone">请输入邀请人手机号码(选填)</string>
-    <string name="tx_hint_sms">请输入验证码</string>
-    <string name="tx_register">注册</string>
+
     <string name="network_tips">您已进入没有网络的异次元,请检查您的网络!</string>
-    <string name="toast_error_phone_null">手机号不能为空</string>
-    <string name="toast_error_phone_error">手机号格式不正确</string>
-    <string name="toast_error_password_null">密码不能为空</string>
-    <string name="toast_error_password_error">密码长度不正确，请输入6–16位</string>
-    <string name="toast_error_sms_null">验证码不能为空</string>
-    <string name="toast_error_sms_error">验证码长度不正确，请输入4位</string>
+
     <string name="account_center_account">账户</string>
     <string name="account_center_key_login">修改登录密码</string>
     <string name="shake_times">您今天还可以摇%1$d次</string>
@@ -88,16 +73,13 @@
     <string name="sign_in_out">签到领口袋币</string>
     <string name="tx_province_flow">省流量模式</string>
     <string name="tx_nickname">昵称</string>
+
     <string-array name="rank_type_array">
         <item>实时销量榜</item>
         <item>全天销量榜</item>
         <item>热推榜</item>
     </string-array>
-    <!--<string-array name="library_array">-->
-    <!--<item> 主题街区 </item>-->
-    <!--<item> 好货福利 </item>-->
-    <!--<item> 到点改价 </item>-->
-    <!--</string-array>-->
+
     <string-array name="nine_type_array">
         <item>精选</item>
         <item>居家百货</item>
@@ -111,48 +93,17 @@
         <item>数码配件</item>
         <item>文娱车品</item>
     </string-array>
-    <!--<string-array name="item_tqg_array">-->
-    <!--<item> 00:00 </item>-->
-    <!--<item> 09:00 </item>-->
-    <!--<item> 15:00 </item>-->
-    <!--<item> 20:00 </item>-->
-    <!--</string-array>-->
-    <!--<string-array name="item_search_array">-->
-    <!--<item> 口袋快爆 </item>-->
-    <!--<item> 口袋精选 </item>-->
-    <!--</string-array>-->
-    <!--<string name="next">下一项</string>-->
-    <!--<string name="previous">上一项</string>-->
-    <!--<string name="done">完 成</string>-->
 
-    <!--<string name="letter">快递信（限一单 奥克米填写取货号）</string>-->
-    <!--<string name="name">收件人姓名</string>-->
-    <!--<string name="phone">收件人手机号</string>-->
-    <!--<string name="region">宿舍区域（区分北苑和软件园！）</string>-->
-    <!--<string name="dormitory">宿舍楼号（如：x号楼 xx区）</string>-->
-    <!--<string name="orderId">商品订单编号</string>-->
-    <!--<string name="voucherId">快递券编号</string>-->
-
-    <!--<string name="n"><![CDATA[欢迎使用<口袋快取>\n在使用之前，我们有两个问题..]]></string>-->
-    <!--<string name="n_n_n"><![CDATA[华信软件学院学生请选择<天津工业大学>\n非口袋快爆购买商品暂停“大件”代取\n暂不支持菜鸟驿站、天猫超市、京东、德邦、EMS、邮政小包免费代取]]></string>-->
     <string name="tx_about">关于与合作</string>
     <string name="get_user_info_error">获取用户失败</string>
     <string name="default_nickname">口袋爆料人</string>
     <string name="refresh_error">更新失败</string>
     <string name="tx_inquiry_logout">您确定退出登录么？</string>
     <string name="logout_prompt">退出提示</string>
-    <string name="log_tag">nEdAy</string>
     <string name="pick_from_capture">拍照</string>
     <string name="pick_from_gallery">从相册选择</string>
     <string name="register_error">注册失败:</string>
-    <!--<string name="create_express_order_success">提交代取卡片成功</string>-->
-    <!--<string name="create_express_order_fail">提交代取卡片失败</string>-->
-    <!--<string name="tx_tjgy">天津工业大学</string>-->
-    <!--<string name="tx_tjlg">天津理工大学</string>-->
-    <!--<string name="tx_tjsf">天津师范大学</string>-->
-    <string name="tx_determine">确定</string>
-    <!--<string name="exchange_failure">兑换失败：</string>-->
-    <!--<string name="exchange_success">兑换成功：</string>-->
+
     <string name="tx_account">我的账户</string>
     <string name="tx_taobao">淘宝</string>
     <string name="tx_tianmao">天猫商城</string>
@@ -163,5 +114,38 @@
     <string name="tx_hot_type">热门类目</string>
     <string name="tx_clean">清除</string>
     <string name="tx_add_cart">加购物车</string>
+
+    // Login
+    <string name="tx_login">登录</string>
+
+    <string name="tx_change_login_via_password">帐号密码登录</string>
+    <string name="tx_change_login_via_sms_code">短信验证登录</string>
+
+    <string name="tx_lost_password">忘记密码</string>
+
+    <string name="tx_hint_phone">请输入手机号码</string>
+    <string name="tx_hint_password">请输入登录密码</string>
+    <string name="tx_hint_sms">请输入验证码</string>
+    <string name="tx_hint_invite_phone">请输入邀请人手机号码(选填)</string>
+    <string name="toast_error_password_verify_error">两次新密码输入不相同</string>
+    <string name="toast_error_phone_null">手机号不能为空</string>
+    <string name="toast_error_phone_error">手机号格式不正确</string>
+    <string name="toast_error_password_null">密码不能为空</string>
+    <string name="toast_error_password_error">密码长度不正确，请输入6–16位</string>
+    <string name="toast_error_sms_null">验证码不能为空</string>
+    <string name="toast_error_sms_error">验证码长度不正确，请输入4位</string>
+
     <string name="tx_agreement">我同意《用户使用协议》</string>
+    <string name="tx_not_agree_agreement">您尚未同意《用户使用协议》</string>
+    <string name="tx_login_privacy_promise">口袋快爆承诺不会向第三方透露您的个人信息</string>
+
+    <string name="tx_voice"> 致电中 </string>
+    <string name="tx_please_retry"> 请重试 </string>
+    <string name="tx_try_voice"> 发送语音验证 </string>
+
+    <string name="tv_login_sms">我们已发送验证码短信到您的手机号</string>
+    <string name="tv_login_voice">我们正在致电语音播报验证码到您的手机号</string>
+
+    <string name="tv_login_dialog_voice">确定后将致电您的手机号并语音播报验证码，如不希望被来点打扰请返回。</string>
+    <string name="tx_login_dialog_sms">验证码短信可能略有延迟，确定返回并重新开始？</string>
 </resources>

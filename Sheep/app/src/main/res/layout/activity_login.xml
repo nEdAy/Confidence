@@ -73,7 +73,7 @@
                 android:id="@+id/rl_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="50.0dp"
-                android:layout_marginTop="10.0dp"
+                android:layout_marginTop="8.0dp"
                 android:visibility="gone"
                 tools:visibility="visible">
 
@@ -139,7 +139,7 @@
                 android:id="@+id/rl_login_sms"
                 android:layout_width="match_parent"
                 android:layout_height="50.0dp"
-                android:layout_marginTop="10.0dp">
+                android:layout_marginTop="8.0dp">
 
             <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/et_sms"
@@ -190,11 +190,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-                android:id="@+id/tx_hint_voice_verify_code"
+                android:id="@+id/tx_hint_verify_sms_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
                 android:gravity="center"
+                android:layout_marginTop="8dp"
+                tools:text="@string/tv_login_sms"
                 android:textColor="#9affffff"
                 android:textSize="12sp"
                 android:textAlignment="center"/>
@@ -203,7 +204,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50.0dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -237,6 +237,7 @@
 
         <RelativeLayout
                 android:id="@+id/rl_agreement"
+                android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -266,8 +267,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="口袋快爆承诺不会向第三方透露您的个人信息"
+                android:layout_marginTop="8dp"
+                android:text="@string/tx_login_privacy_promise"
                 android:textColor="#96ffffff"/>
     </LinearLayout>
 </RelativeLayout>

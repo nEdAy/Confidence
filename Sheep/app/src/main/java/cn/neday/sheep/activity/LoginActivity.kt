@@ -94,7 +94,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
     override fun onBackPressed() {
         if (mTimeCount != null) {
             val dialog = NormalDialog(this)
-            dialog.content("验证码短信可能略有延迟，确定返回并重新开始？")
+            dialog.content(getString(R.string.tx_login_dialog_sms))
                 .style(NormalDialog.STYLE_TWO)
                 .titleTextSize(23f)
                 .show()
@@ -133,7 +133,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
 
     private fun registerOrLogin() {
         if (!mIsAgreeAgreement) {
-            ToastUtils.showShort("您尚未同意《用户使用协议》")
+            ToastUtils.showShort(getString(R.string.tx_not_agree_agreement))
             return
         }
         val mobile = et_mobile.text.toString().trim { it <= ' ' }.replace(" ", "")
@@ -174,7 +174,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         // 先短信验证码，闲置30s后切换语音验证码
         if (mIsVoiceVerifyCode) {
             val dialog = NormalDialog(this)
-            dialog.content("确定后将致电您的手机号并语音播报验证码，如不希望被来点打扰请返回。")
+            dialog.content(getString(R.string.tv_login_dialog_voice))
                 .style(NormalDialog.STYLE_TWO)
                 .titleTextSize(23f)
                 .show()
@@ -247,18 +247,18 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                                 // 短信验证 30s 倒计时
                                 mTimeCount = TimeCount(30000, 1000)
                                 mTimeCount?.start()
-                                tx_hint_voice_verify_code.text = "我们已发送验证码短信到您的手机号"
+                                tx_hint_verify_sms_code.text = getString(R.string.tv_login_sms)
                             }
                             SMSSDK.EVENT_GET_VOICE_VERIFICATION_CODE -> {
                                 // 请求发送语音验证码，无返回
-                                tx_hint_voice_verify_code.text = "我们正在致电语音播报验证码到您的手机号"
-                                tv_sms.text = " 致电中 "
+                                tx_hint_verify_sms_code.text = getString(R.string.tv_login_voice)
+                                tv_sms.text = getString(R.string.tx_voice)
                             }
                         }
                     } else {
                         tv_sms.isEnabled = true
                         et_mobile.isEnabled = true
-                        tv_sms.text = " 请重试 "
+                        tv_sms.text = getString(R.string.tx_please_retry)
                         ToastUtils.showShort((data as Throwable).message)
                         data.printStackTrace()
                     }
@@ -283,7 +283,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         override fun onFinish() {
             tv_sms.isClickable = true
             mIsVoiceVerifyCode = true
-            tv_sms.text = " 发送语音验证 "
+            tv_sms.text = getString(R.string.tx_try_voice)
         }
     }
 
