@@ -116,10 +116,10 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         if (tv_change_login_way.text == getString(R.string.tx_change_login_via_password)) {
             tv_change_login_way.text = getString(R.string.tx_change_login_via_sms_code)
             rl_sms.visibility = View.VISIBLE
-            til_password.visibility = View.GONE
+            et_password.visibility = View.GONE
         } else {
             tv_change_login_way.text = getString(R.string.tx_change_login_via_password)
-            til_password.visibility = View.VISIBLE
+            et_password.visibility = View.VISIBLE
             rl_sms.visibility = View.GONE
         }
     }
@@ -167,11 +167,11 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
             shakeAnimationAndFocusUi(et_mobile, R.string.toast_error_phone_error)
             return false
         }
-        if (til_password.visibility == View.VISIBLE && TextUtils.isEmpty(password)) {
+        if (et_password.visibility == View.VISIBLE && TextUtils.isEmpty(password)) {
             shakeAnimationAndFocusUi(et_password, R.string.toast_error_password_null)
             return false
         }
-        if (til_password.visibility == View.VISIBLE && !CommonUtils.isValidPassword(password)) {
+        if (et_password.visibility == View.VISIBLE && !CommonUtils.isValidPassword(password)) {
             shakeAnimationAndFocusUi(et_password, R.string.toast_error_password_error)
             return false
         }
@@ -222,7 +222,8 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                         tv_sms.isEnabled = true
                         et_mobile.isEnabled = true
                         tv_sms.text = " 请重试 "
-                        (data as Throwable).printStackTrace()
+                        ToastUtils.showShort((data as Throwable).message)
+                        data.printStackTrace()
                     }
                 }
             }

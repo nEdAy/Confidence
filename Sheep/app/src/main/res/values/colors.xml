@@ -9,7 +9,7 @@
     <color name="lineColor">#d7d7d7</color>
     <color name="labelColor">#999999</color>
     <color name="backgroundColor">#f2f2f2</color>
-    <color name="textInputLayout">#96ffffff</color>
+    <color name="textHintColor">#96ffffff</color>
     <color name="btnBgPress">#80C0C0C0</color>
 
     <!-- transparent_half_color -->

@@ -6,15 +6,15 @@
               android:orientation="vertical">
 
     <com.wuhenzhizao.titlebar.widget.CommonTitleBar
-            android:id="@+id/titleBar_nine_goods"
+            android:id="@+id/titleBar_goods"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:centerType="textView"
             app:centerText="超值精选"
-            app:fillStatusBar="false"
+            app:fillStatusBar="true"
+            app:showBottomLine="false"
             app:statusBarColor="@color/colorPrimaryDark"
             app:statusBarMode="light"
-            app:showBottomLine="false"
             app:titleBarColor="@color/red"
             app:centerTextColor="@android:color/white"
             app:centerTextMarquee="true"/>
@@ -34,9 +34,10 @@
             app:tl_textSelectColor="@android:color/white"
             app:tl_textUnselectColor="@color/textColor"/>
 
-    <View android:layout_width="match_parent"
-          android:layout_height="@dimen/divide_line_height"
-          android:background="@color/lineColor"/>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divide_line_height"
+            android:background="@color/lineColor"/>
 
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_nine_goods"

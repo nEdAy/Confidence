@@ -30,12 +30,4 @@
         <!-- splash background image-->
         <item name="android:windowBackground">@drawable/bg_welcome_page</item>
     </style>
-
-    <style name="EditScreenTextInputLayoutStyle" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorControlNormal">@color/textInputLayout</item>
-        <item name="colorControlActivated">@color/textInputLayout</item>
-        <item name="colorControlHighlight">@color/textInputLayout</item>
-        <item name="colorAccent">@color/textInputLayout</item>
-        <item name="android:textColorHint">@color/textInputLayout</item>
-    </style>
 </resources>

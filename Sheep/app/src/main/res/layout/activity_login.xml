@@ -50,94 +50,73 @@
             android:paddingLeft="32dp"
             android:paddingRight="32dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_mobile"
+        <cn.neday.sheep.view.ClearEditText
+                android:id="@+id/et_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="#96ffffff"
-                android:theme="@style/EditScreenTextInputLayoutStyle">
+                android:drawableStart="@drawable/ic_phone_white_24dp"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/calibri"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
+                android:hint="@string/tx_hint_phone"
+                android:textColorHint="@color/textHintColor"
+                android:textSize="16sp"/>
 
-            <cn.neday.sheep.view.ClearEditText
-                    android:id="@+id/et_mobile"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:drawableStart="@drawable/ic_phone_white_24dp"
-                    android:drawablePadding="16dp"
-                    android:fontFamily="@font/calibri"
-                    android:hint="@string/tx_hint_phone"
-                    android:inputType="phone"
-                    android:maxLength="11"
-                    android:maxLines="1"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_password"
+        <cn.neday.sheep.view.ClearEditText
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:textColorHint="#96ffffff"
-                android:theme="@style/EditScreenTextInputLayoutStyle">
+                android:drawableStart="@drawable/ic_lock_white_24dp"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/calibri"
+                android:hint="@string/tx_hint_password"
+                android:inputType="textPassword"
+                android:maxLength="16"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/textHintColor"
+                android:textSize="16sp"/>
 
-            <cn.neday.sheep.view.ClearEditText
-                    android:id="@+id/et_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:drawableStart="@drawable/ic_lock_white_24dp"
-                    android:drawablePadding="16dp"
-                    android:fontFamily="@font/calibri"
-                    android:hint="@string/tx_hint_password"
-                    android:inputType="textPassword"
-                    android:maxLength="16"
-                    android:maxLines="1"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <RelativeLayout
+        <LinearLayout
                 android:id="@+id/rl_sms"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_sms"
-                    android:layout_width="match_parent"
-                    android:layout_alignEnd="@+id/tv_sms"
-                    android:layout_toStartOf="@+id/tv_sms"
+            <cn.neday.sheep.view.ClearEditText
+                    android:id="@+id/et_sms"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColorHint="#96ffffff"
-                    android:theme="@style/EditScreenTextInputLayoutStyle">
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_sms_white_24dp"
+                    android:drawablePadding="16dp"
+                    android:fontFamily="@font/calibri"
+                    android:hint="@string/tx_hint_sms"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@color/textHintColor"
+                    android:textSize="16sp"/>
 
-                <cn.neday.sheep.view.ClearEditText
-                        android:id="@+id/et_sms"
-                        android:layout_width="255dp"
-                        android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_sms_white_24dp"
-                        android:drawablePadding="16dp"
-                        android:fontFamily="@font/calibri"
-                        android:hint="@string/tx_hint_sms"
-                        android:inputType="number"
-                        android:maxLength="6"
-                        android:maxLines="1"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"/>
-            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                     android:id="@+id/tv_sms"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_centerInParent="true"
                     android:background="@drawable/button_shape_white_bg"
                     android:fontFamily="@font/calibri"
                     android:textStyle="bold"
                     android:textAllCaps="false"
                     android:textColor="#96ffffff"
                     android:text=" 获取验证码 "/>
-        </RelativeLayout>
+        </LinearLayout>
 
         <TextView
                 android:id="@+id/tx_hint_voice_verify_code"
@@ -171,9 +150,11 @@
 
             <Button
                     android:id="@+id/btn_login"
-                    android:layout_width="200dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:paddingStart="50dp"
+                    android:paddingEnd="50dp"
                     android:background="@drawable/button_shape_white_bg"
                     android:fontFamily="@font/calibri"
                     android:text="@string/tx_login"
