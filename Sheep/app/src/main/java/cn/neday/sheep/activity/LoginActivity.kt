@@ -115,12 +115,12 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
     private fun changeLoginWay() {
         if (tv_change_login_way.text == getString(R.string.tx_change_login_via_password)) {
             tv_change_login_way.text = getString(R.string.tx_change_login_via_sms_code)
-            rl_sms.visibility = View.GONE
+            rl_login_sms.visibility = View.GONE
             et_password.visibility = View.VISIBLE
         } else {
             tv_change_login_way.text = getString(R.string.tx_change_login_via_password)
             et_password.visibility = View.GONE
-            rl_sms.visibility = View.VISIBLE
+            rl_login_sms.visibility = View.VISIBLE
         }
     }
 
@@ -175,11 +175,11 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
             shakeAnimationAndFocusUi(et_password, R.string.toast_error_password_error)
             return false
         }
-        if (rl_sms.visibility == View.VISIBLE && TextUtils.isEmpty(smsCode)) {
+        if (rl_login_sms.visibility == View.VISIBLE && TextUtils.isEmpty(smsCode)) {
             shakeAnimationAndFocusUi(et_sms, R.string.toast_error_sms_null)
             return false
         }
-        if (rl_sms.visibility == View.VISIBLE && !CommonUtils.isValidSmsCode(smsCode)) {
+        if (rl_login_sms.visibility == View.VISIBLE && !CommonUtils.isValidSmsCode(smsCode)) {
             shakeAnimationAndFocusUi(et_sms, R.string.toast_error_sms_error)
             return false
         }
