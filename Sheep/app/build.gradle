@@ -121,11 +121,6 @@ dependencies {
     // BRVAH
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47-androidx'
 
-    def paging_version = "2.1.0"
-    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
-    // optional - RxJava support
-    // implementation "androidx.paging:paging-rxjava2-ktx:$paging_version"
-
     // Glide
     def glide_version = "4.9.0"
     implementation "com.github.bumptech.glide:glide:$glide_version"
@@ -201,8 +196,6 @@ dependencies {
     testImplementation "org.powermock:powermock-module-junit4:$powermock_version"
     testImplementation "org.powermock:powermock-module-junit4-rule:$powermock_version"
     testImplementation "org.powermock:powermock-api-mockito2:$powermock_version"
-    // Paging without Android dependencies for testing
-    testImplementation "androidx.paging:paging-common-ktx:$paging_version"
     // Test helpers for LiveData
     // testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
 

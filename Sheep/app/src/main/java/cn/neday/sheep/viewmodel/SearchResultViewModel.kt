@@ -2,21 +2,31 @@ package cn.neday.sheep.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import cn.neday.sheep.config.HawkConfig
+import cn.neday.sheep.model.Goods
+import cn.neday.sheep.model.Pages
 import cn.neday.sheep.network.repository.GoodsRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.orhanobut.hawk.Hawk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class SearchResultViewModel : BaseViewModel() {
 
     private val repository by lazy { GoodsRepository() }
 
-    private val keyWords = MutableLiveData<String>()
+    val pageGoods: MutableLiveData<Pages<Goods>> = MutableLiveData()
 
-    fun getDtkSearchGoods(keyWords: String) {
+    var mCurrentPageId: String = LOAD_INITIAL_PAGE_ID
+
+    fun getDtkSearchGoods(keyWords: String, pageId: String = NineGoodsListViewModel.LOAD_INITIAL_PAGE_ID) {
         addHistoryWords(keyWords)
-        this.keyWords.value = keyWords
+        mCurrentPageId = pageId
+        launch {
+            val response = withContext(Dispatchers.IO) { repository.getDtkSearchGoods(PAGE_SIZE, pageId, keyWords) }
+            executeResponse(response, { pageGoods.value = response.data }, { errMsg.value = response.msg })
+        }
     }
 
     private fun addHistoryWords(keyWord: String) {
@@ -64,5 +74,8 @@ class SearchResultViewModel : BaseViewModel() {
     companion object {
 
         const val HISTORY_KEYWORD_MAX_SIZE = 20
+
+        private const val PAGE_SIZE = 50
+        const val LOAD_INITIAL_PAGE_ID = "1"
     }
 }

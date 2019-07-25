@@ -1,6 +1,7 @@
 package cn.neday.sheep.fragment
 
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import cn.neday.sheep.R
 import cn.neday.sheep.activity.GoodsDetailsActivity
@@ -14,6 +15,7 @@ import cn.neday.sheep.viewmodel.NineGoodsListViewModel
 import com.blankj.utilcode.util.ActivityUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import kotlinx.android.synthetic.main.fragment_goods_list.*
+import kotlinx.android.synthetic.main.include_no_data.view.*
 
 /**
  * 9.9精选
@@ -27,12 +29,16 @@ class NineGoodsListFragment(private val nineType: NineType) : BaseVMFragment<Nin
     override fun initView() {
         initAdapter()
         initSwipeToRefresh()
-        mViewModel.getNineOpGoodsList(nineType.index.toString())
     }
 
     private fun initAdapter() {
         val goodsListAdapter = GoodsListAdapter()
         goodsListAdapter.bindToRecyclerView(rv_goods)
+        val emptyView = layoutInflater.inflate(R.layout.include_no_data, rv_goods.parent as ViewGroup, false)
+        emptyView.tv_noData.setOnClickListener {
+            mViewModel.getNineOpGoodsList(nineType.index.toString())
+        }
+        goodsListAdapter.emptyView = emptyView
         goodsListAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val goods = adapter.getItem(position) as Goods
             val bundle = Bundle()
@@ -58,8 +64,7 @@ class NineGoodsListFragment(private val nineType: NineType) : BaseVMFragment<Nin
                     }
                 }
             }
-        goodsListAdapter.disableLoadMoreIfNotFullPage()
-        goodsListAdapter.setPreLoadNumber(NineGoodsListViewModel.PREFETCH_DISTANCE)
+        goodsListAdapter.setPreLoadNumber(PREFETCH_DISTANCE)
         goodsListAdapter.setOnLoadMoreListener({
             mViewModel.getNineOpGoodsList(nineType.index.toString(), mViewModel.mCurrentPageId)
         }, rv_goods)
@@ -94,5 +99,10 @@ class NineGoodsListFragment(private val nineType: NineType) : BaseVMFragment<Nin
         srl_goods.setOnRefreshListener {
             mViewModel.getNineOpGoodsList(nineType.index.toString())
         }
+    }
+
+    companion object {
+
+        private const val PREFETCH_DISTANCE = 20
     }
 }

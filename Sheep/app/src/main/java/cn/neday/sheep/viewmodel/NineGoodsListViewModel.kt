@@ -25,8 +25,7 @@ class NineGoodsListViewModel : BaseViewModel() {
 
     companion object {
 
+        private const val PAGE_SIZE = 50
         const val LOAD_INITIAL_PAGE_ID = "1"
-        const val PAGE_SIZE = 50
-        const val PREFETCH_DISTANCE = 20
     }
 }
