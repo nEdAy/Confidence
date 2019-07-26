@@ -1,7 +1,7 @@
 package cn.neday.sheep.config
 
-import android.content.Context
 import cn.neday.sheep.BuildConfig
+import com.blankj.utilcode.util.Utils
 import com.umeng.commonsdk.UMConfigure
 
 
@@ -10,7 +10,7 @@ object UmengConfig {
     private const val UMENG_APP_KEY = "5d087b810cafb25c1d000e9f"
     private const val UMENG_PUSH_MESSAGE_SECRET = "5df990afe466c1bd066b06d3a2fd225d"
 
-    fun init(applicationContext: Context) {
+    fun init() {
         /**
          * 初始化common库
          * 参数1:上下文，不能为空
@@ -20,7 +20,7 @@ object UmengConfig {
          * 参数5:Push推送业务的secret
          */
         UMConfigure.init(
-            applicationContext,
+            Utils.getApp(),
             UMENG_APP_KEY,
             "Channel", // TODO: chanel
             UMConfigure.DEVICE_TYPE_PHONE,

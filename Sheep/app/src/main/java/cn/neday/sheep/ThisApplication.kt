@@ -2,10 +2,12 @@ package cn.neday.sheep
 
 import android.app.Application
 import cn.neday.sheep.config.BuglyConfig
+import cn.neday.sheep.config.LogConfig
 import cn.neday.sheep.config.UmengConfig
 import cn.neday.sheep.config.ViewPumpConfig
 import cn.neday.sheep.util.AliTradeHelper
 import com.blankj.utilcode.util.ProcessUtils
+import com.blankj.utilcode.util.Utils
 import com.didichuxing.doraemonkit.DoraemonKit
 import com.mob.MobSDK
 import com.orhanobut.hawk.Hawk
@@ -41,20 +43,16 @@ class ThisApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
+        Utils.init(this)
+        LogConfig.init()
         ViewPumpConfig.init()
-        UmengConfig.init(instance)
-        if (!ProcessUtils.isMainProcess()) {
-            return
+        UmengConfig.init()
+        if (ProcessUtils.isMainProcess()) {
+            BuglyConfig.init()
+            AliTradeHelper.asyncInit()
+            Hawk.init(this).build()
+            DoraemonKit.install(this)
+            MobSDK.init(this)
         }
-        DoraemonKit.install(instance)
-        BuglyConfig.init(instance)
-        MobSDK.init(instance)
-        Hawk.init(instance).build()
-        AliTradeHelper.asyncInit(instance)
-    }
-
-    companion object {
-        lateinit var instance: ThisApplication
     }
 }

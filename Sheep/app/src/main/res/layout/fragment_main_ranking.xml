@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
 
     <com.wuhenzhizao.titlebar.widget.CommonTitleBar
             android:id="@+id/titleBar_goods"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:centerType="textView"
-            app:centerText="超值精选"
+            app:centerText="优惠快爆"
             app:fillStatusBar="true"
             app:showBottomLine="false"
             app:statusBarColor="@color/colorPrimaryDark"
@@ -20,7 +22,7 @@
             app:centerTextMarquee="true"/>
 
     <com.flyco.tablayout.SlidingTabLayout
-            android:id="@+id/stl_nine_goods"
+            android:id="@+id/stl_ranking"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@android:color/white"
@@ -30,6 +32,7 @@
             app:tl_indicator_corner_radius="5dp"
             app:tl_indicator_margin_left="2dp"
             app:tl_indicator_margin_right="2dp"
+            app:tl_tab_space_equal="true"
             app:tl_indicator_style="BLOCK"
             app:tl_textSelectColor="@android:color/white"
             app:tl_textUnselectColor="@color/textColor"/>
@@ -40,7 +43,7 @@
             android:background="@color/lineColor"/>
 
     <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vp_nine_goods"
+            android:id="@+id/vp_ranking"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 </LinearLayout>

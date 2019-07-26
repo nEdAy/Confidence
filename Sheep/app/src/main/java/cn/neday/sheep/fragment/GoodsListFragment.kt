@@ -17,9 +17,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import kotlinx.android.synthetic.main.fragment_goods_list.*
 
 /**
- * 9.9精选
+ * 超值精选
  */
-class NineGoodsListFragment(private val nineType: NineType) : BaseVMFragment<NineGoodsListViewModel>() {
+class GoodsListFragment(private val nineType: NineType) : BaseVMFragment<NineGoodsListViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_goods_list
 

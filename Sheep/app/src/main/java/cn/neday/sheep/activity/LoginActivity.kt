@@ -59,19 +59,19 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         btn_login.setOnClickListener { registerOrLogin() }
         tv_change_login_way.setOnClickListener { changeLoginWay() }
         tv_lostPassword.setOnClickListener { resetPassword() }
-        tv_sms.setOnClickListener { requestVerificationCode() }
         iv_agreement.setOnClickListener { changeAgreementIv() }
         tv_agreement.setOnClickListener { AliTradeHelper(this).showItemURLPage(UrlConfig.KZ_YHSYXY) }
-        iv_password_see.setOnClickListener {
+        iv_password_visibility.setOnClickListener {
             if (et_password.inputType == InputType.TYPE_TEXT_VARIATION_PASSWORD) {
-                iv_password_see.setImageResource(R.drawable.ic_visibility_off_white_24dp)
-                et_password.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                iv_password_visibility.setImageResource(R.drawable.ic_visibility_off_white_24dp)
+                et_password.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             } else {
-                iv_password_see.setImageResource(R.drawable.ic_visibility_white_24dp)
-                et_password.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                iv_password_visibility.setImageResource(R.drawable.ic_visibility_white_24dp)
+                et_password.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             }
             et_password.setSelection(et_password.text?.length ?: 0)
         }
+        ClickUtils.applySingleDebouncing(tv_request_verification_code) { requestVerificationCode() }
     }
 
     private fun initFocusChangeView() {
@@ -240,7 +240,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                 runOnUiThread {
                     if (result == SMSSDK.RESULT_COMPLETE) {
                         // 禁止点击获取验证码按钮和修改手机号
-                        tv_sms.isClickable = false
+                        tv_request_verification_code.isClickable = false
                         et_mobile.isEnabled = false
                         when (event) {
                             SMSSDK.EVENT_GET_VERIFICATION_CODE -> {
@@ -252,13 +252,13 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                             SMSSDK.EVENT_GET_VOICE_VERIFICATION_CODE -> {
                                 // 请求发送语音验证码，无返回
                                 tx_hint_verify_sms_code.text = getString(R.string.tv_login_voice)
-                                tv_sms.text = getString(R.string.tx_voice)
+                                tv_request_verification_code.text = getString(R.string.tx_voice)
                             }
                         }
                     } else {
-                        tv_sms.isEnabled = true
+                        tv_request_verification_code.isEnabled = true
                         et_mobile.isEnabled = true
-                        tv_sms.text = getString(R.string.tx_please_retry)
+                        tv_request_verification_code.text = getString(R.string.tx_please_retry)
                         ToastUtils.showShort((data as Throwable).message)
                         data.printStackTrace()
                     }
@@ -277,13 +277,14 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         CountDownTimer(millisInFuture, countDownInterval) {
 
         override fun onTick(millisUntilFinished: Long) {
-            tv_sms.text = String.format(getString(R.string.countdown_number), millisUntilFinished / 1000)
+            tv_request_verification_code.text =
+                String.format(getString(R.string.countdown_number), millisUntilFinished / 1000)
         }
 
         override fun onFinish() {
-            tv_sms.isClickable = true
+            tv_request_verification_code.isClickable = true
             mIsVoiceVerifyCode = true
-            tv_sms.text = getString(R.string.tx_try_voice)
+            tv_request_verification_code.text = getString(R.string.tx_try_voice)
         }
     }
 

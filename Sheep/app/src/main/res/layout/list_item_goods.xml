@@ -25,10 +25,10 @@
                 android:id="@+id/iv_img_shower"
                 android:layout_width="116dp"
                 android:layout_height="116dp"
-                android:layout_margin="2dp"/>
+                android:layout_margin="2dp"
+                tools:ignore="ContentDescription"/>
 
         <LinearLayout
-                android:id="@+id/rl_right"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -47,17 +47,18 @@
                         android:layout_height="wrap_content"
                         tools:text="@string/tx_tianmao"
                         android:textColor="@color/textColor"
-                        android:textSize="10sp"/>
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp"/>
 
                 <TextView
                         android:id="@+id/tv_sales_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="rankGoods.monthSales"
                         android:layout_alignParentEnd="true"
                         android:textColor="@color/textColor"
                         tools:text="当月销量：869"
-                        android:textSize="10sp"/>
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp"/>
             </RelativeLayout>
 
             <TextView
@@ -81,7 +82,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="5dp"
-                        android:src="@drawable/ic_price"/>
+                        android:src="@drawable/ic_price"
+                        tools:ignore="ContentDescription"/>
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -119,12 +121,12 @@
                         android:orientation="horizontal">
 
                     <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="34dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:padding="5dp"
-                            tools:text=" 领 "
+                            android:text="@string/tx_get_quan"
                             android:textColor="@color/red"
                             android:textSize="@dimen/global_mid_text_size"/>
 
@@ -136,7 +138,7 @@
 
                     <TextView
                             android:id="@+id/tx_get_value"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:maxLines="1"

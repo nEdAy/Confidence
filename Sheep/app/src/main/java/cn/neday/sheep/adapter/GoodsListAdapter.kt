@@ -1,23 +1,16 @@
 package cn.neday.sheep.adapter
 
 import android.net.Uri
-import android.os.Bundle
-import android.view.View
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import cn.neday.sheep.R
-import cn.neday.sheep.activity.GoodsDetailsActivity
 import cn.neday.sheep.model.Goods
-import cn.neday.sheep.util.AliTradeHelper
 import cn.neday.sheep.util.CommonUtils
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.StringUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import kotlinx.android.synthetic.main.list_item_ranking.view.*
 
 
 /**
@@ -44,7 +37,7 @@ class GoodsListAdapter : BaseQuickAdapter<Goods, BaseViewHolder>(R.layout.list_i
                     }
                 )
             )
-            .setGone(R.id.lv_text, goods.monthSales >= 10000)
+            .setGone(R.id.lv_text, goods.monthSales >= 20000)
             .addOnClickListener(R.id.ll_get, R.id.tx_buy_url)
 
         Glide.with(mContext)
@@ -59,15 +52,5 @@ class GoodsListAdapter : BaseQuickAdapter<Goods, BaseViewHolder>(R.layout.list_i
                     .error(R.drawable.icon_error)
             )
             .into(helper.getView(R.id.iv_img_shower))
-    }
-
-    companion object {
-        val GOODS_DIFF_CALLBACK = object : DiffUtil.ItemCallback<Goods>() {
-            override fun areContentsTheSame(oldItem: Goods, newItem: Goods): Boolean =
-                oldItem == newItem
-
-            override fun areItemsTheSame(oldItem: Goods, newItem: Goods): Boolean =
-                oldItem.id == newItem.id
-        }
     }
 }

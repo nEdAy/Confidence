@@ -100,7 +100,7 @@
                     app:layout_constraintEnd_toEndOf="parent"/>
 
             <ImageView
-                    android:id="@+id/iv_password_see"
+                    android:id="@+id/iv_password_visibility"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/ic_visibility_white_24dp"
@@ -129,6 +129,7 @@
                     android:textColor="#96ffffff"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
+                    android:textStyle="bold"
                     android:textSize="16sp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -170,11 +171,11 @@
                     android:background="@color/gray"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_sms"/>
+                    app:layout_constraintEnd_toStartOf="@+id/tv_request_verification_code"/>
 
             <TextView
-                    android:id="@+id/tv_sms"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_request_verification_code"
+                    android:layout_width="120dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:textStyle="bold"
@@ -183,7 +184,7 @@
                     android:textSize="16sp"
                     android:textAllCaps="false"
                     android:textColor="#96ffffff"
-                    android:text=" 获取验证码 "
+                    android:text="@string/tx_get_sms"
                     app:layout_constraintEnd_toEndOf="@+id/et_sms"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
@@ -195,7 +196,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="8dp"
-                tools:text="@string/tv_login_sms"
+                android:text="@string/tv_login_hint"
+                tools:text="@string/tv_login_hint"
                 android:textColor="#9affffff"
                 android:textSize="12sp"
                 android:textAlignment="center"/>
@@ -212,6 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/tx_change_login_via_password"
+                    android:textStyle="bold"
                     android:padding="16dp"
                     android:textAlignment="textStart"
                     android:textColor="#96ffffff"

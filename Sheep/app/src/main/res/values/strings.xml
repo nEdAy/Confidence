@@ -3,6 +3,9 @@
     <string name="app_introduction">实 惠 多 到 爆</string>
     <string name="app_version">当前版本v%1$s</string>
     <string name="app_image_content_description">TODO</string>
+    <string name="tx_root">出于安全原因，口袋快爆不建议在已经ROOT的设备上运行</string>
+    <string name="tx_emulator">出于安全原因，口袋快爆不建议在模拟器设备上运行</string>
+
     <string-array name="menu_items_array">
         <item>版本更新</item>
         <item>关于与合作</item>
@@ -74,13 +77,13 @@
     <string name="tx_province_flow">省流量模式</string>
     <string name="tx_nickname">昵称</string>
 
-    <string-array name="rank_type_array">
+    <string-array name="ranking_type_array">
         <item>实时销量榜</item>
         <item>全天销量榜</item>
         <item>热推榜</item>
     </string-array>
 
-    <string-array name="nine_type_array">
+    <string-array name="goods_type_array">
         <item>精选</item>
         <item>居家百货</item>
         <item>美食</item>
@@ -108,6 +111,7 @@
     <string name="tx_taobao">淘宝</string>
     <string name="tx_tianmao">天猫商城</string>
     <string name="tx_get_sms_code">获取验证码</string>
+    <string name="tx_get_quan">领</string>
 
     <string name="tx_history_search">历史搜索</string>
     <string name="tx_hot_search">热门搜索</string>
@@ -139,10 +143,12 @@
     <string name="tx_not_agree_agreement">您尚未同意《用户使用协议》</string>
     <string name="tx_login_privacy_promise">口袋快爆承诺不会向第三方透露您的个人信息</string>
 
-    <string name="tx_voice"> 致电中 </string>
-    <string name="tx_please_retry"> 请重试 </string>
-    <string name="tx_try_voice"> 发送语音验证 </string>
+    <string name="tx_get_sms">获取验证码</string>
+    <string name="tx_voice">致电中</string>
+    <string name="tx_please_retry">请重试</string>
+    <string name="tx_try_voice">语音验证码</string>
 
+    <string name="tv_login_hint">未注册用户可通过验证码直接登录</string>
     <string name="tv_login_sms">我们已发送验证码短信到您的手机号</string>
     <string name="tv_login_voice">我们正在致电语音播报验证码到您的手机号</string>
 

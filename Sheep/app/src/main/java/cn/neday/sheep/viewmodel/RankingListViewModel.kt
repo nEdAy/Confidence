@@ -8,11 +8,11 @@ import kotlinx.coroutines.withContext
 
 class RankingListViewModel : BaseViewModel() {
 
-    val rankGoods: MutableLiveData<List<RankGoods>> = MutableLiveData()
-
     private val repository by lazy { GoodsRepository() }
 
-    fun getRankingList(rankType: Int, cid: String) {
+    val rankGoods: MutableLiveData<List<RankGoods>> = MutableLiveData()
+
+    fun getRankingList(rankType: Int, cid: String = "") {
         launch {
             val response = withContext(Dispatchers.IO) { repository.getRankingList(rankType, cid) }
             executeResponse(response, { rankGoods.value = response.data }, { errMsg.value = response.msg })

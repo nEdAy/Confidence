@@ -1,7 +1,11 @@
 package cn.neday.sheep.activity
 
 import android.view.KeyEvent
+import cn.neday.sheep.R
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.DeviceUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.orhanobut.hawk.Hawk
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,12 +21,26 @@ class SplashActivity : BaseActivity() {
 
     private lateinit var mDisposable: CompositeDisposable
 
-    // 为保证启动速度，SplashActivity不要调用setContentView()方法
+    // 为保证启动速度，SplashActivity不调用setContentView()方法
     override val layoutId: Int? = null
 
     override fun initView() {
         checkIntentAndIsTaskRoot()
+        checkIsAppRoot()
+        checkIsEmulator()
         delayJumpPage()
+    }
+
+    private fun checkIsAppRoot() {
+        if (DeviceUtils.isDeviceRooted() && AppUtils.isAppRoot()) {
+            ToastUtils.showLong(getString(R.string.tx_root))
+        }
+    }
+
+    private fun checkIsEmulator() {
+        if (DeviceUtils.isEmulator()) {
+            ToastUtils.showLong(getString(R.string.tx_emulator))
+        }
     }
 
     private fun checkIntentAndIsTaskRoot() {

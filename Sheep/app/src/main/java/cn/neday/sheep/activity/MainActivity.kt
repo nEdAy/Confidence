@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import cn.neday.sheep.R
 import cn.neday.sheep.fragment.GoodsFragment
 import cn.neday.sheep.fragment.IndexFragment
-import cn.neday.sheep.fragment.NineGoodsFragment
 import cn.neday.sheep.fragment.MeFragment
+import cn.neday.sheep.fragment.RankingFragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.flyco.dialog.widget.ActionSheetDialog
@@ -37,9 +37,9 @@ class MainActivity : BaseActivity() {
         // 精选首页
         fragments.add(IndexFragment())
         // 优惠快爆
-        fragments.add(GoodsFragment())
+        fragments.add(RankingFragment())
         // 好货专题
-        fragments.add(NineGoodsFragment())
+        fragments.add(GoodsFragment())
         // 我的页面
         fragments.add(MeFragment())
         val tabEntitiesArray = resources.getStringArray(R.array.tab_entities_array)

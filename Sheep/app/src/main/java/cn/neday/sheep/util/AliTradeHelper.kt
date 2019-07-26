@@ -1,7 +1,6 @@
 package cn.neday.sheep.util
 
 import android.app.Activity
-import android.app.Application
 import android.text.TextUtils
 import cn.neday.sheep.BuildConfig
 import com.alibaba.baichuan.android.trade.AlibcTrade
@@ -16,6 +15,7 @@ import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult
 import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.Utils
 
 /**
  * AliTradeHelper
@@ -143,11 +143,9 @@ class AliTradeHelper(private val activity: Activity?) {
 
         /**
          * 百川电商SDK初始化【异步】
-         *
-         * @param context 建议设置Application（必填）
          */
-        fun asyncInit(context: Application) {
-            AlibcTradeSDK.asyncInit(context, object : AlibcTradeInitCallback {
+        fun asyncInit() {
+            AlibcTradeSDK.asyncInit(Utils.getApp(), object : AlibcTradeInitCallback {
                 override fun onSuccess() {
                     // 初始化成功，设置相关的全局配置参数
                     // 是否使用支付宝
