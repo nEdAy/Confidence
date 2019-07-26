@@ -96,7 +96,6 @@ func loadDataoke() {
 	}
 	Dataoke.AppSecret = sec.Key("APP_SECRET").String()
 	Dataoke.AppKey = sec.Key("APP_KEY").String()
-	Dataoke.Version = sec.Key("VERSION").String()
 }
 
 func loadWeChat() {
@@ -169,7 +168,6 @@ type database struct {
 type dataoke struct {
 	AppSecret string
 	AppKey    string
-	Version   string
 }
 
 type redis struct {

@@ -21,6 +21,7 @@ func GetRankingList(c *gin.Context) {
 		2 * 60,
 		"https://openapi.dataoke.com/api/goods/get-ranking-list",
 		map[string]string{
+			"version":  "v1.0.2",
 			"rankType": rankingList.RankType,
 			"cid":      rankingList.Cid,
 		}})
@@ -43,6 +44,7 @@ func GetNineOpGoodsList(c *gin.Context) {
 		2 * 60,
 		"https://openapi.dataoke.com/api/goods/nine/op-goods-list",
 		map[string]string{
+			"version":  "v1.0.1",
 			"pageSize": nineOpGoodsList.PageSize,
 			"pageId":   nineOpGoodsList.PageId,
 			"cid":      nineOpGoodsList.Cid,
@@ -65,8 +67,9 @@ func ListSimilerGoodsByOpen(c *gin.Context) {
 		2 * 60,
 		"https://openapi.dataoke.com/api/goods/list-similer-goods-by-open",
 		map[string]string{
-			"id":   listSimilerGoodsByOpen.Id,
-			"size": listSimilerGoodsByOpen.Size,
+			"version": "v1.0.1",
+			"id":      listSimilerGoodsByOpen.Id,
+			"size":    listSimilerGoodsByOpen.Size,
 		}})
 }
 
@@ -89,6 +92,7 @@ func ListSuperGoods(c *gin.Context) {
 		2 * 60,
 		"https://openapi.dataoke.com/api/goods/list-super-goods",
 		map[string]string{
+			"version":  "v1.0.1",
 			"type":     listSuperGoods.Type,
 			"keyWords": listSuperGoods.KeyWords,
 			"tmall":    listSuperGoods.Tmall,
@@ -114,6 +118,7 @@ func GetDtkSearchGoods(c *gin.Context) {
 		2 * 60,
 		"https://openapi.dataoke.com/api/goods/get-dtk-search-goods",
 		map[string]string{
+			"version":  "v2.0.0",
 			"pageSize": dtkSearchGoods.PageSize,
 			"pageId":   dtkSearchGoods.PageId,
 			"keyWords": dtkSearchGoods.KeyWords,

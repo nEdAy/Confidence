@@ -58,7 +58,6 @@ func getDataBySource(url string, params map[string]string) (string, error) {
 
 func signParams(params map[string]string) map[string]string {
 	params["appKey"] = config.Dataoke.AppKey
-	params["version"] = config.Dataoke.Version
 	var buffer bytes.Buffer
 	sortedMap(params, func(key string, value interface{}) {
 		buffer.WriteString(key)

@@ -14,5 +14,7 @@ func GetTop100(c *gin.Context) {
 		c.Request.RequestURI,
 		2 * 60,
 		"https://openapi.dataoke.com/api/category/get-top100",
-		map[string]string{}})
+		map[string]string{
+			"version": "v1.0.1",
+		}})
 }
