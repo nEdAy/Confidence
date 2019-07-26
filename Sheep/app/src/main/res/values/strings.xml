@@ -121,6 +121,7 @@
 
     // Login
     <string name="tx_login">登录</string>
+    <string name="tx_login_hello">口袋快爆 有你更精彩</string>
 
     <string name="tx_change_login_via_password">帐号密码登录</string>
     <string name="tx_change_login_via_sms_code">短信验证登录</string>

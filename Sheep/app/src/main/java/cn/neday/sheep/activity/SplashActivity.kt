@@ -27,7 +27,7 @@ class SplashActivity : BaseActivity() {
     override fun initView() {
         checkIntentAndIsTaskRoot()
         checkIsAppRoot()
-        checkIsEmulator()
+        // checkIsEmulator()
         delayJumpPage()
     }
 

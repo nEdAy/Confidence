@@ -8,8 +8,7 @@ import io.github.inflationx.viewpump.ViewPump
 
 object ViewPumpConfig {
 
-    private const val FONT_PATH_GOTHAM = "font/gotham.ttf"
-    private const val FONT_PATH_CALIBRI = "font/calibri.ttf"
+    private const val FONT_PATH_ALIBABA_PU_HUI_TI_REGULAR = "font/alibaba_pu_hui_ti_regular"
 
     fun init() {
         ViewPump.init(
@@ -17,7 +16,7 @@ object ViewPumpConfig {
                 .addInterceptor(
                     CalligraphyInterceptor(
                         CalligraphyConfig.Builder()
-                            .setDefaultFontPath(FONT_PATH_CALIBRI)
+                            .setDefaultFontPath(FONT_PATH_ALIBABA_PU_HUI_TI_REGULAR)
                             .setFontAttrId(R.attr.fontPath)
                             .build()
                     )

@@ -1,77 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:fitsSystemWindows="true"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar"
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+            android:id="@+id/titleBar_index"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
+            app:centerType="searchView"
+            app:centerSearchRightType="delete"
+            app:statusBarMode="light"
+            app:titleBarColor="@color/red"
+            app:fillStatusBar="false"
+            app:showBottomLine="false"
+            app:centerSearchEditable="false"
+            app:leftType="imageButton"
+            app:leftImageResource="@drawable/ic_subject_white_24dp"
+            app:rightImageResource="@drawable/ic_search_white_24dp"
+            app:rightType="imageButton"/>
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/toolbar_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+    <include layout="@layout/include_main_index_header"/>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divide_line_height"
+            android:background="@color/lineColor"/>
 
-                <com.wuhenzhizao.titlebar.widget.CommonTitleBar
-                        android:id="@+id/titleBar_index"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:centerType="searchView"
-                        app:centerSearchRightType="delete"
-                        app:statusBarMode="light"
-                        app:titleBarColor="@color/red"
-                        app:fillStatusBar="false"
-                        app:showBottomLine="false"
-                        app:centerSearchEditable="false"
-                        app:leftType="imageButton"
-                        app:leftImageResource="@drawable/ic_subject_white_24dp"
-                        app:rightImageResource="@drawable/ic_search_white_24dp"
-                        app:rightType="imageButton"/>
-                <include layout="@layout/include_main_index_header"/>
-            </LinearLayout>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:clipToPadding="false"
-                  app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                  android:orientation="vertical">
-
-        <View android:layout_width="match_parent"
-              android:layout_height="@dimen/divide_line_height"
-              android:background="@color/lineColor"/>
-
-        <!--<com.flyco.tablayout.SlidingTabLayout-->
-        <!--android:id="@+id/stl_ranking"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="48dp"-->
-        <!--android:background="@android:color/white"-->
-        <!--android:paddingLeft="5dp"-->
-        <!--android:paddingRight="5dp"-->
-        <!--app:tl_indicator_color="@color/red"-->
-        <!--app:tl_indicator_corner_radius="5dp"-->
-        <!--app:tl_indicator_margin_left="2dp"-->
-        <!--app:tl_indicator_margin_right="2dp"-->
-        <!--app:tl_indicator_style="BLOCK"-->
-        <!--app:tl_tab_space_equal="true"-->
-        <!--app:tl_textSelectColor="@android:color/white"-->
-        <!--app:tl_textUnselectColor="@color/textColor"/>-->
-
-        <!--<androidx.viewpager.widget.ViewPager-->
-        <!--android:id="@+id/vp_ranking"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"/>-->
-    </LinearLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <!--<com.flyco.tablayout.SlidingTabLayout-->
+    <!--android:id="@+id/stl_ranking"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="48dp"-->
+    <!--android:background="@android:color/white"-->
+    <!--android:paddingLeft="5dp"-->
+    <!--android:paddingRight="5dp"-->
+    <!--app:tl_indicator_color="@color/red"-->
+    <!--app:tl_indicator_corner_radius="5dp"-->
+    <!--app:tl_indicator_margin_left="2dp"-->
+    <!--app:tl_indicator_margin_right="2dp"-->
+    <!--app:tl_indicator_style="BLOCK"-->
+    <!--app:tl_tab_space_equal="true"-->
+    <!--app:tl_textSelectColor="@android:color/white"-->
+    <!--app:tl_textUnselectColor="@color/textColor"/>-->
+</LinearLayout>
