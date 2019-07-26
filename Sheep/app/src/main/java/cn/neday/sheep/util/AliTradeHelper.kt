@@ -31,7 +31,7 @@ class AliTradeHelper(private val activity: Activity?) {
      * @param itemId 支持itemId和openItemId的商品，必填，不允许为null；
      *               eg.37196464781L；AAHd5d-HAAeGwJedwSnHktBI；
      */
-    fun showDetailPage(itemId: String) {
+    fun showDetailPage(itemId: String?) {
         showAlibcTradePage(AlibcDetailPage(itemId))
     }
 
@@ -40,7 +40,7 @@ class AliTradeHelper(private val activity: Activity?) {
      *
      * @param shopId 店铺id，支持明文id
      */
-    fun showShopPage(shopId: String) {
+    fun showShopPage(shopId: String?) {
         showAlibcTradePage(AlibcShopPage(shopId))
     }
 
@@ -50,7 +50,7 @@ class AliTradeHelper(private val activity: Activity?) {
      * @param itemId 支持itemId和openItemId的商品，必填，不允许为null；
      *               eg.37196464781L；AAHd5d-HAAeGwJedwSnHktBI；
      */
-    fun showAddCartPage(itemId: String) {
+    fun showAddCartPage(itemId: String?) {
         showAlibcTradePage(AlibcAddCartPage(itemId))
     }
 

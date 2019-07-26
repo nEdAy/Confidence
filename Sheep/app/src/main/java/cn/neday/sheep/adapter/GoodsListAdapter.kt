@@ -30,21 +30,21 @@ class GoodsListAdapter : BaseQuickAdapter<Goods, BaseViewHolder>(R.layout.list_i
             )
             .setText(
                 R.id.tv_mall_name, StringUtils.getString(
-                    if (goods.shopType == 1) {
+                    if (goods.isTmall()) {
                         R.string.tx_tianmao
                     } else {
                         R.string.tx_taobao
                     }
                 )
             )
-            .setGone(R.id.lv_text, goods.monthSales >= 20000)
+            .setGone(R.id.lv_text, goods.monthSales ?: 0 >= 20000)
             .addOnClickListener(R.id.ll_get, R.id.tx_buy_url)
 
         Glide.with(mContext)
-            .load(CommonUtils.convertPicUrlToUri(goods.mainPic))
+            .load(CommonUtils.convertPicUrlToUri(goods.getPicUrl()))
             .thumbnail(
                 Glide.with(mContext)
-                    .load(Uri.parse(goods.mainPic + "_100x100.jpg"))
+                    .load(Uri.parse(goods.getPicUrl() + "_100x100.jpg"))
             )
             .apply(
                 RequestOptions().transform(RoundedCorners(10))

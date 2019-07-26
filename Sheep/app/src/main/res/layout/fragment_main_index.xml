@@ -14,7 +14,8 @@
             app:centerSearchRightType="delete"
             app:statusBarMode="light"
             app:titleBarColor="@color/red"
-            app:fillStatusBar="false"
+            app:fillStatusBar="true"
+            app:statusBarColor="@color/colorPrimaryDark"
             app:showBottomLine="false"
             app:centerSearchEditable="false"
             app:leftType="imageButton"
@@ -22,26 +23,5 @@
             app:rightImageResource="@drawable/ic_search_white_24dp"
             app:rightType="imageButton"/>
 
-    <include layout="@layout/include_main_index_header"/>
-
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divide_line_height"
-            android:background="@color/lineColor"/>
-
-    <!--<com.flyco.tablayout.SlidingTabLayout-->
-    <!--android:id="@+id/stl_ranking"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="48dp"-->
-    <!--android:background="@android:color/white"-->
-    <!--android:paddingLeft="5dp"-->
-    <!--android:paddingRight="5dp"-->
-    <!--app:tl_indicator_color="@color/red"-->
-    <!--app:tl_indicator_corner_radius="5dp"-->
-    <!--app:tl_indicator_margin_left="2dp"-->
-    <!--app:tl_indicator_margin_right="2dp"-->
-    <!--app:tl_indicator_style="BLOCK"-->
-    <!--app:tl_tab_space_equal="true"-->
-    <!--app:tl_textSelectColor="@android:color/white"-->
-    <!--app:tl_textUnselectColor="@color/textColor"/>-->
+    <include layout="@layout/include_anything_list"/>
 </LinearLayout>

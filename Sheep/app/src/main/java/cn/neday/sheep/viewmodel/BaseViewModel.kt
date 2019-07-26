@@ -26,6 +26,7 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
     private fun launchOnUI(block: suspend CoroutineScope.() -> Unit) {
         viewModelScope.launch {
             if (NetworkUtils.isAvailableByPing()) {
+                //TODO : 待测试 断网卡顿
                 block()
             } else {
                 errMsg.value = getString(R.string.network_tips)

@@ -25,6 +25,7 @@ class GoodsDetailsActivity : BaseActivity() {
     override val layoutId = R.layout.activity_goods_details
 
     override fun initView() {
+        // TODO: 部分属性 RankingGoods 缺失
         val goods = intent.extras?.get(extra) as Goods?
         if (goods == null) {
             ActivityUtils.finishActivity(this)
@@ -38,7 +39,7 @@ class GoodsDetailsActivity : BaseActivity() {
                 ShareDialog.newInstance(
                     "口袋快爆",
                     "您的好友向您推荐了一款商品",
-                    goods.mainPic,
+                    goods.getPicUrl().toString(),
                     "http://www.neday.cn/index_.php?r=p/d&id=" + goods.id
                 ).show(supportFragmentManager, "ShareDialog")
             }
@@ -52,10 +53,10 @@ class GoodsDetailsActivity : BaseActivity() {
         ll_add.setOnClickListener { AliTradeHelper(this).showAddCartPage(goods.goodsId) }
         // 初始化商品主图
         Glide.with(this)
-            .load(convertPicUrlToUri(goods.mainPic))
+            .load(convertPicUrlToUri(goods.getPicUrl()))
             .thumbnail(
                 Glide.with(this)
-                    .load(Uri.parse(goods.mainPic + "_100x100_jpg"))
+                    .load(Uri.parse(goods.getPicUrl() + "_100x100_jpg"))
             )
             .apply(
                 RequestOptions().transform(RoundedCorners(10))
@@ -68,7 +69,7 @@ class GoodsDetailsActivity : BaseActivity() {
         // 显示券后价
         tv_money.text = goods.actualPrice.toString()
         // 判断是否是天猫
-        tv_mall_name.text = if (goods.shopType == 1) "天猫商城" else "淘宝"
+        tv_mall_name.text = if (goods.isTmall()) "天猫商城" else "淘宝"
         // 显示销量和评分
         tv_sales_num_and_dsr.text =
             "目前销量：" + goods.monthSales + " | 评分：" + goods.descScore

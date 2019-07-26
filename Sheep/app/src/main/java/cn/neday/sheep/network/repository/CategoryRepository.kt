@@ -6,7 +6,7 @@ import cn.neday.sheep.network.RetrofitClient
 import cn.neday.sheep.network.api.CategoryApi
 
 /**
- * RankGoods Repository
+ * RankingGoods Repository
  *
  * @author nEdAy
  */

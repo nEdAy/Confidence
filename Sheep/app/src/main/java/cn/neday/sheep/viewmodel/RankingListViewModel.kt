@@ -1,7 +1,7 @@
 package cn.neday.sheep.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import cn.neday.sheep.model.RankGoods
+import cn.neday.sheep.model.RankingGoods
 import cn.neday.sheep.network.repository.GoodsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -10,7 +10,7 @@ class RankingListViewModel : BaseViewModel() {
 
     private val repository by lazy { GoodsRepository() }
 
-    val rankGoods: MutableLiveData<List<RankGoods>> = MutableLiveData()
+    val rankGoods: MutableLiveData<List<RankingGoods>> = MutableLiveData()
 
     fun getRankingList(rankType: Int, cid: String = "") {
         launch {

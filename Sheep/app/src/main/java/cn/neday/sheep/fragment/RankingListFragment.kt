@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import cn.neday.sheep.R
 import cn.neday.sheep.activity.GoodsDetailsActivity
-import cn.neday.sheep.adapter.RankingListAdapter
+import cn.neday.sheep.adapter.GoodsListAdapter
 import cn.neday.sheep.enum.RankType
 import cn.neday.sheep.model.Goods
 import cn.neday.sheep.util.AliTradeHelper
@@ -14,7 +14,7 @@ import cn.neday.sheep.viewmodel.RankingListViewModel
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
-import kotlinx.android.synthetic.main.fragment_goods_list.*
+import kotlinx.android.synthetic.main.include_anything_list.*
 
 /**
  * 各大榜单
@@ -35,23 +35,39 @@ class RankingListFragment(private val rankType: RankType) : BaseVMFragment<Ranki
     }
 
     private fun initAdapter() {
-        val rankingListAdapter = RankingListAdapter()
-        rankingListAdapter.bindToRecyclerView(rv_goods)
-        val emptyView = layoutInflater.inflate(R.layout.include_no_data, rv_goods.parent as ViewGroup, false)
-        emptyView.setOnClickListener { loadInitial() }
-        rankingListAdapter.emptyView = emptyView
-        rankingListAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
+        val adapter = GoodsListAdapter()
+        adapter.bindToRecyclerView(rv_goods)
+        addEmptyView(adapter)
+        addClickListener(adapter)
+        mViewModel.rankGoods.observe(this, Observer {
+            adapter.setNewData(it)
+            srl_goods.isRefreshing = false
+        })
+        mViewModel.errMsg.observe(this, Observer {
+            ToastUtils.showShort(it)
+            srl_goods.isRefreshing = false
+            adapter.loadMoreFail()
+        })
+    }
+
+    private fun addEmptyView(adapter: GoodsListAdapter) {
+        adapter.setEmptyView(R.layout.include_no_data, rv_goods.parent.parent as ViewGroup)
+        adapter.emptyView.setOnClickListener { loadInitial() }
+    }
+
+    private fun addClickListener(listAdapter: GoodsListAdapter) {
+        listAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val goods = adapter.getItem(position) as Goods
             val bundle = Bundle()
             bundle.putSerializable(GoodsDetailsActivity.extra, goods)
             ActivityUtils.startActivity(bundle, GoodsDetailsActivity::class.java)
         }
-        rankingListAdapter.onItemLongClickListener = BaseQuickAdapter.OnItemLongClickListener { adapter, _, position ->
+        listAdapter.onItemLongClickListener = BaseQuickAdapter.OnItemLongClickListener { adapter, _, position ->
             val goods = adapter.getItem(position) as Goods
             AliTradeHelper(activity).showAddCartPage(goods.goodsId)
             true
         }
-        rankingListAdapter.onItemChildClickListener =
+        listAdapter.onItemChildClickListener =
             BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
                 val goods = adapter.getItem(position) as Goods
                 when (view.id) {
@@ -65,16 +81,6 @@ class RankingListFragment(private val rankType: RankType) : BaseVMFragment<Ranki
                     }
                 }
             }
-        rv_goods.adapter = rankingListAdapter
-        mViewModel.rankGoods.observe(this, Observer {
-            rankingListAdapter.setNewData(it)
-            srl_goods.isRefreshing = false
-        })
-        mViewModel.errMsg.observe(this, Observer {
-            ToastUtils.showShort(it)
-            srl_goods.isRefreshing = false
-            rankingListAdapter.loadMoreFail()
-        })
     }
 
     private fun initSwipeToRefresh() {

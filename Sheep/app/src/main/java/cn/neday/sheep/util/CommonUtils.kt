@@ -23,8 +23,8 @@ object CommonUtils {
     /**
      * 去除数字里多余的0
      */
-    fun getPrettyNumber(number: Double): String {
-        return BigDecimal.valueOf(number).stripTrailingZeros().toPlainString()
+    fun getPrettyNumber(number: Double?): String {
+        return number?.let { BigDecimal.valueOf(it).stripTrailingZeros().toPlainString() } ?: "0"
     }
 
     /**
@@ -41,7 +41,8 @@ object CommonUtils {
         return target != null && target.length == 4
     }
 
-    fun convertPicUrlToUri(picUrl: String): Uri {
+    fun convertPicUrlToUri(picUrl: String?): Uri {
+        // TODO  picUrl == null
         return if (NetworkUtils.is4G()) {
             Uri.parse(picUrl + "_200x200.jpg")
         } else {

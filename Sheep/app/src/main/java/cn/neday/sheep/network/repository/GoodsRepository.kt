@@ -1,14 +1,14 @@
 package cn.neday.sheep.network.repository
 
-import cn.neday.sheep.model.Goods
+import cn.neday.sheep.model.CommonGoods
 import cn.neday.sheep.model.Pages
-import cn.neday.sheep.model.RankGoods
+import cn.neday.sheep.model.RankingGoods
 import cn.neday.sheep.model.Response
 import cn.neday.sheep.network.RetrofitClient
 import cn.neday.sheep.network.api.GoodsApi
 
 /**
- * RankGoods Repository
+ * RankingGoods Repository
  *
  * @author nEdAy
  */
@@ -16,26 +16,26 @@ class GoodsRepository : BaseRepository() {
 
     private val goodsApi: GoodsApi by lazy { RetrofitClient().getRetrofit(GoodsApi::class.java) }
 
-    suspend fun getRankingList(rankType: Int, cid: String): Response<List<RankGoods>> {
+    suspend fun getRankingList(rankType: Int, cid: String): Response<List<RankingGoods>> {
         return apiCall { goodsApi.rankingList(rankType, cid) }
     }
 
-    suspend fun getNineOpGoodsList(pageSize: Int, pageId: String, cid: String): Response<Pages<Goods>> {
+    suspend fun getNineOpGoodsList(pageSize: Int, pageId: String, cid: String): Response<Pages<CommonGoods>> {
         return apiCall { goodsApi.nineOpGoodsList(pageSize, pageId, cid) }
     }
 
-    suspend fun getDtkSearchGoods(pageSize: Int, pageId: String, keyWords: String): Response<Pages<Goods>> {
+    suspend fun getDtkSearchGoods(pageSize: Int, pageId: String, keyWords: String): Response<Pages<CommonGoods>> {
         return apiCall { goodsApi.getDtkSearchGoods(pageSize, pageId, keyWords) }
     }
 
-    suspend fun getListSimilerGoodsByOpen(id: Int, size: Int): Response<List<Goods>> {
+    suspend fun getListSimilerGoodsByOpen(id: Int, size: Int): Response<List<CommonGoods>> {
         return apiCall { goodsApi.listSimilerGoodsByOpen(id, size) }
     }
 
     suspend fun getListSuperGoods(
         type: Int, keyWords: String,
         tmall: Int, haitao: Int, sort: String
-    ): Response<List<Goods>> {
+    ): Response<List<CommonGoods>> {
         return apiCall { goodsApi.listSuperGoods(type, keyWords, tmall, haitao, sort) }
     }
 

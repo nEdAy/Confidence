@@ -1,7 +1,7 @@
 package cn.neday.sheep.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import cn.neday.sheep.model.Goods
+import cn.neday.sheep.model.CommonGoods
 import cn.neday.sheep.model.Pages
 import cn.neday.sheep.network.repository.GoodsRepository
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +11,7 @@ class NineGoodsListViewModel : BaseViewModel() {
 
     private val repository by lazy { GoodsRepository() }
 
-    val pageGoods: MutableLiveData<Pages<Goods>> = MutableLiveData()
+    val pageGoods: MutableLiveData<Pages<CommonGoods>> = MutableLiveData()
 
     var mCurrentPageId: String = LOAD_INITIAL_PAGE_ID
 

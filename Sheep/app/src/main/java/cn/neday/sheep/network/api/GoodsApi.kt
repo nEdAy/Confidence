@@ -1,8 +1,8 @@
 package cn.neday.sheep.network.api
 
-import cn.neday.sheep.model.Goods
+import cn.neday.sheep.model.CommonGoods
 import cn.neday.sheep.model.Pages
-import cn.neday.sheep.model.RankGoods
+import cn.neday.sheep.model.RankingGoods
 import cn.neday.sheep.model.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -18,7 +18,7 @@ interface GoodsApi {
      * @return 返回参数
      */
     @GET("goods/get-ranking-list")
-    suspend fun rankingList(@Query("rankType") rankType: Int, @Query("cid") cid: String): Response<List<RankGoods>>
+    suspend fun rankingList(@Query("rankType") rankType: Int, @Query("cid") cid: String): Response<List<RankingGoods>>
 
     /**
      * 9.9精选
@@ -30,7 +30,7 @@ interface GoodsApi {
      * @return 返回参数
      */
     @GET("goods/nine/op-goods-list")
-    suspend fun nineOpGoodsList(@Query("pageSize") pageSize: Int, @Query("pageId") pageId: String, @Query("cid") cid: String): Response<Pages<Goods>>
+    suspend fun nineOpGoodsList(@Query("pageSize") pageSize: Int, @Query("pageId") pageId: String, @Query("cid") cid: String): Response<Pages<CommonGoods>>
 
     /**
      * 猜你喜欢
@@ -41,7 +41,7 @@ interface GoodsApi {
      * @return 返回参数
      */
     @GET("goods/list-similer-goods-by-open")
-    suspend fun listSimilerGoodsByOpen(@Query("id") id: Int, @Query("size") size: Int): Response<List<Goods>>
+    suspend fun listSimilerGoodsByOpen(@Query("id") id: Int, @Query("size") size: Int): Response<List<CommonGoods>>
 
     /**
      * 超级搜索
@@ -59,7 +59,7 @@ interface GoodsApi {
     suspend fun listSuperGoods(
         @Query("type") type: Int, @Query("keyWords") keyWords: String,
         @Query("tmall") tmall: Int, @Query("haitao") haitao: Int, @Query("sort") sort: String
-    ): Response<List<Goods>>
+    ): Response<List<CommonGoods>>
 
 
     /**
@@ -75,6 +75,6 @@ interface GoodsApi {
     @GET("goods/get-dtk-search-goods")
     suspend fun getDtkSearchGoods(
         @Query("pageSize") pageSize: Int, @Query("pageId") pageId: String, @Query("keyWords") keyWords: String
-    ): Response<Pages<Goods>>
+    ): Response<Pages<CommonGoods>>
 
 }
