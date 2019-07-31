@@ -1,7 +1,7 @@
 # [Confidence](https://github.com/nEdAy/Confidence)
 
-- [Sheep](https://github.com/nEdAy/Confidence/tree/master/Sheep) —— Android
-- [Shepherd](https://github.com/nEdAy/Confidence/tree/master/Shepherd) —— Go(Gin)
+- [Sheep](https://github.com/nEdAy/Sheep/tree/master) —— Android(Kotlin)
+- [Shepherd](https://github.com/nEdAy/Shepherd/tree/master) —— Go(Gin)
 - [http://www.neday.cn](https://github.com/nEdAy/Confidence/tree/master/www.neday.cn) —— PHP
 
 ## 前期准备
